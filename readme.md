@@ -6,7 +6,7 @@ This mode doesn't have a global "round", everyone can enter at any time without 
 
 ## QP2
 
-This mode's theme is climbing `Zenith Tower`, your final score is your `Altitude`
+This mode's theme is climbing `Zenith Tower`, your final score is your `Altitude`.
 
 After reaching a certain altitude you will enter the next floor, every floor's required altitude is listed below:
 
@@ -25,60 +25,57 @@ After reaching a certain altitude you will enter the next floor, every floor's r
 
 ## Climb Speed (Main information source: ThTsOd)
 
-`Climb Speed` (called as `rank` in the code) affects how fast you gain altitude, every action that increases altitude is impacted by this multiplier's bonus, increasing climb speed requires experience (called as xp hereafter).
+`Climb Speed` (called `rank` in the code) affects how fast you gain altitude, every action that increases altitude is impacted by its' multiplier bonus. Increasing climb speed requires experience (called xp hereafter).
 
-At climb speed 1 the multiplier is ×0.25, every promotion in climb speed level adds another ×0.25 (Upon reaching ×2.75 it becomes white with no further difference for higher climb speed, but in reality there's no upper limit)
+At climb speed 1 the multiplier is ×0.25, every increase in climb speed level adds another ×0.25 (Upon reaching ×2.75 it becomes white with no further difference for higher climb speed, but in reality there's no upper limit).
 
-### Gaining altitude & XP, ranks
+### Gaining altitude & XP
 
 The methods of gaining altitude and xp are listed below:
 
 | Action | Effect |
 | - | - |
-| Time | Every second 1m, but when 6m~1m below next floor, the speed of altitude gain over time evenly decreases from ×1 to ×0, you have to use other methods to reach the next floor |
+| Time | Every second 1m, but when you're 6m~1m below next floor, the speed of altitude gain over time evenly decreases from ×1 to ×0, you have to use other methods to reach the next floor. |
 | KO | 15m |
 | Sending attack | Every line of attack 1m and 1.05xp |
 | Cancelling garbage lines | （Non-Expert）0.55xp |
 | Clearing lines | （Non-Expert）One line 1.05xp, Two lines or above 2.05xp |
 
-> Note that all altitude gain is impacted by `rank`, you have to do `*rank/4` when calculating, for example at the start the multiplier is ×0.25, meaning you gain 1m every 4 seconds
+> Note that all altitude gain is impacted by your `rank`, you have to multiply by `*rank/4` when calculating, for example, at the start the multiplier is ×0.25, meaning you gain 1m every 4 seconds instead.
 
-推进器升级所需xp为 `4*rank`，当xp达到所需xp时lv+1并扣除所需xp的值。
-The xp required for the next climb speed level is `4*rank`, once the xp meets the conditions your climb speed increases by one and your xp decreases by the amount that was previously required.
+The xp required to reach the next climb speed level is `4*rank`. Once your xp meets the conditions your climb speed increases by one and your xp decreases by the amount that was previously required (if you overshoot the remaining xp is kept).
 
-同時在升級時會獲得一個xp在5秒内不自然流失的效果（詳見兩節後的xp流失段落），防止升級後只剩一點點xp剛好自然流失導致立刻降級。
-Once promoting 
+Once you have promoted to the next climb speed level, for 5 seconds xp will stop naturally decreasing (see xp loss chapter for details) to prevent instantly demoting right after.
 
+Every time you reach the same top climb speed level, the effect will last 1 second less than last time so you can't repeatedly use this buff, but it will always last a minimum of 1 second. After reaching halfway of the xp required for a new peak climb speed the effect duration resets back to 5 seconds.
 
-同时每次升级时，上一行中的5秒会减少1秒，反复降级升级就不能一直吃这个buff，不过至少保留1秒。在升级后重新达到本级的升级所需xp的一半时重置回5秒。
+### Skipping levels
 
-### 跳级
+Every time you increase a climb speed level, if the xp afterwards is enough to increase another climb speed level, then you gain an extra `xp/required xp` amount of climb speed level, and **xp is not removed**
 
-每次升级时，若xp仍然超过升级所需xp，则额外升 `xp/所需xp` 级，**且不扣除xp**
+Which means this situation can happen:
 
-也就是能出现这种情况：
+    One frame - B2B breaks causing huge spike and XP increase
+    Next frame - Gain multiple climb speed levels 
+    Next frame - Can skip another climb speed level
 
-    某一帧 断B2B发出超大spike获得巨量xp
-    下一帧 连跳几级
-    下一帧 还能升一次级
+### xp loss
 
-### xp流失
+Climb speed xp gradually diminishes over time, decreasing by `e*(rank^2+rank)/3600` xp every frame.
 
-推进器xp会随时间流失，每帧减少 `e*(rank^2+rank)/3600` 点。
+e changes depending on if Expert is enabled, see below for a detailed table:
 
-其中e和专家模式有关，具体如下：
-
-| 模式 | e的值 |
+| Mode | value of e |
 | - | - |
-| 普通模式 | 3 |
-| 专家模式 | 5 |
-| DUO | 3+专家人数 |
+| Regular | 3 |
+| Expert | 5 |
+| Duo | 3+Amount of players with Expert |
 
-当xp小于0时候降级，xp变为上一级的满xp
+When xp is under 0 you lose a climb speed level, afterwards your xp becomes the maximum xp of the previous climb speed level.
 
-以下列出一些算好的数据方便查阅：
+Below are some useful statistics for convenience:
 
-| rank | 升级所需xp | 降级所需秒数 | 每秒流失速率 |
+| rank | promotion required xp | seconds to demotion | xp loss per second |
 | - | - | - | - |
 | 1 | 4 | 40.00 | 0.1 |
 | 2 | 8 | 26.67 | 0.3 |
@@ -106,183 +103,186 @@ Once promoting
 | 24 | 96 | 3.20 | 30 |
 | 25 | 100 | 3.08 | 32.5 |
 | 26 | 104 | 2.96 | 35.1 |
-| rank | 升级所需xp | 降级所需秒数 | 每秒流失速率 |
-| 专家1 | 4 | 24.00 | 0.167 |
-| 专家2 | 8 | 16.00 | 0.5 |
-| 专家3 | 12 | 12.00 | 1 |
-| 专家4 | 16 | 9.60 | 1.667 |
-| 专家5 | 20 | 8.00 | 2.5 |
-| 专家6 | 24 | 6.86 | 3.5 |
-| 专家7 | 28 | 6.00 | 4.667 |
-| 专家8 | 32 | 5.33 | 6 |
-| 专家9 | 36 | 4.80 | 7.5 |
-| 专家10 | 40 | 4.36 | 9.167 |
-| 专家11 | 44 | 4.00 | 11 |
-| 专家12 | 48 | 3.69 | 13 |
-| 专家13 | 52 | 3.43 | 15.167 |
-| 专家14 | 56 | 3.20 | 17.5 |
-| 专家15 | 60 | 3.00 | 20 |
-| 专家16 | 64 | 2.82 | 22.667 |
-| 专家17 | 68 | 2.67 | 25.5 |
-| 专家18 | 72 | 2.53 | 28.5 |
-| 专家19 | 76 | 2.40 | 31.667 |
-| 专家20 | 80 | 2.29 | 35 |
-| 专家21 | 84 | 2.18 | 38.5 |
-| 专家22 | 88 | 2.09 | 42.167 |
-| 专家23 | 92 | 2.00 | 46 |
-| 专家24 | 96 | 1.92 | 50 |
-| 专家25 | 100 | 1.85 | 54.167 |
-| 专家26 | 104 | 1.78 | 58.5 |
+| rank | promotion required xp | seconds to demotion | xp loss per second |
+| Expert 1 | 4 | 24.00 | 0.167 |
+| Expert 2 | 8 | 16.00 | 0.5 |
+| Expert 3 | 12 | 12.00 | 1 |
+| Expert 4 | 16 | 9.60 | 1.667 |
+| Expert 5 | 20 | 8.00 | 2.5 |
+| Expert 6 | 24 | 6.86 | 3.5 |
+| Expert 7 | 28 | 6.00 | 4.667 |
+| Expert 8 | 32 | 5.33 | 6 |
+| Expert 9 | 36 | 4.80 | 7.5 |
+| Expert 10 | 40 | 4.36 | 9.167 |
+| Expert 11 | 44 | 4.00 | 11 |
+| Expert 12 | 48 | 3.69 | 13 |
+| Expert 13 | 52 | 3.43 | 15.167 |
+| Expert 14 | 56 | 3.20 | 17.5 |
+| Expert 15 | 60 | 3.00 | 20 |
+| Expert 16 | 64 | 2.82 | 22.667 |
+| Expert 17 | 68 | 2.67 | 25.5 |
+| Expert 18 | 72 | 2.53 | 28.5 |
+| Expert 19 | 76 | 2.40 | 31.667 |
+| Expert 20 | 80 | 2.29 | 35 |
+| Expert 21 | 84 | 2.18 | 38.5 |
+| Expert 22 | 88 | 2.09 | 42.167 |
+| Expert 23 | 92 | 2.00 | 46 |
+| Expert 24 | 96 | 1.92 | 50 |
+| Expert 25 | 100 | 1.85 | 54.167 |
+| Expert 26 | 104 | 1.78 | 58.5 |
 
-### 外观
+### Appearance
 
-推进器信息显示在场地的下方，此处用文字简述一下外观：
+You can view which climb speed you're at under the board, a simple text description of the appearances are shown below:
 
-| rank | 倍率 | 颜色 | 图案 | 速通模式备注 |
+| rank | multiplier | color | shape | hyperspeed notes |
 | - | - | - | - | - |
-| 1 | 0.25 | 无 | 一个进度条 | |
-| 2 | 0.5 | 红 | 下面加一个三角形 | |
-| 3 | 0.75 | 橙 | 三角形长出翅膀 | |
-| 4 | 1 | 黄绿 | 翅膀变大 | |
-| 5 | 1.25 | 蓝 | 翅膀变大加底座 | |
-| 6 | 1.5 | 紫 | 翅膀伸出进度条长度 | |
-| 7 | 1.75 | 亮橙 | 翅膀更多细节 | 不退出速通模式的最低rank |
-| 8 | 2 | 青绿 | 进度条上面加一对平行四边形 | 1/2层到此触发 |
-| 9 | 2.25 | 青蓝 | 两对平行四边形 | 3/4层到此触发 |
-| 10 | 2.5 | 亮紫 | 三对平行四边形 | 5层到此触发 |
-| 11 | 2.75 | 白 | 加一对小三角 | |
+| 1 | 0.25 | none | a progress bar | |
+| 2 | 0.5 | red | add a triangle below | |
+| 3 | 0.75 | orange | add wings to triangle | |
+| 4 | 1 | yellow-green | wings increase size | |
+| 5 | 1.25 | blue | wings increase size + add base | |
+| 6 | 1.5 | magenta | wings extend to full size | |
+| 7 | 1.75 | light orange | wings become detailed | lowest rank without exiting hyperspeed |
+| 8 | 2 | turquoise | add pair of parallelograms to progress bar | hyperspeed trigger at f1/f2 |
+| 9 | 2.25 | cyan | two pairs of parallelograms | hyperspeed trigger at f3/f4 |
+| 10 | 2.5 | light purple | three pairs of parallelograms | hyperspeed trigger at f5 |
+| 11 | 2.75 | white | add pair of white triangles | |
 
-### 速通模式（Hyperspeed）
+### Hyperspeed
 
-当玩家在前五层时rank就达到8/8/9/9/10时就会进入速通模式
+When the player's rank reaches 8/8/9/9/10 in the first five floors, hyperspeed is activated.
 
-会出现花里胡哨的致敬Bejeweled Twist的动画，和专属速通音乐
+Once activated there will be a flashy Bejeweled Twist-esque animation, alongside exclusive hyperspeed music.
 
-屏幕顶部出现大字显示当前局时间，底部列出完成前九层花的时间和离个人纪录的分段差异
+A large display appears on the top of the screen showing floor splits and your pace compared to your PB Zenith Speedrun time.
 
-达到十层时完成速通模式获得一个隐藏成就，或者rank掉到6级时会退出速通模式
+Reaching floor 10 with hyperspeed awards a hidden achievement, or when you fall to rank 6 or below hyperspeed disappears.
 
-## 攻击对象
+## Attack Target
 
-本模式无法手动指定改变攻击对象，不过玩家的状态会影响自身被攻击的概率
+You can't manually target someone in this mode, but the state of the player will impact the probability of yourself being attacked.
 
-玩家有一个`受击权重`参数，这个值越大越容易被攻击，初始值为3
+The player has a `Targeting factor` value, the higher this value the likelier it is to be attacked, the starting value is 3.
 
-### 随时间增加
+### Gradual time increase
 
-当时间达到3/5/7分钟时`受击权重`+1
+When time hits 3/5/7 minutes, `Targeting factor`+1
 
-### 随“是否危险”变化
+### Change if "In Danger"
 
-非专家模式下，每0.25秒刷新一次，如果”处于危险中“（详细条件没看懂，当成到顶版面闪红警告吧，不会差很多），`受击权重`会临时减1.5，脱离危险后1.5会加回来
+In Non-Expert, check once every 0.25 seconds, if in danger (conditions not understood, probably when your board flashes red, shouldn't be off by a lot) `Targeting factor` temporarily decreases by 1.5, after leaving danger the 1.5 is added back
 
-### 转移到受击缓冲（没有净变化）
+### Shift to Targeting grace (No impact on messiness)
 
-有一个`受击缓冲`，被攻击时，行数*0.25的`受击权重`会被转移到缓冲槽内（最多装到3，否则不转移），稍后再变回来
+There is a `Targeting grace` value, when attacked, lines*0.25 amount of `Targeting factor` gets moved to the targeting grace buffer slot (Maximum 3, otherwise doesn't move), then gets moved back later.
 
-`受击缓冲`装满时（达到3），受击倍率会下降25%（继续被打都会少吃25%垃圾）
+When the buffer slot for `Targeting grace` is filled (hits 3), attack magnification decreases by 25% (continuous attacks all send 25% less garbage)
 
-`受击缓冲`内的值会降低垃圾混乱度，装满时可让`messiness_change -45%`和`messiness_inner -18%`（线性）
+The `Targeting grace` value will decrease garbage messiness, when filled can cause `messiness_change -45%` and `messiness_inner -18%` (linear)
 
-`受击权重`释放间隔（第N层用第N个数，单位秒） 4.8， 3.9， 2.1， 1.4， 1.3， 0.9， 0.6， 0.4， 0.3， 0.2
+`Targeting grace` value release (Nth floor corresponds to Nth number, unit in seconds) 4.8, 3.9, 2.1, 1.4, 1.3, 0.9, 0.6, 0.4, 0.3, 0.2
 
-如果`受击缓冲`内有值，每固定间隔（取自上边这个表）将`受击缓冲`内0.25的值转移回`受击权重`，也就是说层数越高，系统会允许其他人以更高的频率打入垃圾行
+If `Targeting grace` is in use, every fixed amount of time (via table above), 0.25 `Targeting grace` gets moved back to `Targeting factor`, which means the higher the floor, the more the system allows other players to attack through garbage.
 
-## 攻击、Allspin、B2B
 
-普通消1、2、3行攻击为0、1、2 （注：非专家模式0连击普通消1会+1攻击，这让散消1有1的攻击效率了，特定情况可以考虑利用）
+## Attack, Allspin, B2B
 
-消4攻击为4，属于`特殊消除`
+Clearing 1, 2, 3 lines respectively send 0, 1, 2 attack (Note: in Non-Expert 0 combo singles send 1 line, making a 1 line : 1 attack ratio possible, can be considerable in specific cases)
 
-此模式使用All-Mini规则，所有的块的spin都是`特殊消除`，可以增加B2B计数 （其中T使用三角判定，其他块使用不可移动判定且只会计为Mini，伤害计算同普通消除一致，消123打012）
+Clearing 4 lines sends 4 attack, falls under `Special clears`
 
-全消攻击为3，但同时全消计为两次`特殊消除`（和spin独立计算）（和新TL少量不同，新TL中为5攻击但不加也不断B2B）
+This mode uses All-Mini spin rules, spin clears of every tetromino are `Special clears`, they can increase B2B count (With T using 3-corner rule, other tetrominos use immobile as the condition and only count as Mini, attack is the same as regular line clears, clear 1/2/3 send 0/1/2)
 
-从第二个`特殊消除`开始会累计B2B计数，同时提供1的额外伤害 （不再像老TL一样慢慢增加）
+All Clears send 3 attack, but also count as +2 B2B (calculated separate from spins) (different from regular TL, TL sends 5 attack but +1 B2B)
 
-不过仍然有连续B2B数计算，且有一个然后断B2B时会产生一个超大攻击（B2B数-3，或者说连续特殊消除数-4）
+B2B starts counting from the second `Special clear`, and adds an extra 1 attack sent (unlike s1 TL with gradual increase)
 
-所有伤害保留小数计算，最后小数部分按照数值概率向上取整，例如1.2最后有20%概率变成2，80%概率变成1
+Though there is another surge counter off B2B, when B2B is broken it sends a spike (B2B count -3, or amount of special clears -4)
 
-## 垃圾行
+All attacks keep decimals in calculation, the decimals follow their value probability, for example 1.2 has a 20% chance to become 2, 80% chance to become 1)
 
-本模式的垃圾行和攻击分节状况无关，只考虑数量
+## Garbage lines
 
-具体的位置计算同zen模式内打开cheese timer后的效果，对于每一行垃圾有一定概率改变位置
+This mode's garbage lines don't follow attack structure, only the total amount of lines
 
-`专家`和`混乱垃圾行`mod都会增加混乱度
+Detailed position calculations are the same as zen mode's cheese timer, every line of garbage has a fixed probability of changing positions
 
-`受击缓冲`的值会降低混乱度，详见攻击对象章节
+`Expert` and `Messier Garbage` mods both increase garbage messiness
 
-## 疲劳时间
+`Targeting grace` value decreases garbage messiness, see attack target chapter for more detail
 
-为了防止一局游戏过长，8分钟时每分钟会多一个负面效果，总共五个：
+## Fatigue
 
-| 时间 | 负面效果 | 文本 | 原始文本 |
-| --- | --- | --- | --- |
-| 8分钟  | +2行实心垃圾 | 疲劳开始侵蚀… | FATIGUE SETS IN… +2 PERMANENT LINES |
-| 9分钟  | +25%受击 | 你的身体变得虚弱… | YOUR BODY GROWS WEAK… receive 25% more garbage |
-| 10分钟 | +3行实心垃圾 | 所有感官混为一团… | ALL SENSES BLUR TOGETHER… +3 PERMANENT LINES |
-| 11分钟 | +25%受击 | 你的意识开始消逝… | YOUR CONSCIOUSNESS FADES… receive 25% more garbage |
-| 12分钟 | +5行实心垃圾 | 结束了。 | THIS IS THE END. +5 PERMANENT LINES |
+To prevent a game from being too long, from 8 minutes every minute adds another negative debuff, with a total of 5 debuffs:
 
-## Mod
 
-Mod是在游戏开始前可选的主动增加游戏难度的方式，基本只有坏处没有好处，但是开启Mod（或特定的Mod组合）后爬到特定高度可以获取成就
+| Time | Negative effect | Description |
+| --- | --- | --- |
+| 8 minutes | +2 permanent garbage | FATIGUE SETS IN… +2 PERMANENT LINES |
+| 9 minutes  | +25% attack received | YOUR BODY GROWS WEAK… receive 25% more garbage |
+| 10 minutes | +3 permanent garbage | ALL SENSES BLUR TOGETHER… +3 PERMANENT LINES |
+| 11 minutes | +25% attack received | YOUR CONSCIOUSNESS FADES… receive 25% more garbage |
+| 12 minutes | +5 permanent garbage | THIS IS THE END. +5 PERMANENT LINES |
 
-Mod总共有9个，每个都对应一个特殊效果可以独立开关
+## Mods
 
-### 专家 （塔罗牌：皇帝 Emperor）
+Mods are effects you can choose before the game starts that increase difficulty, that basically only have downsides and no upsides, but mods (and certain mod combos) can give out achievements upon reaching certain floors.
 
-各方面都变难一些：
+There are a total of 9 mods, each has a special effect that can individually be turned on/off
 
-1. 垃圾行瞬间出现，而不是一行行上涨
-1. 增加垃圾混乱度
-1. 移除“处于危险中”减少受击权重的机制
+### Expert (Tarot Card: Emperor)
 
-### 无暂存 （塔罗牌：节制 Temperance）
+Each aspect gets slightly harder:
 
-禁用暂存
+1. Garbage enters instantaneously, rather than going up line by line
+1. Garbage messiness is increased
+1. Removes system of decreasing targeting factor in danger
 
-### 混乱垃圾行 （塔罗牌：命运之轮 Wheel of Fortune）
+### No Hold (Tarot Card: Temperance)
 
-垃圾混乱度显著增加
+Disables holding
 
-### 高重力 （塔罗牌：塔 The Tower）
+### Messier Garbage (Tarot Card: Wheel of Fortune)
 
-重力显著增加
+Garbage messiness noticeably increases
 
-### 不稳定垃圾行 （塔罗牌：力量 Strength）
+### Gravity (Tarot Card: The Tower)
 
-从场地底部升起的垃圾行数量翻倍（内部的机制其实是收到攻击数翻倍，且抵消倍率也翻倍）
+Gravity noticeably increases
 
-这个Mod在前期可能可以一定程度加速玩家的进度，但是后期的威胁大于好处，所以基本还是一个负面mod（除非在打速通之类的项目，需要单独讨论）
+### Volatile Garbage (Tarot Card: Strength)
 
-### 双洞垃圾行 （塔罗牌：恶魔 The Devil）
+Garbage entering from the bottom is multiplied by 2x (The inner system is actually received garbage x2, and cancelling is also x2)
 
-每一行垃圾行都有可能会有两个洞
+This mod can speed up progress at the start, but at the later portion of the game yields more threats than advantages, so basically it is a negative impact mod (Unless in speedrunning, which needs separate discussion)
 
-### 隐形 （塔罗牌：隐士 The Hermit）
+### Double Hole Garbage (Tarot Card: The Devil)
 
-玩家放下的方块会隐形，不过每5秒会全场地闪烁一次
+Every line of garbage has a chance to have two holes
 
-### All-Spin （塔罗牌：魔法师 The Magician）
+### Invisible (Tarot Card: The Hermit)
 
-（见开头的spin判定规则）将spin伤害计算升级为非T块必定不mini，也能像T块一样提供消行数*2的输出
+Pieces the player placed will become invisible, but every 5 seconds the board flashes once
 
-但是代价是每当玩家消除时（准确来说是锁定一块时场地左上角冒出的文本，除了消除还有无消行spin），如果提示文本完全一致，那么场地底部会出现一行特殊的实心垃圾行作为惩罚，上面随机位置写了一个倒计时数字为`当前层数+5`，当玩家做一个没有惩罚的消除时-1，归零时变为一行随机位置的单洞普通垃圾行，洞和数字的位置一致
+### All-Spin (Tarot Card: The Magician)
 
-这是唯一一个玩家水平足够后能提供很大正面效果而的mod
+(See spin rules at the start) Upgrades non-T tetromino spins into full spins, making them send lines*2 attack similarly to T-Spins
 
-### 双人 （塔罗牌：恋人 The Lovers）
+But the cost is when a player clears lines (Accurately it should be the text that appears on the left after hard dropping, other than clearing lines non-line-clear spins count too), if the action text is the exact same, then a fully covered garbage line with a reverse tally counter of the floor number+5 appears at the bottom of the board as punishment, when the player does an unpunished line clear all tallies decrease by 1, upon reaching zero the punishment lines turn into a one-hole garbage line with the hole being in the same spot as the number previously was.
 
-会员玩家可以邀请其他人和自己两个人一起玩此模式，两个人都死了后游戏结束
+This is the only mod that can have a positive effect if the player has a certain level of skill in it.
 
-两个人发送出去给别人的伤害数值减半
+### Duo （Tarot Card: The Lovers)
 
-一个人死了后另一个人可以做任务复活队友，任务分为ABCDEF六个等级，内容如下
+Players with supporter can invite others to play with themselves as a two-player game in this mode, the game ends when both players die
 
-| 难度等级 | 内部id | 数值 | 外显文本 | 标签类型（？） | 被mod屏蔽 |
+Both players' attack sent to others are halved
+
+
+After one player dies the other player can do revive task(s) to revive their teammate, the tasks are divided into six grades ABCDEF, listed below
+
+| Difficulty | code id | value | name | tag type(?) | removed by mod |
 | - | - | - | - | - | - |
 | F | combo             | 3   | Perform a 3-Combo | 2 | |
 | F | double            | 2   | Clear 2 Doubles | 2 | |
@@ -340,9 +340,9 @@ Mod总共有9个，每个都对应一个特殊效果可以独立开关
 | A | colorclear        | 1   | Perform a Color Clear | 2 | |
 | A | lines             | 40  | Clear 40 Lines | 1 | |
 
-复活时要做什么样的任务取决于`复活难度分=层数+已复活次数*2`
+Which tasks to do upon reviving is determined by `difficulty=floor number+times revived*2`
 
-| 难度分 | 任务内容 |
+| Difficulty score | Tasks |
 | --- | --- |
 |  1 | F×1     |
 |  2 | F×2     |
@@ -363,13 +363,11 @@ Mod总共有9个，每个都对应一个特殊效果可以独立开关
 | 17 | B×1 A×2 |
 | 18 | A×3     |
 
-## 一些随手贴着不知道会不会有用的技术信息补充
+## Some unsure if useful bonus content
 
-`受击权重`:targetingfactor
-`受击缓冲`:targetinggrace
 
 ```js
-    // 一些常数表
+    // Common tables
     FloorDistance - [0, 50, 150, 300, 450, 650, 850, 1100, 1350, 1650, 1 / 0];
     TargetingGrace - [0, 4.8, 3.9, 2.1, 1.4, 1.3, .9, .6, .4, .3, .2];
     GravityBumps = [0, .48, .3, .3, .3, .3, .3, .3, .3, .3, .3];
@@ -380,7 +378,7 @@ Mod总共有9个，每个都对应一个特殊效果可以独立开关
         return Math.max(0, Math.min(1, t / 5 - .2))
     }
 
-    // 释放受击缓冲
+    // Release targeting grace
     const cooldownDuration = 60 * se.TargetingGrace[l];
     if (this.S.stats.zenith.targetinggrace > 0 && e >= this.S.lastatktime + cooldownDuration) {
         if (this.S.stats.zenith.targetinggrace >= 3) {
