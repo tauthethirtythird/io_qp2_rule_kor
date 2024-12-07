@@ -235,7 +235,7 @@ There are a total of 9 mods, each has a special effect that can individually be 
 
 Each aspect gets slightly harder:
 
-1. Garbage enters instantaneously, rather than going up line by line
+1. Garbage enters instantaneously, rather than consecutively going up line by line
 1. Garbage messiness is increased
 1. Removes system of decreasing targeting factor in danger
 
