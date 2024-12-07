@@ -63,19 +63,19 @@ Which means this situation can happen:
 
 Climb speed xp gradually diminishes over time, decreasing by `e*(rank^2+rank)/3600` xp every frame.
 
-e changes depending on if Expert is enabled, see below for a detailed table:
+e changes depending on if Expert is enabled, see below for a table:
 
 | Mode | value of e |
 | - | - |
 | Regular | 3 |
 | Expert | 5 |
-| Duo | 3+Amount of players with Expert |
+| Duo | 3+amount of players with Expert |
 
 When xp is under 0 you lose a climb speed level, afterwards your xp becomes the maximum xp of the previous climb speed level.
 
 Below are some useful statistics for convenience:
 
-| rank | promotion required xp | seconds to demotion | xp loss per second |
+| rank | xp required to promote | seconds to demotion | xp loss per second |
 | - | - | - | - |
 | 1 | 4 | 40.00 | 0.1 |
 | 2 | 8 | 26.67 | 0.3 |
@@ -103,7 +103,7 @@ Below are some useful statistics for convenience:
 | 24 | 96 | 3.20 | 30 |
 | 25 | 100 | 3.08 | 32.5 |
 | 26 | 104 | 2.96 | 35.1 |
-| rank | promotion required xp | seconds to demotion | xp loss per second |
+| rank | xp required to promote | seconds to demotion | xp loss per second |
 | Expert 1 | 4 | 24.00 | 0.167 |
 | Expert 2 | 8 | 16.00 | 0.5 |
 | Expert 3 | 12 | 12.00 | 1 |
@@ -273,7 +273,7 @@ But the cost is when a player clears lines (Accurately it should be the text tha
 
 This is the only mod that can have a positive effect if the player has a certain level of skill in it.
 
-### Duo （Tarot Card: The Lovers)
+### Duo (Tarot Card: The Lovers)
 
 Players with supporter can invite others to play with themselves as a two-player game in this mode, the game ends when both players die
 
