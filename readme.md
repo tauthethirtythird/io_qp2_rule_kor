@@ -1,51 +1,54 @@
-# Tetr.io规则观察总结 By MrZ_26
+# Translation of TETR.IO qp2 rules observance summary By MrZ_26
 
-## 开始
+## Start
 
-该大房间不存在公共的“一局”的概念，所有的人随开随打，不需要等待
+This mode doesn't have a global "round", everyone can enter at any time without waiting
 
-## 爬塔
+## QP2
 
-此模式的背景题材为攀登 `天顶之塔 (Zenith Tower)`，最终分数称为`高度`（Altitude）
+This mode's theme is climbing `Zenith Tower`, your final score is your `Altitude`
 
-达到一定的高度后会进入下一层，每一层的高度范围如下：
+After reaching a certain altitude you will enter the next floor, every floor's required altitude is listed below:
 
-| 层数 | 高度范围 | 名称 | 译名 |
-| - | - | - | - |
-| 一层 | 0m - 50m | Hall Of Beginnings | 初始大厅 |
-| 二层 | 50m - 150m | The Hotel | 酒店 |
-| 三层 | 150m - 300m | The Casino | 赌场 |
-| 四层 | 300m - 450m | The Arena | 竞技场 |
-| 五层 | 450m - 650m | The Museum | 博物馆 |
-| 六层 | 650m - 850m | Abandoned Offices | 废弃办公楼 |
-| 七层 | 850m - 1100m | The Laboratory | 实验室 |
-| 八层 | 1100m - 1350m | The Core | 核心 |
-| 九层 | 1350m - 1650m | Corruption | 污染区 |
-| 十层 | 1650m+ | Platform Of The Gods | 神之境 |
+| Floor | Altitude Range | Name |
+| - | - | - |
+| Floor 1 | 0m - 50m | Hall Of Beginnings |
+| Floor 2 | 50m - 150m | The Hotel |
+| Floor 3 | 150m - 300m | The Casino |
+| Floor 4 | 300m - 450m | The Arena |
+| Floor 5 | 450m - 650m | The Museum |
+| Floor 6 | 650m - 850m | Abandoned Offices |
+| Floor 7 | 850m - 1100m | The Laboratory |
+| Floor 8 | 1100m - 1350m | The Core |
+| Floor 9 | 1350m - 1650m | Corruption |
+| Floor 10 | 1650m+ | Platform Of The Gods |
 
-## 推进器 （本节主要数据来源：ThTsOd）
+## Climb Speed (Main information source: ThTsOd)
 
-`推进器等级`（下称`rank`，代码中命名如此）决定了爬塔的速度，所有增加高度的行为都受到这个倍率的加成，升级推进器需要经验（下称xp）。
+`Climb Speed` (called as `rank` in the code) affects how fast you gain altitude, every action that increases altitude is impacted by this multiplier's bonus, increasing climb speed requires experience (called as xp hereafter).
 
-一级时倍率为×0.25，每升一级倍率增加×0.25（达到×2.75时变成白色不再看得出区别，实际无上限）
+At climb speed 1 the multiplier is ×0.25, every promotion in climb speed level adds another ×0.25 (Upon reaching ×2.75 it becomes white with no further difference for higher climb speed, but in reality there's no upper limit)
 
-### 获得高度&经验，与升级
+### Gaining altitude & XP, ranks
 
-增加高度和xp的途径如下表：
+The methods of gaining altitude and xp are listed below:
 
-| 动作 | 效果 |
+| Action | Effect |
 | - | - |
-| 随时间每帧增加 | 每秒1m，但在距离下一层6m~1m时以此法速率会从×1均匀变为×0，要用其他方式增加高度到达下一层 |
-| 击杀 | 15m |
-| 发送攻击 | 每行 1m 和 1.05xp |
-| 抵消垃圾行 | （非专家模式）0.55xp |
-| 消行 | （非专家模式）一行1.05xp 两行及以上2.05xp |
+| Time | Every second 1m, but when 6m~1m below next floor, the speed of altitude gain over time evenly decreases from ×1 to ×0, you have to use other methods to reach the next floor |
+| KO | 15m |
+| Sending attack | Every line of attack 1m and 1.05xp |
+| Cancelling garbage lines | （Non-Expert）0.55xp |
+| Clearing lines | （Non-Expert）One line 1.05xp, Two lines or above 2.05xp |
 
-> 注意所有的高度增加都受 `rank` 影响，都要 `*rank/4`，例如开局时倍率为×0.25，每4秒增加1m
+> Note that all altitude gain is impacted by `rank`, you have to do `*rank/4` when calculating, for example at the start the multiplier is ×0.25, meaning you gain 1m every 4 seconds
 
 推进器升级所需xp为 `4*rank`，当xp达到所需xp时lv+1并扣除所需xp的值。
+The xp required for the next climb speed level is `4*rank`, once the xp meets the conditions your climb speed increases by one and your xp decreases by the amount that was previously required.
 
-同时在升级时会获得一个 `xp在5秒内不自然流失` 的效果（详见两节后的xp流失段落），防止升级后只剩一点点xp刚好自然流失导致立刻降级。
+同時在升級時會獲得一個xp在5秒内不自然流失的效果（詳見兩節後的xp流失段落），防止升級後只剩一點點xp剛好自然流失導致立刻降級。
+Once promoting 
+
 
 同时每次升级时，上一行中的5秒会减少1秒，反复降级升级就不能一直吃这个buff，不过至少保留1秒。在升级后重新达到本级的升级所需xp的一半时重置回5秒。
 
