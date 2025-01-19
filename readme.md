@@ -450,8 +450,8 @@ Grades F\~A correspond to a difficulty score of 1\~6, upon revival the difficult
     const expertBonus = this.S.setoptions.zenith_expert ? 0.05 : 0.03;
     const messyBonus = this.S.setoptions.zenith_messy ? 0.25 : 0;
     const messinessIncrease = 2.5 * (expertBonus + messyBonus);
-    this.S.setoptions.messiness_change - messinessIncrease;
+    this.S.setoptions.messiness_change = messinessIncrease;
     this.S.setoptions.messiness_inner = expertBonus + messyBonus;
     this.S.setoptions.garbagefavor = (this.S.setoptions.zenith_expert ? 0 : 33) - 3 * l - (this.S.setoptions.zenith_messy ? 25 : 0);
-    this.S.setoptions.garbagephase - this.S.setoptions.zenith_expert ? 66 - 6 * l : 165 - 15 * l;
+    this.S.setoptions.garbagephase = this.S.setoptions.zenith_expert ? 66 - 6 * l : 165 - 15 * l;
 ```
