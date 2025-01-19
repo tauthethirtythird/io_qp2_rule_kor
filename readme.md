@@ -112,7 +112,7 @@ Below are some useful statistics for convenience:
 | Expert 6   |  24 |  6.86 |  3.500 |
 | Expert 7   |  28 |  6.00 |  4.667 |
 | Expert 8   |  32 |  5.33 |  6.000 |
-| Expert 9   |  36 |  4.80 |  7.500 |
+| Expert 9   |  36 |  0 |  7.500 |
 | Expert 10  |  40 |  4.36 |  9.167 |
 | Expert 11  |  44 |  4.00 | 11.000 |
 | Expert 12  |  48 |  3.69 | 13.000 |
@@ -180,8 +180,6 @@ There is a `Targeting grace` value, when attacked, lines*0.25 amount of `Targeti
 When the buffer slot for `Targeting grace` is filled (hits 3), attack magnification decreases by 25% (continuous attacks all send 25% less garbage)
 
 The `Targeting grace` value (linear) will decrease garbage messiness, when filled can cause `change between attacks -45%` and `change during attack -18%` 
-
-`Targeting grace` value release (Nth floor corresponds to Nth number, unit in seconds) 4.8, 3.9, 2.1, 1.4, 1.3, 0.9, 0.6, 0.4, 0.3, 0.2
 
 If `Targeting grace` has a value, every set amount of time (depending on floor, see table below) 0.25 `Targeting grace` value is moved back to `Targeting factor`, meaning the higher the floor, the more the system allows others to attack with garbage lines rapidly.
 
