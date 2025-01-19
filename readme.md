@@ -221,7 +221,7 @@ Clearing 1, 2, 3 lines respectively send 0, 1, 2 attack (Note: in Non-Expert 0 c
 
 Clearing 4 lines sends 4 attack, falls under `Special clears`
 
-This mode uses All-Mini spin rules, spin clears of every tetromino are `Special clears`, they can increase B2B count (With T using 3-corner rule, other tetrominos use immobile as the condition and only count as Mini, attack is the same as regular line clears, clear 1/2/3 send 0/1/2)
+This mode uses All-Mini spin rules, spin clears of every tetromino are `Special clears`, they can increase B2B count (With only T being a regular spin if 3-corner rule is passed, if 3-corner rule isn't passed or if it's a non-T tetromino then as long as it's immobile then it counts as Mini, with same attack as regular line clears, clear 1/2/3 send 0/1/2)
 
 All Clears send 3 attack, but also count as +2 B2B (calculated separate from spins) (different from regular TL, TL sends 5 attack but +1 B2B)
 
@@ -418,6 +418,96 @@ Grades F\~A correspond to a difficulty score of 1\~6, upon revival the difficult
 1. B B A
 1. B A A
 1. A A A (Upper bound)
+
+
+## Mod+ （施工中，可能還有機制沒寫全）
+## Mod+ (Under construction, some systems might not be fully written)
+
+translation note: this section is not close to finished at all, please refer to this very rushed Discord message if you really need an English description, it should be updated by tomorrow (January 20), thanks for your patience
+
+Reverse Expert: garbage instantly spawns rather than going up row by row, garbage messiness is increased, targeting factor does not decrease when in danger, 0 combo singles don't send lines, attacks round down instead of having rng, your altitude decreases depending on the floor (you can't lose floors)
+
+Reverse No Hold: hold is disabled, 1 piece preview in next, no longer 7-bag, garbage has 2 connected holes
+
+Reverse Messier Garbage: garbage is significantly messier, there is 60 frames of line clear ARE (line clear delay), you start with donut-shaped garbage spanning the board
+
+Reverse Gravity: you instantly start with 20G, lock delay is decreased
+
+Reverse Volatile Garbage: garbage is multiplied by 3x (cancelling is still 1x), your board height is 14, there are also two arrows that appear sometimes (not sure what it is)
+
+Reverse Double Hole Garbage: you start with 12 rows of red checkerboard garbage, all garbage lines now have 6-7 holes, you can't cancel garbage now
+
+Reverse Invisible: pieces are fully invisible, only the top 3 garbage lines are visible
+
+Reverse All-Spin: causing the same action text spawns 20 rows of wound lines instantly topping you out, all non-spin clears are now considered a Single, you receive 10 messy garbage lines at the start
+
+每個Mod都有一個超級強化版本（除了Duo(雙人)），需要帶著對應的Mod累計爬3萬米解鎖（開了多個可以同時累計）
+Every mod has a super buffed version (except for Duo), needing 30000 total meters climbed with the mod to unlock (using multiple mods at once can accumulate for all of the mods selected)
+
+所有的強化Mod都只能單獨開啟遊玩，不能再疊加其他Mod
+All buffed mods can only be played solo, and can't be stacked on top of other mods
+
+### 專家+ （皇帝逆位）
+### Expert+ (Reverse Emperor)
+
+在原有的很難爬高的基礎上，
+On top of it being really difficult to climb,
+
+新增下墜加速度機制，更難爬高，打出攻擊往上跳一點後如果一會沒動就會開始下墜直到落到當前樓層底部（加速度和終端速度和樓層有關）
+There's an additional altitude decrease system, making it even harder to climb, after attacking and climbing a small amount if you stop sending you'll start to plummet down to the bottom of the floor (speed is dependent on floor)
+
+### 無暫存+ （節制逆位）
+### No Hold+ (Reverse Temperance)
+
+在原有的無暫存基礎上，
+On top of hold being disabled,
+
+1預覽，非7-Bag
+1 piece preview, non 7-bag
+
+### 混亂垃圾行+ （命運之輪逆位）
+### Messier Garbage+ (Reverse Wheel of Fortune)
+
+在原有的垃圾更混亂基礎上，
+On top of having messier garbage,
+
+消行延遲從0增加到1秒
+Line clear delay increases from 0 to 1 second
+
+初始場地變成固定的六個圈的圖案
+
+
+### 高重力+ （塔逆位）
+
+從一開局就20G
+
+### 不穩定垃圾行+ （力量逆位）
+
+在原有的雙倍受擊基礎上，
+
+不再有雙倍抵消
+
+14高場地，不過後兩次垃圾行孔洞位置會有提示
+
+### 雙洞垃圾行+ （惡魔逆位）
+
+初始場地變成10行棋盤垃圾行
+
+垃圾行變成每行隨機3~4個灰格的混沌垃圾行
+
+### 隱形+ （隱士逆位）
+
+在原有的隱形基礎上，
+
+場地不再閃爍
+
+### All-Spin+ （魔法師逆位）
+
+在原有的連續相同消除懲罰基礎上，
+
+懲罰改為20行實心垃圾行（立刻死亡）
+
+同時非spin消除全部強制視為single（消二接消四 計為兩個single，死）
 
 ## Some unsure if useful bonus content
 
