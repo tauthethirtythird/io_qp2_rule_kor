@@ -112,7 +112,7 @@ Below are some useful statistics for convenience:
 | Expert 6   |  24 |  6.86 |  3.500 |
 | Expert 7   |  28 |  6.00 |  4.667 |
 | Expert 8   |  32 |  5.33 |  6.000 |
-| Expert 9   |  36 |  0 |  7.500 |
+| Expert 9   |  36 |  4.80 |  7.500 |
 | Expert 10  |  40 |  4.36 |  9.167 |
 | Expert 11  |  44 |  4.00 | 11.000 |
 | Expert 12  |  48 |  3.69 | 13.000 |
