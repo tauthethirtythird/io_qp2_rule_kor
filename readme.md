@@ -36,7 +36,7 @@ The methods of gaining altitude and xp are listed below:
 | Action | Effect |
 | - | - |
 | Time | Every second 1m, but when you're 6m~1m below next floor, the speed of altitude gain over time evenly decreases from ×1 to ×0, you have to use other methods to reach the next floor. |
-| KO | 15m |
+| KO | 15m ("Expert+" becomes 8m) |
 | Sending attack | Every line of attack 1m and 1.05xp |
 | Cancelling garbage lines | （Non-Expert）0.55xp |
 | Clearing lines | （Non-Expert）One line 1.05xp, Two lines or above 2.05xp |
@@ -161,9 +161,11 @@ Reaching floor 10 with hyperspeed awards a hidden achievement, or when you fall 
 
 ## Attack Target
 
-You can't manually target someone in this mode, but the state of the player will impact the probability of yourself being attacked.
+You can't manually target someone in this mode, but the state of the player will impact the probability of yourself being attacked: `Targeting factor`
 
-The player has a `Targeting factor` value, the higher this value the likelier it is to be attacked, **with a starting value of 3**.
+The higher this value the likelier it is to be attacked, **with a starting value of 3**.
+
+From additional inspection, in most cases attacks are locked to players with similar altitude, specific calculations aren't clear
 
 ### Gradual time increase (Caps at doubled past 7 minutes)
 
@@ -223,13 +225,17 @@ Clearing 4 lines sends 4 attack, falls under `Special clears`
 
 This mode uses All-Mini spin rules, spin clears of every tetromino are `Special clears`, they can increase B2B count (With only T being a regular spin if 3-corner rule is passed, if 3-corner rule isn't passed or if it's a non-T tetromino then as long as it's immobile then it counts as Mini, with same attack as regular line clears, clear 1/2/3 send 0/1/2)
 
-All Clears send 3 attack, but also count as +2 B2B (calculated separate from spins) (different from regular TL, TL sends 5 attack but +1 B2B)
+All Clears send 3 attack, but also count as +2 B2B (calculated separate from spins) (slightly different from regular TL, TL sends 5 attack but +1 B2B)
 
-B2B starts counting from the second `Special clear`, and adds an extra 1 attack sent (unlike s1 TL with gradual increase)
+B2B starts counting from the second `Special clear`, and adds an extra 1 attack sent
 
-Though there is another surge counter off B2B, when B2B is broken it sends a spike (B2B count -3, or amount of special clears -4)
+delete: Though there is another surge counter off B2B, when B2B is broken it sends a spike (B2B count -3, or amount of special clears -4)
 
 All attacks keep decimals in calculation, the decimals follow their value probability, for example 1.2 has a 20% chance to become 2, 80% chance to become 1)
+
+### Surge Attack
+
+When B2B is broken a large attack is created, 
 
 ## Garbage hole positions
 
