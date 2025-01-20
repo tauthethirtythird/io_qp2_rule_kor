@@ -287,59 +287,65 @@ To prevent a game from being too long, from 8 minutes every minute adds another 
 
 ## Mods
 
-Mods are effects you can choose before the game starts that increase difficulty, that basically only have downsides and no upsides, but mods (and certain mod combos) can give out achievements upon reaching certain floors.
+Mod是在遊戲開始前可選的主動增加遊戲難度的方式，基本上只有壞處沒有好處，但是開啟Mod（或特定的Mod組合）後爬到特定高度可以獲得成就
+Mods are ways you can increase the difficulty before starting a run, with basically only downsides and no upsides, but activating mods (or specific mod combinations) and reaching certain altitudes can grant achievements
 
-There are a total of 9 mods, each has a special effect that can individually be turned on/off
+Mod總共有9個，每個都對應一個特殊效果可以獨立開關，在背景設定中呈現為塔羅牌，下文會在每個Mod的名稱後註明，章節最後也有一個表格用於速查
+There are a total of 9 mods, each corresponding with a special effect that can be individually toggled, with the setting having them as Tarot Cards, a description will be written after the mod name below, there will also be a table for convenience at the end of the chapter
 
-### Expert (Tarot Card: Emperor)
+### Expert (The Emperor)
 
 Each aspect gets slightly harder:
 
 1. Garbage enters instantaneously, rather than consecutively going up line by line
 1. Garbage messiness is increased
-1. Removes system of decreasing targeting factor in danger
+1. Removes system of decreasing `targeting factor` when in danger
 
-### No Hold (Tarot Card: Temperance)
+### No Hold (Temperance)
 
 Disables holding
 
-### Messier Garbage (Tarot Card: Wheel of Fortune)
+### Messier Garbage (Wheel of Fortune)
 
 Garbage messiness noticeably increases
 
-### Gravity (Tarot Card: The Tower)
+### Gravity (The Tower)
 
 Gravity noticeably increases
 
-### Volatile Garbage (Tarot Card: Strength)
+Lock delay table for the ten floors: 30, 29, 28, 27, 26, 24, 22, 20, 18, 16
+
+### Volatile Garbage (Strength)
 
 Garbage entering from the bottom is multiplied by 2x (The inner system is actually received garbage x2, and cancelling is also x2)
 
-This mod can speed up progress at the start, but at the later portion of the game yields more threats than advantages, so basically it is a negative impact mod (Unless in speedrunning, which needs separate discussion)
+> This mod can speed up progress at the start, but poses too much of a threat in the endgame, whether its final effect is positive or negative is dependent on what type of play
 
-### Double Hole Garbage (Tarot Card: The Devil)
+### Double Hole Garbage (The Devil)
 
 Every line of garbage has a chance to have two holes
 
-### Invisible (Tarot Card: The Hermit)
+### Invisible (The Hermit)
 
-Pieces the player placed will become invisible, but every 5 seconds the board flashes once
+Pieces placed becomes invisible
 
-### All-Spin (Tarot Card: The Magician)
+Every 5 seconds the whole board flashes which can be convenient for digging
+
+### All-Spin (The Magician)
 
 (See spin rules at the start) Upgrades non-T tetromino from mini spins into full spins, making them send lines*2 attack similarly to T-Spins
 
 But the cost is when a player clears lines (Accurately it should be the text that appears on the left after hard dropping, non-line-clear spins count too), if the action text is the exact same, then a fully covered garbage line with a reverse tally counter of the floor number+5 appears at the bottom of the board as punishment, when the player does an unpunished line clear all tallies decrease by 1, upon reaching zero the punishment lines turn into a one-hole garbage line with the hole being in the same spot as the number previously was.
 
-This is the only mod that can have a positive effect if the player has a certain level of skill in it.
+> Only mod that can give a more positive effect after the player reaeches a certain skill level
 
-### Duo (Tarot Card: The Lovers)
+### Duo (The Lovers)
 
-Players with supporter can invite others to play with themselves as a two-player game in this mode, the game ends when both players die
+Players with supporter can invite others to play with themselves in this two-player mode
 
-Both players' attack sent to others are halved
+To one of the people, most output values will be halved, for example sent attacks and accumulated climb speed xp etc.
 
-After one player dies the other player can do revive task(s) to revive their teammate, the tasks are divided into six grades ABCDEF, listed below
+After both players die the game ends, but after one player dies the other player can do revive task(s) to revive their teammate, the tasks are divided into six grades ABCDEF, listed below
 
 | difficulty | code id | value | name | tag type(?) | removed by mod |
 | - | - | - | - | - | - |
@@ -419,95 +425,11 @@ Grades F\~A correspond to a difficulty score of 1\~6, upon revival the difficult
 1. B A A
 1. A A A (Upper bound)
 
+{Translator note: the difficulty orders aren't exact, for example score 7 can be E D E or D E E too, it doesn't necessarily have to be E E D}
 
-## Mod+ （施工中，可能還有機制沒寫全）
-## Mod+ (Under construction, some systems might not be fully written)
+## Mod+
 
-translation note: this section is not close to finished at all, please refer to this very rushed Discord message if you really need an English description, it should be updated by tomorrow (January 20), thanks for your patience
-
-Reverse Expert: garbage instantly spawns rather than going up row by row, garbage messiness is increased, targeting factor does not decrease when in danger, 0 combo singles don't send lines, attacks round down instead of having rng, your altitude decreases depending on the floor (you can't lose floors)
-
-Reverse No Hold: hold is disabled, 1 piece preview in next, no longer 7-bag, garbage has 2 connected holes
-
-Reverse Messier Garbage: garbage is significantly messier, there is 60 frames of line clear ARE (line clear delay), you start with donut-shaped garbage spanning the board
-
-Reverse Gravity: you instantly start with 20G, lock delay is decreased
-
-Reverse Volatile Garbage: garbage is multiplied by 3x (cancelling is still 1x), your board height is 14, there are also two arrows that appear sometimes (not sure what it is)
-
-Reverse Double Hole Garbage: you start with 12 rows of red checkerboard garbage, all garbage lines now have 6-7 holes, you can't cancel garbage now
-
-Reverse Invisible: pieces are fully invisible, only the top 3 garbage lines are visible
-
-Reverse All-Spin: causing the same action text spawns 20 rows of wound lines instantly topping you out, all non-spin clears are now considered a Single, you receive 10 messy garbage lines at the start
-
-每個Mod都有一個超級強化版本（除了Duo(雙人)），需要帶著對應的Mod累計爬3萬米解鎖（開了多個可以同時累計）
-Every mod has a super buffed version (except for Duo), needing 30000 total meters climbed with the mod to unlock (using multiple mods at once can accumulate for all of the mods selected)
-
-所有的強化Mod都只能單獨開啟遊玩，不能再疊加其他Mod
-All buffed mods can only be played solo, and can't be stacked on top of other mods
-
-### 專家+ （皇帝逆位）
-### Expert+ (Reverse Emperor)
-
-在原有的很難爬高的基礎上，
-On top of it being really difficult to climb,
-
-新增下墜加速度機制，更難爬高，打出攻擊往上跳一點後如果一會沒動就會開始下墜直到落到當前樓層底部（加速度和終端速度和樓層有關）
-There's an additional altitude decrease system, making it even harder to climb, after attacking and climbing a small amount if you stop sending you'll start to plummet down to the bottom of the floor (speed is dependent on floor)
-
-### 無暫存+ （節制逆位）
-### No Hold+ (Reverse Temperance)
-
-在原有的無暫存基礎上，
-On top of hold being disabled,
-
-1預覽，非7-Bag
-1 piece preview, non 7-bag
-
-### 混亂垃圾行+ （命運之輪逆位）
-### Messier Garbage+ (Reverse Wheel of Fortune)
-
-在原有的垃圾更混亂基礎上，
-On top of having messier garbage,
-
-消行延遲從0增加到1秒
-Line clear delay increases from 0 to 1 second
-
-初始場地變成固定的六個圈的圖案
-
-
-### 高重力+ （塔逆位）
-
-從一開局就20G
-
-### 不穩定垃圾行+ （力量逆位）
-
-在原有的雙倍受擊基礎上，
-
-不再有雙倍抵消
-
-14高場地，不過後兩次垃圾行孔洞位置會有提示
-
-### 雙洞垃圾行+ （惡魔逆位）
-
-初始場地變成10行棋盤垃圾行
-
-垃圾行變成每行隨機3~4個灰格的混沌垃圾行
-
-### 隱形+ （隱士逆位）
-
-在原有的隱形基礎上，
-
-場地不再閃爍
-
-### All-Spin+ （魔法師逆位）
-
-在原有的連續相同消除懲罰基礎上，
-
-懲罰改為20行實心垃圾行（立刻死亡）
-
-同時非spin消除全部強制視為single（消二接消四 計為兩個single，死）
+Every mod has a corresponding buffed mod (except for Duos), requiring accumulating 
 
 ## Some unsure if useful bonus content
 
