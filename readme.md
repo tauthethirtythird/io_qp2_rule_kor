@@ -6,7 +6,7 @@ This mode doesn't have a global "round", everyone can enter at any time without 
 
 ## QP2
 
-This mode's theme is climbing `Zenith Tower`, your final score is your `Altitude`.
+This mode's theme is climbing `Zenith Tower`, the final score is your `Altitude`.
 
 After reaching a certain altitude you will enter the next floor, every floor's required altitude is listed below:
 
@@ -27,26 +27,26 @@ After reaching a certain altitude you will enter the next floor, every floor's r
 
 `Climb Speed` (called `rank` in the code) affects how fast you gain altitude, every action that increases altitude is impacted by its' multiplier bonus. Increasing climb speed requires experience (called xp hereafter).
 
-At climb speed 1 the multiplier is ×0.25, every increase in climb speed level adds another ×0.25 (Upon reaching ×2.75 it becomes white with no further difference for higher climb speed, but in reality there's no upper limit).
+At climb speed 1 the multiplier is ×0.25, every increase in climb speed level adds another ×0.25 (Upon reaching ×2.75 it becomes white with no further difference, but in reality there's no upper limit).
 
-### Gaining altitude & XP
+### Gaining altitude & XP, and promoting
 
-The methods of gaining altitude and xp are listed below:
+The routes of gaining altitude and xp are listed below:
 
 | Action | Effect |
 | - | - |
-| Time | Every second 1m, but when you're 6m~1m below next floor, the speed of altitude gain over time evenly decreases from ×1 to ×0, you have to use other methods to reach the next floor. |
-| KO | 15m ("Expert+" becomes 8m) |
+| Time | Every second 1m, but when you're 6m~1m below next floor, the speed of altitude gain over time evenly decreases from ×1 to ×0, needing line clears or KOs to reach the next floor |
+| KO | 15m ("Expert+" weakens to 8m) |
 | Sending attack | Every line of attack 1m and 1.05xp |
-| Cancelling garbage lines | （Non-Expert）0.55xp |
-| Clearing lines | （Non-Expert）One line 1.05xp, Two lines or above 2.05xp |
+| Cancelling garbage lines (Non-Expert) | 0.55xp |
+| Clearing lines (Non-Expert) | One line 1.05xp, two lines or above 2.05xp |
 
-> Note that all altitude gain is impacted by your `rank`, specifically multiply by 4 `*rank/4` when calculating, for example at the start the multiplier is ×0.25, meaning you gain 1m every 4 seconds.
+> Note that all altitude gain is impacted by your `rank`, technically the multiplier is `rank/4`, for example at the start `rank` is 1, multiplier is ×0.25, every 4 seconds gain 1m
 
-The xp required to reach the next climb speed level is `4*rank`. Once your xp meets the conditions your climb speed increases by one and your xp decreases by the amount that was previously required (if you overshoot the remaining xp is kept).  
+The xp required to reach the next climb speed level is `4*rank`. once your xp meets the conditions your climb speed increases by one and your xp decreases by the amount that was previously required.  
 Once you have promoted to the next climb speed level, for 5 seconds xp will stop naturally decreasing (see xp loss chapter for details) to prevent instantly demoting right after.
 
-There is also a `promotion fatigue` system: Every time you increase a climb speed level, the `no natural xp decrease for 5 seconds` from the previous line becomes a second shorter (until 1 second), meaning repeatedly promoting/demoting causes the effect to be weaker. To reset it back to 5 seconds you have to reach 50% of the next climb speed level (middle of the experience bar).
+There is also a `promotion fatigue` system: Every time you increase a climb speed level, the `no natural xp decrease for 5 seconds` from the previous section becomes a second shorter (until 1 second), meaning repeatedly promoting/demoting causes the effect to be weaker. To reset it back to 5 seconds you have to reach 50% of the next climb speed level (middle of the experience bar).
 
 ### Skipping levels
 
@@ -70,7 +70,7 @@ e changes depending on if Expert is enabled, see below for a table:
 | Duo | 3+amount of players with Expert |
 
 When xp is under 0 you lose a climb speed level, afterwards your xp becomes the maximum xp of the previous climb speed level.  
-Below are some useful statistics for convenience:
+Below are some calculated statistics for convenience:
 
 | rank | xp required to promote | seconds to demotion | xp loss per second |
 | :--: | :-: | :---: | :--: |
@@ -135,16 +135,16 @@ You can view which climb speed you're at under the board, a simple text descript
 | rank | Multiplier | Color | Shape | Hyperspeed notes |
 | :-: | :--: | :-: | - | - |
 |  1  | 0.25 | none         | a progress bar | |
-|  2  | 0.50 | red          | add a triangle below | |
-|  3  | 0.75 | orange       | add wings to triangle | |
+|  2  | 0.50 | red          | a triangle added below | |
+|  3  | 0.75 | orange       | wings added to triangle | |
 |  4  | 1.00 | yellow-green | wings increase size | |
 |  5  | 1.25 | blue         | wings increase size + add base | |
 |  6  | 1.50 | magenta      | wings extend to full size | |
-|  7  | 1.75 | light orange | wings become detailed | lowest rank without exiting hyperspeed |
-|  8  | 2.00 | turquoise    | add pair of parallelograms to progress bar | hyperspeed trigger at f1/f2 |
+|  7  | 1.75 | light orange | wings become more detailed | lowest rank without exiting hyperspeed |
+|  8  | 2.00 | turquoise    | pair of parallelograms added on top | hyperspeed trigger at f1/f2 |
 |  9  | 2.25 | cyan         | two pairs of parallelograms | hyperspeed trigger at f3/f4 |
 | 10  | 2.50 | light purple | three pairs of parallelograms | hyperspeed trigger at f5 |
-| 11  | 2.75 | white        | add pair of white triangles | |
+| 11  | 2.75 | white        | pair of white triangles added | |
 
 ### Hyperspeed
 
@@ -159,11 +159,11 @@ Reaching floor 10 with hyperspeed awards a hidden achievement, or when you fall 
 You can't manually target someone in this mode, but the state of the player will impact the probability of yourself being attacked: `Targeting factor`  
 The higher this value the likelier it is to be attacked, **with a starting value of 3**.
 
-From additional inspection, in most cases attacks are locked to players with similar altitude, specific calculations aren't clear
+From additional observation, in most cases attacks are locked to players with similar altitude, specific calculations aren't clear
 
 ### Gradual time increase (Caps at doubled past 7 minutes)
 
-When time hits 3/5/7 minutes, `Targeting factor`+1
+When time hits 3/5/7 minutes, `Targeting factor` +1
 
 ### Temporary decrease if in danger (No impact on messiness)
 
@@ -171,14 +171,13 @@ Only in Non-Expert, check once every 0.25 seconds, if in danger (conditions not 
 
 ### Shift to Targeting grace (No impact on messiness)
 
-There is a `Targeting grace` value, when attacked, lines*0.25 amount of `Targeting factor` gets moved to the targeting grace buffer slot (Maximum 3, otherwise doesn't move), then gets moved back later.
+There is a `Targeting grace` value, when attacked, lines*0.25 amount of `Targeting factor` gets moved to the targeting grace buffer slot (maximum 3, otherwise doesn't move), then gets moved back later.
 
 When the buffer slot for `Targeting grace` is filled (hits 3), attack magnification decreases by 25% (continuous attacks all send 25% less garbage)
 
-The `Targeting grace` value (linear) will decrease garbage messiness, when filled can cause `change between attacks -45%` and `change during attack -18%` 
+The `Targeting grace` value (linear) will decrease garbage messiness, when fully filled can cause `change between attacks -45%` and `change during attack -18%` 
 
 If `Targeting grace` has a value, every set amount of time (depending on floor, see table below) 0.25 `Targeting grace` value is moved back to `Targeting factor`, meaning the higher the floor, the more the system allows others to attack with garbage lines rapidly.
-
 
 ### Related tables
 
@@ -191,9 +190,9 @@ If `Targeting grace` has a value, every set amount of time (depending on floor, 
 | 5~6 minutes | 5 | -66% | -60% |
 | past 7 minutes | 6 | -50% | -25% |
 
-`Targeting factor` release time:
+`Targeting factor` release gaps:
 
-| Floor | Release time (seconds) | Highest consistent received APM |
+| Floor | Release every (seconds) | Highest consistent received APM |
 | :-: | :-: | :-: |
 | 1  | 4.8 | 12.5 |
 | 2  | 3.9 | 15.4 |
@@ -210,32 +209,29 @@ If `Targeting grace` has a value, every set amount of time (depending on floor, 
 
 If `Targeting grace` is in use, every fixed amount of time (via table above), 0.25 `Targeting grace` gets moved back to `Targeting factor`, which means the higher the floor, the more the system allows other players to attack through garbage.
 
-
 ## Attack, All-spin, B2B
 
 Clearing 1, 2, 3 lines respectively send 0, 1, 2 attack
 
-qp2 also has “0 combo single 一 +1 attack”, making clearing 1 line also have a 1 attack efficiency, can be considered under specific circumstances
+qp2 also has “0 combo single 一 +1 attack”, making clearing 1 line also have 1 attack efficiency, can be considered under specific circumstances
 
-> When Expert or buffed mods are enabled there isn't this +1
+> When Expert or buffed mods are enabled this +1 is removed
 
-Clearing 4 lines sends 4 attack, falls under `Special clears`
+Clearing 4 lines sends 4 attack, falls under `special clears`
 
-This mode uses All-Mini spin rules, spin clears of every tetromino are `Special clears`, they can increase B2B count (With only T being a regular spin if 3-corner rule is passed, if 3-corner rule isn't passed or if it's a non-T tetromino then as long as it's immobile then it counts as Mini, with same attack as regular line clears, clear 1/2/3 send 0/1/2)
+This mode uses All-Mini spin rules, spin clears of every tetromino are `special clears`, they can increase B2B count (With only T being a regular spin if 3-corner rule is passed, if 3-corner rule isn't passed or if it's a non-T tetromino then as long as it's immobile then it counts as Mini, with same attack as regular line clears, clear 1/2/3 send 0/1/2)
 
 All Clears send 3 attack, but also count as +2 B2B (calculated separate from spins) (slightly different from regular TL, TL sends 5 attack but +1 B2B)
 
-B2B starts counting from the second `Special clear`, and adds an extra 1 attack sent
-
-delete: Though there is another surge counter off B2B, when B2B is broken it sends a spike (B2B count -3, or amount of special clears -4)
+B2B starts counting from the second `special clear`, and adds an extra 1 attack sent
 
 All attacks keep decimals in calculation, the decimals follow their value probability, for example 1.2 has a 20% chance to become 2, 80% chance to become 1)
 
 ### Surge Attack
 
-When B2B is broken a large attack is created, attack is B2B count -3, or the amount of consecutive special clears count -4 (slightly differnt in TL, no -3, however many B2B however many attack)
+When B2B is broken a large attack is created, attack is B2B count -3, or the amount of consecutive special clears count -4 (slightly different in TL, no -3, however many B2B however many attack)
 
-> this is a very important system in qp, really needed in certain situations
+> This is a very important system in qp, really needed in certain situations
 
 ### Windup Attack
 
@@ -249,8 +245,6 @@ Warning method: 1 second before receiving this attack ! and !! etc. animations w
 1 second later the attacks start entering the garbage queue, each split is separated by 0.5s
 
 ## Garbage hole positions
-
-This mode's garbage lines don't follow attack structure, only the total amount of lines
 
 TETR.IO's garbage messiness system is decided by two numbers:  
 “every line in the same attack has an X% chance to not stay on the same column”, “different attacks have a Y% chance to not stay on the same column” 
@@ -267,8 +261,8 @@ In detail, qp2's actual situation is Y=2.5*X, which means between received garba
 
 ## Garbage waiting time
 
-When attacked, garbage lines will wait in queue before being activated: starting as transparent yellow, then transparent red, at last opaque red, of which if a piece is placed without clearing lines garbage enters through the board.  
-this waiting time is dependent on the floor and if Expert is enabled or not, for specific values see below:
+When attacked, garbage lines will wait in queue before being activated: starting as transparent yellow, then transparent red, at last opaque red, of which if a piece is placed without clearing lines garbage enters through the board  
+This waiting time is dependent on the floor and if Expert is enabled or not, for specific values see below:
 
 | Floor |  Non-Expert  |   Expert   |
 | :-: | :----------: | :---------: |
@@ -288,7 +282,7 @@ this waiting time is dependent on the floor and if Expert is enabled or not, for
 
 ## Fatigue
 
-To prevent a game from being too long, from 8 minutes every minute adds another negative debuff, with a total of 5 debuffs:
+To prevent a game from being too long, starting from 8 minutes every minute adds another negative debuff, with a total of 5 debuffs:
 
 | Time | Negative effect | Description |
 | --- | --- | --- |
@@ -298,7 +292,7 @@ To prevent a game from being too long, from 8 minutes every minute adds another 
 | 11 minutes | +25% attack received | YOUR CONSCIOUSNESS FADES… receive 25% more garbage |
 | 12 minutes | +5 permanent garbage | THIS IS THE END. +5 PERMANENT LINES |
 
-> In the “Expert+” mod fatigue differs, see later below for specifics
+> In the “Expert+” mod fatigue is changed, see later below for specifics
 
 ## Mods
 
@@ -339,8 +333,7 @@ Every line of garbage has a chance to have two holes
 
 ### Invisible (The Hermit)
 
-Pieces placed becomes invisible
-
+Pieces placed become invisible  
 Every 5 seconds the whole board flashes which can be convenient for digging
 
 ### All-Spin (The Magician)
@@ -354,7 +347,7 @@ But the cost is when a player clears lines (Accurately it should be the text tha
 ### Duo (The Lovers)
 
 Players with supporter can invite others to play with themselves in this two-player mode  
-To one of the people, most output values will be halved, for example sent attacks and accumulated climb speed xp etc.
+To the perspective of one person, most output values will be halved, for example sent attacks and accumulated climb speed xp etc.
 
 After both players die the game ends, but after one player dies the other player can do revive task(s) to revive their teammate, the tasks are divided into six grades ABCDEF, listed below
 
@@ -436,7 +429,7 @@ Grades F\~A correspond to a difficulty score of 1\~6, upon revival the difficult
 1. B A A
 1. A A A (Upper bound)
 
-(translation note: the difficulty orders aren't exact, for example score 7 can be E D E or D E E too, it doesn't necessarily have to be E E D)
+((translation note: the difficulty orders aren't exact, for example score 7 can be E D E or D E E too, it doesn't necessarily have to be E E D))
 
 ## Mod+
 
@@ -446,11 +439,13 @@ All buffed mods can only be played solo, and cannot be stacked on other mods
 
 ### Expert+ (The Tyrant)
 
+> Fear, oppression, and limitless ambition.
+
 On top the original basis of clearing lines and cancelling lines not increasing climb speed xp,
 
-climb speed no longer gains altitude over time, sending attack and KOs are required to receive height
+Climb speed no longer gains altitude over time, sending attack and KOs are required to receive height
 
-Descent: Altitude decreases over time, although it gets blocked by each floor's borderline and can't go down a floor
+Descent: Altitude decreases over time, although it gets blocked by each floor's borderline and therefore can't go down to the previous floor
 
 | Floor | Descent speed | Corresponding rank and spm |
 | :-: | :---: | :---------: |
@@ -466,7 +461,7 @@ Descent: Altitude decreases over time, although it gets blocked by each floor's 
 | 10 (1650m) | 6.0 m/s | 7 & 206spm |
 
 > Descent speed formula is `(floor^2+floor+10)/20`  
-> rank and spm are only for reference, in reality cancelling doesn't factor in spm so it can't be achieved, after the fifth-sixth floor you have to rely on 3-digit surge APM to continue climbing  
+> rank and spm are only for reference, in reality cancelling doesn't count for spm so it can't be achieved, after the fifth-sixth floor you have to rely on 3-digit surge APM to continue climbing  ((translation note: SPM = sent per minute))
 > During gameplay descent looks like it has acceleration, but it's only a visual effect, in reality it's still even
 
 Fatigue system becomes even more strict:
@@ -481,13 +476,15 @@ Fatigue system becomes even more strict:
 | 11 minutes | garbage becomes noticeably messier | THE REVOLUTION HAS BEGUN… garbage received becomes much messier |
 | 12 minutes | +12 permanent garbage | THE END OF AN ERA. +12 PERMANENT LINES |
 
-After staying in the same floor for over 60 seconds, with every second you increase 0.5% probability of being attacked (for example 200 seconds after the effect starts all incoming attacks are doubled)
+After staying in the same floor for over 60 seconds, every second you permanently gain 0.5% multiplier of being attacked (for example 200 seconds after the effect starts all incoming attacks are doubled)
 
-`Targeting grace` storage is no longer the fixed 3, but rather changes based on hte floor, being 1 for the first floor, and decreasing by 0.1 for every next floor
+`Targeting grace` storage is no longer the fixed 3, but rather changes based on the floor, being 1 for the first floor, and decreasing by 0.1 for every next floor
 
 Base KO bonus altitude decreases from 15m to 8m
 
 ### No Hold+ (Asceticism)
+
+> A detachment from even that which is moderate.
 
 On top the original basis of no hold,  
 1 piece preview  
@@ -497,8 +494,10 @@ Garbage hole styles become 2-wide, slightly easier to dig
 
 ### Messier Garbage+ (Loaded Dice)
 
+> In a rigged game, your mind is the only fair advantage.
+
 On top the original basis of garbage being messier,  
-Line clear delay increases from 0 to 1 second (translation note: it seems like it's actually 1.15s)  
+Line clear delay increases from 0 to 1 second ((translation note: it seems like it's actually 1.15s))  
 The starting board state becomes a fixed pattern of six circles:
 
     ..........
@@ -506,14 +505,18 @@ The starting board state becomes a fixed pattern of six circles:
     .X.X..X.X.
     .XXX..XXX.
     ..........
-    Three layers, doesn't touch the walls, looks just like Mahjong's six dots
+    Three layers, doesn't touch the walls, looks like Mahjong's six dots
 
 ### Gravity (Freefall)
+
+> The ground you stood on never existed in the first place.
 
 20G from the start  
 Lock delay table for the ten floors: 24, 22, 20, 18, 16, 15, 14, 13, 12, 11
 
 ### Volatile Garbage+ (Last Stand)
+
+> Strength isn't necessary for those with nothing to lose.
 
 3x attack received (no 3x cancelling)  
 14 high playfield  
@@ -521,12 +524,16 @@ Garbage hole positions have two nexts
 
 ### Double Hole Garbage+ (Damnation)
 
+> No more second chances.
+
 The starting board state becomes 12-row checkerboard garbage lines    
 Garbage lines become messy garbage lines with 3~4 grey blocks randomly  
-Can't cancel garbage lines (though you also receive not much)
+Can't cancel garbage lines (though you also don't receive much)
 
 ### Invisible+ (The Exile)
-  
+
+> Never underestimate blind faith.
+
 On top the original basis of invisibility,   
 The board doesn't flash anymore  
 Only the top three garbage lines are visible  
@@ -534,8 +541,10 @@ Receive 3 lines of cheese garbage at the start by the system
 
 ### All-Spin+ (The Warlock)
 
+> Into realms beyond heaven and earth.
+
 On top the original basis of consecutive clear penalties,    
-Penalties become 20 lines of filled garbage (Instant death) (translation note: it is technically survivable but really hard because the piece spawns at rows 22-23)  
+Penalties become 20 lines of filled garbage (instant death) ((translation note: it is technically survivable but really hard because the piece spawns at rows 22-23))  
 At the same time non-spin line clears are all viewed as Single (clearing 2 lines then clearing 4 lines, counts as two Singles, death)  
 Receive 10 lines of cheese garbage at the start by the system  
 Increase garbage messiness
@@ -544,32 +553,31 @@ Increase garbage messiness
 
 | Upright name | Effect summary | Reversed name | Effect summary (includes upright effects) |
 | ---: | :---: | ---: | :---: |
-| The Emperor | Less room for error + harder to climb | The Tyrant | Extremely hard to climb + descent + super fatigue |
-| Temperance | No holding | Asceticism | 1 preview + random + 2 holes |
-| Wheel of Fortune | Messier garbage | Loaded Dice | 1.15s lock delay + pattern start |
-| The Tower | Higher gravity + decreased lock delay | Freefall | 20G low lock delay |
-| Strength | Double garbage + double cancel | Last Stand | 3x garbage + normal cancel + low board |
-| The Devil | Double hole garbage | Damnation | Wasteland(?) garbage lines + checkerboard start |
-| The Hermit | Invisible + 5 second flash | The Exile | No more flashing + can't see all garbage |
-| The Magician | No mini + penalize repeats | The Warlock | Sudden death + non-spins count as single + cheese start |
-| The Lovers | Two players | | |
+| The Emperor | less room for error + harder to climb | The Tyrant | extremely hard to climb + descent + super fatigue |
+| Temperance | no holding | Asceticism | 1 preview + random + 2 holes |
+| Wheel of Fortune | messier garbage | Loaded Dice | 1.15s lock delay + pattern start |
+| The Tower | higher gravity + decreased lock delay | Freefall | 20G low lock delay |
+| Strength | double garbage + double cancel | Last Stand | 3x garbage + normal cancel + low board |
+| The Devil | double hole garbage | Damnation | debris garbage lines + checkerboard start |
+| The Hermit | invisible + 5 second flash | The Exile | no more flashing + can't see all garbage |
+| The Magician | no mini + penalize repeats | The Warlock | sudden death + non-spins count as Single + cheese start |
+| The Lovers | two players | | |
 
-## Some unsure if useful bonus content
+## Some unsure if useful technological bonus content
 
-If you want to search for variables, here are some of the integer names below:
+If you want to search for variables, here are some integer names below:
 
 1. `Targeting factor` targetingfactor
 1. `Targeting grace` targetinggrace
-1. `Many types of mods` zenith_[modname]
+1. `Mods` zenith_[modname]
 1. `Reverse mods` [modname]_reverse
 1. `Change between attacks` messiness_change
-1. `Change during attacks` messiness_inner
+1. `Change during attack` messiness_inner
 1. `related to garbage lines` garbagefavor
 1. `related to garbage lines` garbagephase
 
 ```js
     /*
-        代码来自2025.01.19的版本，估计是ts编译后的js所以有一定混淆，以下代码为修改过的伪代码，仅供思路参
         Source code from 2025.01.19 version, the js is estimated to be after ts edited so it will be confusing, 
         Floor count starts from floor 1, but lists start from 0 so the first element might need to be ignored
         integer frame is the curretn frame count, 60 frames = 1 second
@@ -617,7 +625,7 @@ If you want to search for variables, here are some of the integer names below:
         ) :
         (MOD_expert ? 66 - 6 * floor : 165 - 15 * floor);
 
-    // Some temporary decrease messiness systems that feel useless (executed when garbage is created, not permaenntly adjusted)
+    // Some temporary decrease messiness systems that feel useless (executed when garbage is created, not permanently adjusted)
     if (MOD_messy || gracestillmessy /*（“first fatigue effect of Expert+）*/) {
         temp_messiness_change -= .0375 * t.stats.zenith.targetinggrace;
         temp_messiness_inner -= .015 * t.stats.zenith.targetinggrace;
