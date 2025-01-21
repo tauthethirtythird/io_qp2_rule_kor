@@ -479,7 +479,7 @@ Fatigue system becomes even more strict:
 | 9 minutes | +25% attack received | YOUR CLOSEST ALLIES DEFECT… receive 25% more garbage |
 | 10 minutes | +5 permanent garbage | PARANOIA CLOUDS YOUR JUDGEMENT… +5 PERMANENT LINES |
 | 11 minutes | garbage becomes noticeably messier | THE REVOLUTION HAS BEGUN… garbage received becomes much messier |
-| 12 minutes | +12 pemranent garbage | THE END OF AN ERA. +12 PERMANENT LINES |
+| 12 minutes | +12 permanent garbage | THE END OF AN ERA. +12 PERMANENT LINES |
 
 After staying in the same floor for over 60 seconds, with every second you increase 0.5% probability of being attacked (for example 200 seconds after the effect starts all incoming attacks are doubled)
 
@@ -519,14 +519,13 @@ Lock delay table for the ten floors: 24, 22, 20, 18, 16, 15, 14, 13, 12, 11
 14 high playfield  
 Garbage hole positions have two nexts
 
-### Double Hole Garbage+ 
+### Double Hole Garbage+ (Damnation)
 
 The starting board state becomes 12-row checkerboard garbage lines    
 Garbage lines become messy garbage lines with 3~4 grey blocks randomly  
 Can't cancel garbage lines (though you also receive not much)
 
 ### Invisible+ (The Exile)
-(translation note: I think it should just be "Exile" but the original readme says "The Exile")
   
 On top the original basis of invisibility,   
 The board doesn't flash anymore  
@@ -571,7 +570,7 @@ If you want to search for variables, here are some of the integer names below:
 ```js
     /*
         代码来自2025.01.19的版本，估计是ts编译后的js所以有一定混淆，以下代码为修改过的伪代码，仅供思路参
-        translation note: work in progress for the first line, sorry
+        Source code from 2025.01.19 version, the js is estimated to be after ts edited so it will be confusing, 
         Floor count starts from floor 1, but lists start from 0 so the first element might need to be ignored
         integer frame is the curretn frame count, 60 frames = 1 second
         “MOD_” is a simplification, in the original code it's actually “this.S.setoptions.zenith_”
