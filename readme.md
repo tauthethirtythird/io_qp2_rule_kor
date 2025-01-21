@@ -580,7 +580,7 @@ If you want to search for variables, here are some integer names below:
     /*
         Source code from 2025.01.19 version, the js is estimated to be after ts edited so it will be confusing, 
         Floor count starts from floor 1, but lists start from 0 so the first element might need to be ignored
-        integer frame is the curretn frame count, 60 frames = 1 second
+        integer frame is the current frame count, 60 frames = 1 second
         “MOD_” is a simplification, in the original code it's actually “this.S.setoptions.zenith_”
     */
 
