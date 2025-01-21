@@ -464,7 +464,7 @@ Descent: Altitude decreases over time, although it gets blocked by each floor's 
 > rank and spm are only for reference, in reality cancelling doesn't count for spm so it can't be achieved, after the fifth-sixth floor you have to rely on 3-digit surge APM to continue climbing  ((translation note: SPM = sent per minute))
 > During gameplay descent looks like it has acceleration, but it's only a visual effect, in reality it's still even
 
-Fatigue system becomes even more strict:
+Fatigue system becomes even more harsh:
 
 | Time | Negative effect | Text description |
 | --- | --- | --- |
@@ -563,7 +563,7 @@ Increase garbage messiness
 | The Magician | no mini + penalize repeats | The Warlock | sudden death + non-spins count as Single + cheese start |
 | The Lovers | two players | | |
 
-## Some unsure if useful technological bonus content
+## Some unsure if useful technological bonus information
 
 If you want to search for variables, here are some integer names below:
 
