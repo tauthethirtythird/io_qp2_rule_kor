@@ -209,7 +209,7 @@ If `Targeting grace` has a value, every set amount of time (depending on floor, 
 
 If `Targeting grace` is in use, every fixed amount of time (via table above), 0.25 `Targeting grace` gets moved back to `Targeting factor`, which means the higher the floor, the more the system allows other players to attack through garbage.
 
-## Attack, All-spin, B2B
+## Attack, All-Spin, B2B
 
 Clearing 1, 2, 3 lines respectively send 0, 1, 2 attack
 
@@ -217,19 +217,20 @@ qp2 also has “0 combo single 一 +1 attack”, making clearing 1 line also hav
 
 > When Expert or buffed mods are enabled this +1 is removed
 
-Clearing 4 lines sends 4 attack, falls under `special clears`
+Clearing 4 lines sends 4 attack, falls under `special clears` (increases B2B count, used in `Surge attack`, see next chapter for details)
 
-This mode uses All-Mini spin rules, spin clears of every tetromino are `special clears`, they can increase B2B count (With only T being a regular spin if 3-corner rule is passed, if 3-corner rule isn't passed or if it's a non-T tetromino then as long as it's immobile then it counts as Mini, with same attack as regular line clears, clear 1/2/3 send 0/1/2)
+This mode uses All-Mini+ spin rules, a subtype of `All-Spin`, other than T every other tetromino's Spins also count as `special clears` ((translation note: original says All-Mini but there's an update so it should be All-Mini+))  
+Only T counts for a regular spin if it passes the 3-corner rule, with a base attack of `2*lines`, spins that don't fulfill 3-corner or non-T tetromino's that pass Immobile detection all count as Mini, with a base attack the same as normal clears, being `lines-1`
 
 All Clears send 3 attack, but also count as +2 B2B (calculated separate from spins) (slightly different from regular TL, TL sends 5 attack but +1 B2B)
 
-B2B starts counting from the second `special clear`, and adds an extra 1 attack sent
+Consecutive `special clears` starting from the second one start gathering B2B count, and adds +1 attack
 
-All attacks keep decimals in calculation, the decimals follow their value probability, for example 1.2 has a 20% chance to become 2, 80% chance to become 1)
+All attacks keep decimals in calculation, the decimals follow their value probability, for example 1.2 has a 20% chance to become 2, 80% chance to become 1 (Not sure if this rule is still in use)
 
 ### Surge Attack
 
-When B2B is broken a large attack is created, attack is B2B count -3, or the amount of consecutive special clears count -4 (slightly different in TL, no -3, however many B2B however many attack)
+When B2B is broken a large attack is created, attack is `B2B count -3`, (or the amount of consecutive special clears count -4) (slightly different in TL, however many B2B however many attack, no -3)
 
 > This is a very important system in qp, really needed in certain situations
 
@@ -249,7 +250,7 @@ Warning method: 1 second before receiving this attack ! and !! etc. animations w
 TETR.IO's garbage messiness system is decided by two numbers:  
 “every line in the same attack has an X% chance to not stay on the same column”, “different attacks have a Y% chance to not stay on the same column” 
 
-In TL X=0, Y=100%, which means the garbage lines in an attack are always on the same column, and different attacks are always on different columns  
+In TL X=0, Y=100%, which means the garbage lines in the same attack are always on the same column, and different attacks are always on different columns  
 But in qp2 these two numbers aren't as extreme, meaning you'll feel the position of garbage holes aren't that related to the attacks in queue.
 
 In detail, qp2's actual situation is Y=2.5*X, which means between received garbage attacks there's a higher chance (2.5 times) to be on a different column
@@ -288,9 +289,9 @@ To prevent a game from being too long, starting from 8 minutes every minute adds
 | --- | --- | --- |
 | 8 minutes | +2 permanent garbage | FATIGUE SETS IN… +2 PERMANENT LINES |
 | 9 minutes  | +25% attack received | YOUR BODY GROWS WEAK… receive 25% more garbage |
-| 10 minutes | +3 permanent garbage | ALL SENSES BLUR TOGETHER… +3 PERMANENT LINES |
+| 10 minutes | +3 permanent garbage (total 5) | ALL SENSES BLUR TOGETHER… +3 PERMANENT LINES |
 | 11 minutes | +25% attack received | YOUR CONSCIOUSNESS FADES… receive 25% more garbage |
-| 12 minutes | +5 permanent garbage | THIS IS THE END. +5 PERMANENT LINES |
+| 12 minutes | +5 permanent garbage (total 10) | THIS IS THE END. +5 PERMANENT LINES |
 
 > In the “Expert+” mod fatigue is changed, see later below for specifics
 
@@ -435,6 +436,11 @@ Grades F\~A correspond to a difficulty score of 1\~6, upon revival the difficult
 
 Every mod has a corresponding buffed mod (except for Duos), needing 30,000 meters climbed with the mod to unlock (activating multiple mods can accumulate for them at the same time)
 
+> If you want to unlock all buffed mods as quick as possible it's recommended to activate multiple at the same time, below is a reference strategy (if you can smoothly get a few f10 with all of the mods individually)  
+> `Gravity+Messy+Double Hole+AllSpin` activate these four and rely on allspin's fierce output, try not to let garbage lines enter, finish 30,000 meters. If you can use brainless Blitz mode looping and aren't afraid of `Invisible` you can bring it too, otherwise it later needs to be cleared by itself  
+> Afterwards activate `Invisible+Volatile` and `No Hold+Volatile`, notice try to tank more garbage then use Quad to dig to climb faster (because cancelling garbage lines has a worse result), at the same time try to calculate total efficiency with and without `Expert` (altitude/time, multiply by 2 with Expert) to decide whether or not to accumulate for Expert incidentally, if possible then bring it, otherwise later on it needs to be cleared by itself  
+> Last is `Expert+Volatile`, being individually played because this mod will substantially decrease climbing efficiency, and put last because it could already have some progress made at the start 
+
 All buffed mods can only be played solo, and cannot be stacked on other mods
 
 ### Expert+ (The Tyrant)
@@ -472,9 +478,9 @@ Fatigue system becomes even more harsh:
 | 7 minutes | +25% attack received | WHISPERS OF DISCONTENT SPREAD… receive 25% more garbage |
 | 8 minutes | +3 permanent garbage | PROTESTERS LINE THE STREETS… +3 PERMANENT LINES |
 | 9 minutes | +25% attack received | YOUR CLOSEST ALLIES DEFECT… receive 25% more garbage |
-| 10 minutes | +5 permanent garbage | PARANOIA CLOUDS YOUR JUDGEMENT… +5 PERMANENT LINES |
+| 10 minutes | +5 permanent garbage (total 8) | PARANOIA CLOUDS YOUR JUDGEMENT… +5 PERMANENT LINES |
 | 11 minutes | garbage becomes noticeably messier | THE REVOLUTION HAS BEGUN… garbage received becomes much messier |
-| 12 minutes | +12 permanent garbage | THE END OF AN ERA. +12 PERMANENT LINES |
+| 12 minutes | +12 permanent garbage (total 20) | THE END OF AN ERA. +12 PERMANENT LINES |
 
 After staying in the same floor for over 60 seconds, every second you permanently gain 0.5% multiplier of being attacked (for example 200 seconds after the effect starts all incoming attacks are doubled)
 
@@ -489,8 +495,9 @@ Base KO bonus altitude decreases from 15m to 8m
 On top the original basis of no hold,  
 1 piece preview  
 No piece shadow  
-Non 7-Bag (seems like purely random)  
-Garbage hole styles become 2-wide, slightly easier to dig
+Completely random generation (eyeballed, should be right though)  
+Spins all count as Mini (base attack of `lines-1`)  
+Garbage hole styles become 2-wide
 
 ### Messier Garbage+ (Loaded Dice)
 
