@@ -536,6 +536,7 @@ Garbage hole positions have two nexts
 The starting board state becomes 12-row checkerboard garbage lines    
 Garbage lines become messy garbage lines with 3~4 grey blocks randomly  
 Can't cancel garbage lines (though you also don't receive much)
+((translation note: garbage cap is reduced to 2 as well)
 
 ### Invisible+ (The Exile)
 
