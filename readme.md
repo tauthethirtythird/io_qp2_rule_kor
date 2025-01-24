@@ -35,13 +35,16 @@ The routes of gaining altitude and xp are listed below:
 
 | Action | Effect |
 | - | - |
-| Time | Every second 1m, but when you're 6m~1m below next floor, the speed of altitude gain over time evenly decreases from ×1 to ×0, needing line clears or KOs to reach the next floor |
+| Time | Every second 1m, but when you're 6m~1m below next floor, the speed of altitude gain over time evenly decreases from ×1 to ×0 |
 | KO | 15m ("Expert+" weakens to 8m) |
-| Sending attack | Every line of attack 1m and 1.05xp |
-| Cancelling garbage lines (Non-Expert) | 0.55xp |
-| Clearing lines (Non-Expert) | One line 1.05xp, two lines or above 2.05xp |
+| Sending attack | `lines`m and `lines+0.05`xp |
+| Cancelling garbage lines (Non-Expert) | `lines/2+0.05`xp |
+| Clearing lines (Non-Expert) | `min(lines,2)+0.05`xp |
 
 > Note that all altitude gain is impacted by your `rank`, technically the multiplier is `rank/4`, for example at the start `rank` is 1, multiplier is ×0.25, every 4 seconds gain 1m
+
+> When your distance to the next floor is under 2m, clearing lines can instantly +3m to proceed to the next floor, this rule only applies at
+ when gaining altitude, the newly increased altitude will first be stored into a temporary variable, every frame release 10%, at maximum 10m 
 
 The xp required to reach the next climb speed level is `4*rank`. once your xp meets the conditions your climb speed increases by one and your xp decreases by the amount that was previously required.  
 Once you have promoted to the next climb speed level, for 5 seconds xp will stop naturally decreasing (see xp loss chapter for details) to prevent instantly demoting right after.
@@ -50,12 +53,14 @@ There is also a `promotion fatigue` system: Every time you increase a climb spee
 
 ### Skipping levels
 
-Every time you increase a climb speed level, if the xp afterwards is enough to increase another climb speed level, then you gain an extra `xp/required xp` amount of climb speed level, and **xp is not removed**
+Every time you increase a climb speed level, if the xp afterwards is enough to increase another climb speed level, then you gain an extra `xp/required xp` amount of climb speed level, **and xp is not removed**  
+每次升级的瞬间，若还有大量剩余xp（发生在爆了大几十B2B产生巨量攻击时）仍然超过升级所需xp，则额外升 `xp/所需xp` 级，**且不扣除这些多余的xp**  
+The moment you promote a climb speed level, if there's still a large amount of remaining xp (occuring when several tens of large B2B attack is released) and is still over the amount to increase another climb speed level, thetn you gain an extra `xp/required xp` ranks, **and these extra xp are not removed**
 
 Which means this situation can happen:
 
     One frame - B2B breaks causing huge spike and XP increase
-    Next frame - Gain multiple climb speed levels 
+    Next frame - Promote + skip levels 
     Next frame - Can skip another climb speed level
 
 ### xp loss
@@ -161,13 +166,9 @@ The higher this value the likelier it is to be attacked, **with a starting value
 
 From additional observation, in most cases attacks are locked to players with similar altitude, specific calculations aren't clear
 
-### Gradual time increase (Caps at doubled past 7 minutes)
+### Temporary decrease if in danger
 
-When time hits 3/5/7 minutes, `Targeting factor` +1
-
-### Temporary decrease if in danger (No impact on messiness)
-
-Only in Non-Expert, check once every 0.25 seconds, if in danger (conditions not understood, probably when your board flashes red, shouldn't be off by a lot) `Targeting factor` temporarily decreases by 1.5, after leaving danger the 1.5 is added back
+Only in `easy modes`, check once every 0.25 seconds, if in danger (conditions not understood, probably when your board flashes red, shouldn't be off by a lot) `Targeting factor` temporarily decreases by 1.5, after leaving danger the 1.5 is added back
 
 ### Shift to Targeting grace (No impact on messiness)
 
@@ -179,7 +180,28 @@ The `Targeting grace` value (linear) will decrease garbage messiness, when fully
 
 If `Targeting grace` has a value, every set amount of time (depending on floor, see table below) 0.25 `Targeting grace` value is moved back to `Targeting factor`, meaning the higher the floor, the more the system allows others to attack with garbage lines rapidly.
 
-### Related tables
+### Gradual time increase (Caps at doubled past 7 minutes)
+
+When time hits 3/5/7 minutes, `Targeting factor` +1
+
+## Targeting grace
+
+There is a `Targeting grace` variable, when attacked, increase the same amount of value as lines received (【Volatile+】's 3x isn't calculated), until caps at **18**
+`Targeting grace`'s value decreases `garbage messiness`, although this system is blocked by these reasons: when time reaches 6 minutes in【Expert+】, 【Messier Garbage(+)】
+If `Targeting grace`>0, then it will decrease by 1 a bit of time after “last moment of being attacked”, and refresh “last moment of being attacked” as the current moment, release gaps are shown below:
+
+| Floor | Release every (seconds) | During【Expert+】|
+| :-: | :-: | :-: |
+| 1  | 4.8 | 1.0 |
+| 2  | 3.9 | 0.9 |
+| 3  | 2.1 | 0.8 |
+| 4  | 1.4 | 0.7 |
+| 5  | 1.3 | 0.6 |
+| 6  | 0.9 | 0.5 |
+| 7  | 0.6 | 0.4 |
+| 8  | 0.4 | 0.3 |
+| 9  | 0.3 | 0.2 |
+| 10 | 0.2 | 0.1 |
 
 `Targeting factor` alongside time/when rapidly filled/change when in danger:
 
@@ -190,32 +212,13 @@ If `Targeting grace` has a value, every set amount of time (depending on floor, 
 | 5~6 minutes | 5 | -66% | -60% |
 | past 7 minutes | 6 | -50% | -25% |
 
-`Targeting factor` release gaps:
-
-| Floor | Release every (seconds) | Highest consistent received APM |
-| :-: | :-: | :-: |
-| 1  | 4.8 | 12.5 |
-| 2  | 3.9 | 15.4 |
-| 3  | 2.1 | 28.6 |
-| 4  | 1.4 | 42.9 |
-| 5  | 1.3 | 46.1 |
-| 6  | 0.9 | 66.7 |
-| 7  | 0.6 | 100 |
-| 8  | 0.4 | 150 |
-| 9  | 0.3 | 200 |
-| 10 | 0.2 | 300 |
-
-> Notice `highest consistent received APM` above isn't a real statistic, therefore it can't be compared with regular APM, and has low reference value
-
 If `Targeting grace` is in use, every fixed amount of time (via table above), 0.25 `Targeting grace` gets moved back to `Targeting factor`, which means the higher the floor, the more the system allows other players to attack through garbage.
 
 ## Attack, All-Spin, B2B
 
 Clearing 1, 2, 3 lines respectively send 0, 1, 2 attack
 
-qp2 also has “0 combo single 一 +1 attack”, making clearing 1 line also have 1 attack efficiency, can be considered under specific circumstances
-
-> When Expert or buffed mods are enabled this +1 is removed
+Limited to `easy modes`: “0 combo single 一 +1 attack”, making clearing 1 line also have 1 attack efficiency, can be considered under specific circumstances
 
 Clearing 4 lines sends 4 attack, falls under `special clears` (increases B2B count, used in `Surge attack`, see next chapter for details)
 
@@ -240,12 +243,12 @@ If a single attack with 8 or more lines is received (excluding Surge Attack), th
 
 > This trigger scenario is very likely inaccurate, needs research
 
-Split method: Split the attack into several groups of 4 and the remaining portion (if Volatile mod is active then split into 8)
+Split method: Split the attack into several groups of 4 and the remaining portion (during【Volatile】changes to 8)
 
 Warning method: 1 second before receiving this attack ! and !! etc. animations with sound are played, the warning corresponds to the amount of parts the attack is split into (for example Windup 4 corresponds to 4+4+4+n, aka 13~16 attack)  
 1 second later the attacks start entering the garbage queue, each split is separated by 0.5s
 
-## Garbage hole positions
+## Garbage messiness
 
 TETR.IO's garbage messiness system is decided by two numbers:  
 “every line in the same attack has an X% chance to not stay on the same column”, “different attacks have a Y% chance to not stay on the same column” 
@@ -253,33 +256,44 @@ TETR.IO's garbage messiness system is decided by two numbers:
 In TL X=0, Y=100%, which means the garbage lines in the same attack are always on the same column, and different attacks are always on different columns  
 But in qp2 these two numbers aren't as extreme, meaning you'll feel the position of garbage holes aren't that related to the attacks in queue.
 
-In detail, qp2's actual situation is Y=2.5*X, which means between received garbage attacks there's a higher chance (2.5 times) to be on a different column
+In qp2 the situation is Y=2.5*X, which means between received garbage attacks there's a higher chance (2.5 times) to be on a different column
 
-`Expert` and `Messier Garbage` mods and `Expert+`'s fatigue effect all increase garbage messiness
-`Targeting grace` value decreases garbage messiness, see attack target chapter for more detail
+The so called X in this page is `Garbage messiness`, which can be affected by various factors, specific changes shown below: 
 
-> Note: The integer names in the code are messiness_change and messiness_inner
+| Element | Impact value |
+| :-: | :-: |
+| Floor | `Floor*3%`, in 【Expert(+)】`Floor*5%` |
+| 【Expert(+)】 | +Floor*2% |
+| 【Messy(+)】 | +25% (100%) |
+| 【All-Spin+】 | +30% |
+| 【Expert+】's 6 minute Fatigue `Full scatter` effect | =100% (calculations above can surpass 100%, this effect overwrites) |
+| `Targeting grace` (calculated when finally spawns) | every point of `Targeting grace` decreases Y by 3.75%, X by 1.5% |
+
+> When `Targeting grace` hits 18 points, Y is decreased by 67.5%, X by 27%  
+> 真的没写反，这里挺奇怪的，可能需要拉个表格观察一下各种因素导致的混乱度变化  
+> Genuinely didn't write out of order, quite strange here, ((translation work in progress sorry))  
+> 吃了`全散`效果后两个值都被设为100%时反而在间断处更容易在同一列，很神奇  
+> After receiving the `Full scatter` effect when both values are overwritten to 100%, ((work in progress))
 
 ## Garbage waiting time
 
 When attacked, garbage lines will wait in queue before being activated: starting as transparent yellow, then transparent red, at last opaque red, of which if a piece is placed without clearing lines garbage enters through the board  
 This waiting time is dependent on the floor and if Expert is enabled or not, for specific values see below:
 
-| Floor |  Non-Expert  |   Expert   |
-| :-: | :----------: | :---------: |
-|  1  | 2.50s (150f) | 1.1s (66f) |
-|  2  | 2.25s (135f) | 1.0s (60f) |
-|  3  | 2.00s (120f) | 0.9s (54f) |
-|  4  | 1.75s (105f) | 0.8s (48f) |
-|  5  | 1.50s (90f)  | 0.7s (42f) |
-|  6  | 1.25s (75f)  | 0.6s (36f) |
-|  7  | 1.00s (60f)  | 0.5s (30f) |
-|  8  | 0.75s (45f)  | 0.4s (24f) |
-|  9  | 0.50s (30f)  | 0.3s (18f) |
-| 10  | 0.25s (15f)  | 0.2s (12f) |
+| Floor |  Regular (Non-Expert)   |  【Expert(+)】   | 【Messy+】【Volatile+】【Double Hole+】 | Other【Mods+】 |
+| :-: | :----------: | :---------: | :----: | :-----: |
+|  1  | 2.50s (150f) | 1.1s (66f) | Same as regular Floor 6 | Same as regular Floor 6 |
+|  2  | 2.25s (135f) | 1.0s (60f) | Same as regular Floor 6 | Same as regular Floor 6 |
+|  3  | 2.00s (120f) | 0.9s (54f) | Same as regular Floor 6 | Same as regular Floor 6 |
+|  4  | 1.75s (105f) | 0.8s (48f) | Same as regular Floor 6 | Same as regular Floor 6 |
+|  5  | 1.50s (90f)  | 0.7s (42f) | Same as regular Floor 6 | Same as regular Floor 6 |
+|  6  | 1.25s (75f)  | 0.6s (36f) | Same as regular Floor 6 | Same as regular Floor 6 |
+|  7  | 1.00s (60f)  | 0.5s (30f) | Same as regular Floor 6 | Same as regular Floor `7` |
+|  8  | 0.75s (45f)  | 0.4s (24f) | Same as regular Floor 6 | Same as regular Floor `8` |
+|  9  | 0.50s (30f)  | 0.3s (18f) | Same as regular Floor 6 | Same as regular Floor `9` |
+| 10  | 0.25s (15f)  | 0.2s (12f) | Same as regular Floor 6 | Same as regular Floor `10` |
 
-> Note 1: Because garbage has to switch two times to be activated, in reality the waiting time is twice of what's shown above.  
-> Note 2: The integer name in the code is garbagephase
+> Note: Because garbage has to switch two times to be activated, in reality the waiting time is twice of what's shown above.  
 
 ## Fatigue
 
@@ -293,20 +307,24 @@ To prevent a game from being too long, starting from 8 minutes every minute adds
 | 11 minutes | +25% attack received | YOUR CONSCIOUSNESS FADES… receive 25% more garbage |
 | 12 minutes | +5 permanent garbage (total 10) | THIS IS THE END. +5 PERMANENT LINES |
 
-> In the “Expert+” mod fatigue is changed, see later below for specifics
+> In【Expert+】fatigue effects are different, see later below for specifics
 
 ## Mods
+
+This page defines not activating Expert Mod or any Mod+ as `Easy modes`  
+All mods in this page are noted with【XX】format
 
 Mods are ways you can increase the difficulty before starting a run, with basically only downsides and no upsides, but activating mods (or specific mod combinations) and reaching certain altitudes can grant achievements
 
 There are a total of 9 mods, each corresponding with a special effect that can be individually toggled, with the setting having them as Tarot Cards, a description will be written after the mod name below, there will also be a table for convenience at the end of the chapter
 
+((translation note: in the original readme "Garbage" in the names of "Messier Garbage, Volatile Garbage, Double Hole Garbage" are omitted but to reflect more accurately to that of in-game I'll temporarily keep them))
 ### Expert (The Emperor)
 
 Each aspect gets slightly harder:
 
-1. Garbage enters instantaneously, rather than consecutively going up line by line
-1. Garbage messiness is increased
+1. `Garbage messiness` is increased
+1. Rising garbage animation is removed, instead spawns instantaneously (same as TL)
 1. Removes system of decreasing `targeting factor` when in danger
 
 ### No Hold (Temperance)
@@ -315,12 +333,12 @@ Disables holding
 
 ### Messier Garbage (Wheel of Fortune)
 
-Garbage messiness noticeably increases
+`Garbage messiness` increases
 
 ### Gravity (The Tower)
 
 Gravity noticeably increases  
-Lock delay table for the ten floors: 30, 29, 28, 27, 26, 24, 22, 20, 18, 16
+Lock delay table for the ten floors (unit frames): 30, 29, 28, 27, 26, 24, 22, 20, 18, 16
 
 ### Volatile Garbage (Strength)
 
@@ -436,18 +454,24 @@ Grades F\~A correspond to a difficulty score of 1\~6, upon revival the difficult
 
 Every mod has a corresponding buffed mod (except for Duos), needing 30,000 meters climbed with the mod to unlock (activating multiple mods can accumulate for them at the same time)
 
-> If you want to unlock all buffed mods as quick as possible it's recommended to activate multiple at the same time, below is a reference strategy (if you can smoothly get a few f10 with all of the mods individually)  
-> `Gravity+Messy+Double Hole+AllSpin` activate these four and rely on allspin's fierce output, try not to let garbage lines enter, finish 30,000 meters. If you can use brainless Blitz mode looping and aren't afraid of `Invisible` you can bring it too, otherwise it later needs to be cleared by itself  
-> Afterwards activate `Invisible+Volatile` and `No Hold+Volatile`, notice try to tank more garbage then use Quad to dig to climb faster (because cancelling garbage lines has a worse result), at the same time try to calculate total efficiency with and without `Expert` (altitude/time, multiply by 2 with Expert) to decide whether or not to accumulate for Expert incidentally, if possible then bring it, otherwise later on it needs to be cleared by itself  
-> Last is `Expert+Volatile`, being individually played because this mod will substantially decrease climbing efficiency, and put last because it could already have some progress made at the start 
+    If you want to unlock all buffed mods as quick as possible it's recommended to activate multiple at the same time, below is a reference strategy (if you can smoothly get a few f10 with all of the mods individually)  
+    `【Gravity】+【Messy】+【Double Hole】+【AllSpin】` activate these four and rely on allspin's fierce output, try not to let garbage lines enter, finish 30,000 meters. If you can use brainless Blitz mode looping and aren't afraid of `【Invisible】` you can bring it too, otherwise it 
+    later needs to be cleared by itself  
+    Afterwards activate `【Invisible】+【Volatile】` and `【No Hold】+【Volatile】`, notice try to tank more garbage then use Quad to dig to climb faster (because cancelling garbage lines has a worse result), at the same time try to calculate total efficiency with and without `Expert` 
+    (altitude/time, multiply by 2 with Expert) to decide whether or not to accumulate for Expert incidentally, if possible then bring it, otherwise later on it needs to be cleared by itself  
+    Last is `【Expert】+【Volatile】`, being individually played because this mod will substantially decrease climbing efficiency, and put last because it could already have some progress made at the start 
 
+Introduction to effects that will appear later:
+
+1. `Starting protection`: Only in Mods with garbage lines at the start, when cleaning the last 5 garbage lines on the board, every line will increase `Targeting factor` by 0.5, total of 2.5 (Mods with this condition are estimated to have this starting value lowered, and then uses this type of method to progressively return to normal)
+   
 All buffed mods can only be played solo, and cannot be stacked on other mods
 
 ### Expert+ (The Tyrant)
 
 > Fear, oppression, and limitless ambition.
 
-On top the original basis of clearing lines and cancelling lines not increasing climb speed xp,
+On top of the original many limits,
 
 Climb speed no longer gains altitude over time, sending attack and KOs are required to receive height
 
@@ -474,17 +498,17 @@ Fatigue system becomes even more harsh:
 
 | Time | Negative effect | Text description |
 | --- | --- | --- |
-| 6 minutes | garbage becomes messier | YOUR POWER SLIPS… garbage received becomes messier |
+| 6 minutes | garbage becomes messier (disables `Targeting grace` effect) | YOUR POWER SLIPS… garbage received becomes messier |
 | 7 minutes | +25% attack received | WHISPERS OF DISCONTENT SPREAD… receive 25% more garbage |
 | 8 minutes | +3 permanent garbage | PROTESTERS LINE THE STREETS… +3 PERMANENT LINES |
 | 9 minutes | +25% attack received | YOUR CLOSEST ALLIES DEFECT… receive 25% more garbage |
 | 10 minutes | +5 permanent garbage (total 8) | PARANOIA CLOUDS YOUR JUDGEMENT… +5 PERMANENT LINES |
-| 11 minutes | garbage becomes noticeably messier | THE REVOLUTION HAS BEGUN… garbage received becomes much messier |
+| 11 minutes | garbage becomes noticeably messier (receive `full scatter` effect) | THE REVOLUTION HAS BEGUN… garbage received becomes much messier |
 | 12 minutes | +12 permanent garbage (total 20) | THE END OF AN ERA. +12 PERMANENT LINES |
 
 After staying in the same floor for over 60 seconds, every second you permanently gain 0.5% multiplier of being attacked (for example 200 seconds after the effect starts all incoming attacks are doubled)
 
-`Targeting grace` storage is no longer the fixed 3, but rather changes based on the floor, being 1 for the first floor, and decreasing by 0.1 for every next floor
+`Targeting grace` releases faster (see `Targeting grace` related chapter for specifics)
 
 Base KO bonus altitude decreases from 15m to 8m
 
@@ -503,7 +527,7 @@ Garbage hole styles become 2-wide
 
 > In a rigged game, your mind is the only fair advantage.
 
-On top the original basis of garbage being messier,  
+`Garbage messiness` increased 
 Line clear delay increases from 0 to 1 second ((translation note: it seems like it's actually 1.15s))  
 The starting board state becomes a fixed pattern of six circles:
 
@@ -513,6 +537,8 @@ The starting board state becomes a fixed pattern of six circles:
     .XXX..XXX.
     ..........
     Three layers, doesn't touch the walls, looks like Mahjong's six dots
+
+has `Starting protection`
 
 ### Gravity (Freefall)
 
@@ -525,9 +551,10 @@ Lock delay table for the ten floors: 24, 22, 20, 18, 16, 15, 14, 13, 12, 11
 
 > Strength isn't necessary for those with nothing to lose.
 
-3x attack received (no 3x cancelling)  
+Received attack multiplier becomes 3x (notice: cancelling multiplier isn't changed)
 14 high playfield  
-Garbage hole positions have two nexts
+Garbage hole positions have two warnings  
+garbagefavor's value is locked to 50 (detailed calculations aren't known, garbage being extra clean is probably due to this)
 
 ### Double Hole Garbage+ (Damnation)
 
@@ -535,8 +562,9 @@ Garbage hole positions have two nexts
 
 The starting board state becomes 12-row checkerboard garbage lines    
 Garbage lines become messy garbage lines with 3~4 grey blocks randomly  
-Can't cancel garbage lines (though you also don't receive much)
-((translation note: garbage cap is reduced to 2 as well)
+Can't cancel garbage lines (though you also don't receive much)  
+has `Starting protection`  
+((translation note: garbage cap is reduced to 2 as well, and apparently incoming garbage isx0.5))
 
 ### Invisible+ (The Exile)
 
@@ -545,7 +573,7 @@ Can't cancel garbage lines (though you also don't receive much)
 On top the original basis of invisibility,   
 The board doesn't flash anymore  
 Only the top three garbage lines are visible  
-Receive 3 lines of cheese garbage at the start by the system
+Receive 3 lines of garbage at the start by the system
 
 ### All-Spin+ (The Warlock)
 
@@ -554,8 +582,9 @@ Receive 3 lines of cheese garbage at the start by the system
 On top the original basis of consecutive clear penalties,    
 Penalties become 20 lines of filled garbage (instant death) ((translation note: it is technically survivable but really hard because the piece spawns at rows 22-23))  
 At the same time non-spin line clears are all viewed as Single (clearing 2 lines then clearing 4 lines, counts as two Singles, death)  
-Receive 10 lines of cheese garbage at the start by the system  
-Increase garbage messiness
+Receive 10 lines of garbage at the start by the system  
+`Garbage messiness` increased
+has `Starting protection`
 
 ## Tarot Card basic summary
 
@@ -571,6 +600,11 @@ Increase garbage messiness
 | The Magician | no mini + penalize repeats | The Warlock | sudden death + non-spins count as Single + cheese start |
 | The Lovers | two players | | |
 
+## Extra notes
+
+In all fatigue systems `+X% received attack` will be correspondingly increased to 2 (3) times due to 【Volatile(+)】, which is similar to multiplication  
+((work in progress))
+
 ## Some unsure if useful technological bonus information
 
 If you want to search for variables, here are some integer names below:
@@ -581,15 +615,15 @@ If you want to search for variables, here are some integer names below:
 1. `Reverse mods` [modname]_reverse
 1. `Change between attacks` messiness_change
 1. `Change during attack` messiness_inner
-1. `related to garbage lines` garbagefavor
-1. `related to garbage lines` garbagephase
+1. `garbage lines' ???` garbagefavor
+1. `garbage waiting time` garbagephase
 
 ```js
     /*
-        Source code from 2025.01.19 version, the js is estimated to be after ts edited so it will be confusing, 
-        Floor count starts from floor 1, but lists start from 0 so the first element might need to be ignored
-        integer frame is the current frame count, 60 frames = 1 second
-        “MOD_” is a simplification, in the original code it's actually “this.S.setoptions.zenith_”
+        Source code is from 2025.01.19 veresion, estimated to be the js after ts edited so it's definitely confusing, the code below is reference code modified from the source
+        Deleted some unnecessary (嗯嗯嗯 欸嘿) content, added various descriptions
+        “MOD_” is a simplification for convenience when reading, in the original code it's “this.S.setoptions.zenith_”,
+        or “"xxxxxx_reversed" === this.S.setoptions.zenith_mods[0]”
     */
 
     // Some common tables
@@ -597,7 +631,8 @@ If you want to search for variables, here are some integer names below:
     GravityBumps = [0, .48, .3, .3, .3, .3, .3, .3, .3, .3, .3];
     GravLockDelay = [0, 30, 29, 28, 27, 26, 24, 22, 20, 18, 16];
     GravRevLockDelay = [0, 24, 22, 20, 18, 16, 15, 14, 13, 12, 11];
-    SpeedrunReq = [7, 8, 8, 9, 9, 10, 0, 0, 0, 0, 0];
+    SpeedrunReq = [7, 8, 8, 9, 9, 10, 0, 0, 0, 0, 0]; // First element is the minimum rank to not exit
+    TargetingGrace = [0, 4.8, 3.9, 2.1, 1.4, 1.3, .9, .6, .4, .3, .2];
     TargetingGraceRevEx = [0, 1, .9, .8, .7, .6, .5, .4, .3, .2, .1];
     RevNoHoldHoleSideChangeChance = [.1, .1, .15, .2, .25, .3, .35, .4, .45, .5, .55];
     GetSpeedCap(frame) {
@@ -605,47 +640,143 @@ If you want to search for variables, here are some integer names below:
         return Math.max(0, Math.min(1, t / 5 - .2))
     }
 
-    // Release targeting grace
-    const cooldownDuration = 60 * se.TargetingGrace[floor];
-    if (this.S.stats.zenith.targetinggrace > 0 && frame >= this.S.lastatktime + cooldownDuration) {
-        if (this.S.stats.zenith.targetinggrace >= 3) {
-            this.S.setoptions.receivemultiplier += MOD_volatile ? 0.5 : 0.25;
+    // Main loop
+    Loop() {
+        const frame = this.self.esm.frame;
+        let rank = Math.floor(this.S.stats.zenith.rank);
+        const height0 = this.S.stats.zenith.altitude; // 记录用于卡楼层的高度 ((wip))
+
+        // xp loss
+        if (frame >= this.S.zenith.rank_locked_until) {
+            let leakSpeed = ...; // Solo: Normal3 Expert5  Duos:3+players with expert
+            this.S.zenith.climb_pts -= leakSpeed * (rank ** 2 + rank) / 3600 // climb_pts is current xp
         }
-        this.S.stats.zenith.targetingfactor += 0.25;
-        this.S.stats.zenith.targetinggrace -= 0.25;
-        this.S.lastatktime = frame;
-    }
 
-    // Some parameter calculations related to garbage
-    const expertBonus = MOD_expert ? 0.05 : 0.03;
-    const messyBonus = 0;
-    if (MOD_messy_rev) messyBonus = 1;
-    else if (MOD_messy) messyBonus = .25;
-    if (MOD_allspin_rev) messyBonus += .3;
-    this.S.setoptions.messiness_change = 2.5 * (expertBonus + messyBonus);
-    this.S.setoptions.messiness_inner = expertBonus + messyBonus;
-    this.S.setoptions.garbagefavor = MOD_volatile_rev ? 50 :
-        (MOD_expert ? 0 : 33) - 3 * floor - (MOD_messy ? 25 : 0);
-    this.S.setoptions.garbagephase =
-        MOD_any_rev && !MOD_expert_rev ? (
-            (MOD_messy_rev || MOD_volatile_rev || MOD_doublehole_rev) ? 75 :
-            [75,75,75,75,75,75,75,60,45,30,15][floor]
-        ) :
-        (MOD_expert ? 66 - 6 * floor : 165 - 15 * floor);
+        const nextRankXP = 4 * rank;
+        const storedXP = 4 * (rank - 1);
+        if (this.S.zenith.climb_pts < 0)
+            // Demotion
+            if (rank <= 1)
+                // won't fall to under rank 0
+                this.S.zenith.climb_pts = 0;
+            else {
+                // 恢复计算总xp ((wip))
+                this.S.zenith.climb_pts += storedXP;
+                this.S.zenith.last_rank_change_was_promote = false;
+                rank--;
+            }
+        else if (this.S.zenith.climb_pts >= nextRankXP) 
+            // 清空xp升1级
+            this.S.zenith.climb_pts -= nextRankXP; 
+            this.S.zenith.last_rank_change_was_promote = true;
+            this.S.zenith.rank_locked_until = frame + Math.max(60, 60 * (5 - this.S.zenith.promotion_fatigue));
+            this.S.zenith.promotion_fatigue++;
+            rank++;
+        }
 
-    // Some temporary decrease messiness systems that feel useless (executed when garbage is created, not permanently adjusted)
-    if (MOD_messy || gracestillmessy /*（“first fatigue effect of Expert+）*/) {
-        temp_messiness_change -= .0375 * t.stats.zenith.targetinggrace;
-        temp_messiness_inner -= .015 * t.stats.zenith.targetinggrace;
-        // never falls under 0, for convenience =max(0,x) is omitted
-    }
+        // xp在5秒内不自然流失效果 ((wip))
+        if (this.S.zenith.last_rank_change_was_promote && this.S.zenith.climb_pts >= 2 * (rank - 1))
+            this.S.zenith.promotion_fatigue = 0;
 
-    // Don't know what apm_cycle is
-    if (this.S.TEMP_zenith_apm_cycle) {
-        this.S.TEMP_zenith_apm_cycle += this.S.TEMP_zenith_apm / 3600 / 2.5 * (.75 + .5 * this.S.rngex.nextFloat())
-        if (this.S.TEMP_zenith_apm_cycle >= 1) {
-            this.S.TEMP_zenith_apm_cycle--;
-            this.self.atm.FightLines(this.S.rngex.nextFloat() >= .5 ? 4 : 1)
+        // 跳级！如果升级后还有大量剩余的话 ((wip))
+        this.S.stats.zenith.rank = rank + this.S.zenith.climb_pts / (4 * rank);
+
+        // Some statistics
+        this.S.stats.zenith.peakrank = Math.max(this.S.stats.zenith.rank, this.S.stats.zenith.peakrank);
+        this.S.stats.zenith.avgrankpts += this.S.stats.zenith.rank;
+
+        const o = this.S.stats.zenith.altitude;
+        const floor = me.GetFloorLevel(o);
+
+        if (MOD_expertRev) {
+            // 【Expert+】's downfalling
+            this.S.stats.zenith.altitude = Math.max(me.FloorDistance[floor - 1], o - .05 * (floor ** 2 + floor + 10) / 60);
+        } else {
+            // Climb Speed gaining altitude over time
+            this.S.stats.zenith.altitude += .25 * rank / 60 * me.GetSpeedCap(o);
+        }
+
+        // Linear altitude change
+        if (this.S.zenith.bonusremaining > 0)
+            if (this.S.zenith.bonusremaining <= .05) {
+                this.S.stats.zenith.altitude += this.S.zenith.bonusremaining;
+                this.S.zenith.bonusremaining = 0;
+            }
+            else {
+                const delta = Math.min(10, .1 * this.S.zenith.bonusremaining);
+                this.S.stats.zenith.altitude += delta;
+                this.S.zenith.bonusremaining -= delta;
+            }
+
+        // 不让用“推进器随时间爬升”途径上楼 ((wip))
+        this.S.setoptions.zenith_tutorial && this.S.stats.zenith.altitude >= 50 &&
+        this.S.zenith.tutorial.stage > 0 && this.S.zenith.tutorial.stage < 5 && (
+            this.S.stats.zenith.altitude = Math.min(49.99, height0);
+            this.S.zenith.bonusremaining = 0;
+        )
+
+        // 【Gravity(+)】
+        floor !== this.S.stats.zenith.floor && (
+            MOD_gravity ? (this.S.g += me.GravityBumps[floor], this.S.setoptions.locktime = me.GLockDelay[floor]) : MOD_gravityRev && (this.S.g = 20, this.S.setoptions.locktime = me.GRLockDelay[floor]), this.S.zenith.lastfloorchange = frame, 1 === floor ? this.S.glock = 240 : this.S.stats.zenith.splits[floor - 2] = Math.round(this.self.lm.GetGameTime())
+        )
+        this.S.stats.zenith.floor = floor
+
+        // 【Expert+】's overtime penalty
+        if (MOD_expertRev && frame - this.S.zenith.lastfloorchange > 3600)
+            this.S.setoptions.receivemultiplier += .005 / 60;
+
+        // Don't know what this is
+        if (this.S.TEMP_zenith_apm_cycle) {
+            if (this.S.TEMP_zenith_apm_cycle += this.S.TEMP_zenith_apm / 3600 / 2.5 * (.75 + .5 * this.S.rngex.nextFloat()), this.S.TEMP_zenith_apm_cycle >= 1) {
+                this.S.TEMP_zenith_apm_cycle--;
+                this.self.atm.FightLines(this.S.rngex.nextFloat() >= .5 ? 4 : 1);
+            }
+        }
+
+        // Some systems' instant death, estimated to be used for【All-Spin+】
+        if (this.self.atm.GetPendingGarbageCount() >= this.S.TEMP_zenith_instakill_at)
+            this.self.gom.GameOver("garbagesmash");
+
+        // Targeting factor increase on 3/5/7 minutes
+        if (frame===10800 || frame===18000 || frame===25200)
+            this.S.stats.zenith.targetingfactor++;
+
+        // Release targeting grace
+        let r = 60 * (MOD_expertRev ? TargetingGrace : TargetingGraceRevEx)[floor];
+        if (this.S.stats.zenith.targetinggrace > 0 && frame >= this.S.lastatktime + r) {
+            this.S.stats.zenith.targetinggrace--;
+            this.S.lastatktime = frame;
+        }
+
+        // 刷新混乱度
+        const messy = (MOD_expert ? .05 : .03) * floor;
+        if (MOD_messy) messy += .25;
+        if (MOD_messyRev) messy += 1;
+        if (MOD_allspinRev) messy += .3;
+        this.S.setoptions.messiness_inner = messy;
+        this.S.setoptions.messiness_change = 2.5 * messy;
+        if (this.S.zenith.maxmessy) {
+            this.S.setoptions.messiness_change = 1;
+            this.S.setoptions.messiness_inner = 1;
+        }
+
+        // Garbage favor??? Temporarily don't know how this is specifically used
+        this.S.setoptions.garbagefavor = MOD_volatileRev ? 50 : (MOD_expert ? 0 : 33) - 3 * floor - (MOD_messy ? 25 : 0);
+
+        // Garbage waiting time
+        this.S.setoptions.garbagephase = MOD_expert ? 66 - 6 * floor : 165 - 15 * floor;
+        if (MOD_anyRev && !MOD_expert)
+            this.S.setoptions.garbagephase = (MOD_messyRev || MOD_volatileRev || MOD_doubleholeRev) ? 75 : [75, 75, 75, 75, 75, 75, 75, 60, 45, 30, 15][floor];
+
+        // 随着消除垃圾行逐渐关闭开局保护 ((wip))
+        if (frame % 15 == 0 && (MOD_messyRev || MOD_doubleholeRev || MOD_allspinRev)) {
+            const line = this.self.bm.CountGarbageLinesNoPerma();
+            if (line !== this.S.zenith.garbagerowcount) {
+                const t = Math.max(0, 2.5 - .5 * this.S.zenith.garbagerowcount);
+                const n = Math.max(0, 2.5 - .5 * line);
+                this.S.stats.zenith.targetingfactor += n - t;
+                this.S.zenith.garbagerowcount = line;
+            }
         }
     }
 ```
