@@ -692,7 +692,7 @@ If you want to search for variables, here are some integer names below:
             // 【Expert+】's descent
             this.S.stats.zenith.altitude = Math.max(me.FloorDistance[floor - 1], o - .05 * (floor ** 2 + floor + 10) / 60);
         } else {
-            // Climb speed gaining altitude over time
+            // Climb Speed gaining altitude over time
             this.S.stats.zenith.altitude += .25 * rank / 60 * me.GetSpeedCap(o);
         }
 
