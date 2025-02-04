@@ -162,7 +162,7 @@ When time hits 3/5/7 minutes, `Targeting Factor` +1
 
 ## Targeting grace
 
-There is a `Targeting Grace` variable, when attacked, increase the same amount of value as lines received (【Volatile+】's 3x isn't calculated), until capping at **18**  
+There is a `Targeting Grace` variable, when attacked, increase the same amount of value as lines received (【Volatile Garbage+】's 3x isn't calculated), until capping at **18**  
 `Targeting Grace`'s value decreases `garbage messiness`, although this system is blocked by these reasons: when time reaches 6 minutes in【Expert+】, 【Messier Garbage(+)】  
 If `Targeting Grace`>0, then it will decrease by 1 a bit of time after “last moment of being attacked”, and refresh “last moment of being attacked” as the current moment, release gaps are shown below:
 
@@ -212,7 +212,7 @@ Warning method: When receiving this type of attack start playing warning animati
 The amount of sound effects corresponds to the amount of groups the current round's attack split into (for example 3 sounds corresponds to 4+4+n, or 9~12 attack)  
 1 second later the attacks start entering the garbage queue, each split is separated by 0.5s
 
-If 【Volatile】 is activated, values above related to attack are all multiplied (seems like so, individual circumstances will ±1) ((translation note: I have no idea what inside the parentheses means, sorry if it's unclear.))
+If 【Volatile Garbage】 is activated, values above related to attack are all multiplied (seems like so, individual circumstances will ±1) ((translation note: I have no idea what inside the parentheses means, sorry if it's unclear.))
 
 ## Garbage messiness
 
@@ -232,7 +232,7 @@ The `garbage messiness` in this page is exactly this X, which can be affected by
 | :-: | :-: |
 | Floor | `Floor*3%`, in 【Expert(+)】`Floor*5%` |
 | 【Expert(+)】 | +Floor*2% |
-| 【Messy(+)】 | +25% (100%) |
+| 【Messier Garbage(+)】 | +25% (100%) |
 | 【All-Spin+】 | +30% |
 | 【Expert+】's 6 minute Fatigue `full scatter` effect | =100% (calculations above can surpass 100%, this effect overwrites) |
 | `Targeting Grace` (calculated when finally spawns) | every point of `Targeting Grace` decreases Y by 3.75%, X by 1.5% |
@@ -250,10 +250,10 @@ In qp2, this value's formula is `33-floor*3`
 
 When activating 【Expert(+)】, this value -33, which means evenly random at the start  
 When activating 【Messier Garbage(+)】, this value -25  
-When activating 【Volatile+】, this value is locked to 50 for the entire run
+When activating 【Volatile Garbage+】, this value is locked to 50 for the entire run
 
 > The worst condition is Floor 10【Expert】【Messier Garbage】's -55 ((translation note: I assume it means when both mods are enabled rather than either one))  
-> The easiest is 【Volatile+】's 50
+> The easiest is 【Volatile Garbage+】's 50
 
 Specific garbage hole position choosing process:
 1. Calculate every columns' `dig easiness`
@@ -448,11 +448,11 @@ Grades F\~A correspond to a difficulty score of 1\~6, upon revival the difficult
 Every mod has a corresponding buffed mod (except for 【Duo】), needing 30,000 meters climbed with the mod to unlock (activating multiple mods can accumulate for them at the same time)
 
     If you want to unlock all buffed mods as quick as possible it's recommended to activate multiple at the same time, below is a reference strategy (if you can smoothly get a few f10 with all of the mods individually)  
-    `【Gravity】+【Messy】+【Double Hole】+【All-Spin】` activate these four and rely on All-Spin's fierce output, try not to let garbage lines enter, finish 30,000 meters. If you can use brainless Blitz mode looping and aren't afraid of `【Invisible】` you can bring it too, otherwise it 
+    `【Gravity】+【Messier Garbage】+【Double Hole Garbage】+【All-Spin】` activate these four and rely on All-Spin's fierce output, try not to let garbage lines enter, finish 30,000 meters. If you can use brainless Blitz mode looping and aren't afraid of `【Invisible】` you can bring it too, otherwise it 
     later needs to be cleared by itself  
-    Afterwards activate `【Invisible】+【Volatile】` and `【No Hold】+【Volatile】`, notice try to tank more garbage then use Quad to dig to climb faster (because cancelling garbage lines has a worse result), at the same time try to calculate total efficiency with and without `Expert` 
+    Afterwards activate `【Invisible】+【Volatile Garbage】` and `【No Hold】+【Volatile Garbage】`, notice try to tank more garbage then use Quad to dig to climb faster (because cancelling garbage lines has a worse result), at the same time try to calculate total efficiency with and without `Expert` 
     (altitude/time, multiply by 2 with Expert) to decide whether or not to accumulate for Expert Mode incidentally, if possible then bring it, otherwise later on it needs to be cleared by itself  
-    Last is `【Expert】+【Volatile】`, being individually played because this mod will substantially decrease climbing efficiency, and put last because it could already have some progress made at the start 
+    Last is `【Expert】+【Volatile Garbage】`, being individually played because this mod will substantially decrease climbing efficiency, and put last because it could already have some progress made at the start 
 
 All buffed mods can only be played solo, and cannot be stacked on other mods
 
@@ -596,7 +596,7 @@ Starting pattern：
 
 ## Extra notes
 
-In all Fatigue systems `+X% received attack` will be correspondingly increased to 2 (3) times due to 【Volatile(+)】, same as multiplication
+In all Fatigue systems `+X% received attack` will be correspondingly increased to 2 (3) times due to 【Volatile Garbage(+)】, same as multiplication
 
 ## Special thanks
 
