@@ -485,7 +485,7 @@ All buffed mods can only be played solo, and cannot be stacked on other mods
 
 Introduction to effects that will appear later:
 
-1. `Garbage line protection`: (Only appears in 【All-Spin+】【Double Hole Garbage+】【Messier Garbage+】)    
+1. `Garbage line protection`: (Only appears in certain mods)    
 Every line of `Non-permanent garbage lines` (includes lines with clearable ***grey*** blocks) will cause `Targeting Factor` to decrease by 0.5, at maximum decrease by 2.5 (due to the starting value being 3, so for these modes you rarely get attacked in the opening), check every 0.25 seconds
 
 ### Expert+ (The Tyrant)
@@ -831,7 +831,7 @@ If you want to search for variables, here are some integer names below:
         if (MOD_anyRev && !MOD_expert)
             this.S.setoptions.garbagephase = (MOD_messyRev || MOD_volatileRev || MOD_doubleholeRev) ? 75 : [75, 75, 75, 75, 75, 75, 75, 60, 45, 30, 15][floor];
 
-        // Progressively close off garbage line protection when clearing garbage lines
+        // Garbage line protection, open/close Targeting Factor based off of garbage line count
         if (frame % 15 == 0 && (MOD_messyRev || MOD_doubleholeRev || MOD_allspinRev)) {
             const line = this.self.bm.CountGarbageLinesNoPerma();
             if (line !== this.S.zenith.garbagerowcount) {
