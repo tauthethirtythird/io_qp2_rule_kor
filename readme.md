@@ -125,7 +125,7 @@ Reaching floor 10 with HYPERSPEED awards a hidden achievement, or when you fall 
 
 When activating 【Duo】 or any 【Mod+】 Hyperspeed is disabled
 
-A [strategy](bilibili.com/opus/997806608970940469) that might be used ((translation note: there is now a nerf to this))
+A [strategy](https://bilibili.com/opus/997806608970940469) that could be used ((translation note: there is now a nerf to this))
 
 ## Attack Target
 
