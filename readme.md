@@ -27,49 +27,48 @@ Upon reaching a certain altitude you will proceed to the next floor
 
 ## Climb Speed
 
-`Climb Speed` (called `rank` in the code) affects how fast you gain altitude, every action that increases altitude is impacted by its' multiplier bonus. Increasing Climb Speed requires experience (called `xp` hereafter).
+`Climb Speed` (called `level` below) affects how fast you gain altitude, every action that increases altitude is impacted by its' multiplier bonus. Increasing Climb Speed requires experience (called `xp` hereafter).
 
 At Climb Speed 1 the multiplier is ×0.25, every increase in Climb Speed level adds another ×0.25 (Upon reaching ×2.75 it becomes white with no further difference, but in reality there's no upper limit).
 
-### Gaining altitude & xp, and promotion
+### Experience
 
-| Action | Altitude | xp | Specialty |
-| :--: | :--: | :--: | :--: |
-| Natural increase | Every second 1m | `xp loss`, see below | Will get `stuck`, slowly becomes 0 when 6m~1m away from next floor |
+| Action | Altitude | Experience | Notes |
+| :--: | :--: | :--: | :-- |
+| Natural increase | Every second 1m | naturally loses, see `experience loss` chapter | Will get `stuck`, slowly becomes 0 when 6m~1m away from next floor |
 | KO | `15m` | | `8m` in【Expert+】|
-| Sending attack | `lines`m | `lines+0.05`xp | |
-| Cancelling garbage | | `lines/2+0.05`xp | In【Expert(+)】or【Volatile+】considered as 0 lines |
-| Clearing lines | | `min(lines,2)+0.05`xp | None in【Expert(+)】|
-| Past 3 actions above when `stuck` | 3m | | In reality occurs when 2m away from the next floor |
+| Sending attack | `lines`m | `lines+0.05` experience | |
+| Cancelling garbage | | `lines/2+0.05` experience | In【Expert(+)】or【Volatile+】considered as 0 lines |
+| Clearing lines | | `min(lines,2)+0.05` experience | None in【Expert(+)】, during 【All-Spin+】 non-spin clears are all considered 1 line |
+| `Crossing floors` | 3m | | Judgement condition is when current altitude (calculating temporary altitude that hasn't released yet) is less than 2m away from next floor |
 
-> Altitude gain above excluding the +3m when stuck are all affected by your `rank`, for example at the start `rank` is 1, multiplier is ×0.25, every 4 seconds gain 1m
+> Altitude gain above excluding `crossing floors` are all affected by your `level`, for example at the start `level` is 1, multiplier is ×0.25, every 4 seconds gain 1m
 
 When gaining altitude, the newly increased altitude will first be stored into a temporary variable, every frame release 10%, at maximum 10m 
 
-The `xp` required to reach the next Climb Speed level is `4*rank`. once your `xp` meets the conditions your Climb Speed increases by one and your `xp` decreases by the amount that was previously required.  
-Once you have promoted to the next Climb Speed level, for 5 seconds `xp` will stop naturally decreasing (see `xp` loss chapter for details) to prevent having very little xp after promotion thus instantly demoting right after.
-
-There is also a `promotion fatigue` system: Every time you increase a Climb Speed level, the `no natural xp decrease for 5 seconds` from the previous section becomes a second shorter (until 1 second), meaning repeatedly promoting/demoting causes the effect to be weaker. To reset it back to 5 seconds you have to reach 50% of the next Climb Speed level (middle of the experience progress bar).
+The experience required to promote to the next Climb Speed level is `4*level`, once your experience meets the conditions your Climb Speed level increases by one and your experience decreases by the amount previously required
 
 ### Skipping levels
 
-Whenever you promote a Climb Speed level, if there's still a large amount of remaining `xp` (occuring when several tens of large B2B attack is released) and is still over the amount to increase another Climb Speed level, then you gain an extra `xp/required xp` ranks, **and these extra xp are not removed**
+Whenever you promote a Climb Speed level, if there's still a large amount of remaining experience (occuring when several tens of large B2B attack is released) and is still over the amount to increase another Climb Speed level, then you gain an extra `expreience/required experience` levels, **and these extra experience are not removed**
 
     Which means this situation can happen:
-    One frame - B2B breaks causing huge spike and `xp` increase
+    One frame - Breaking B2B causes large spike and receive lots of experience
     Next frame - Promote + skip levels 
-    Next frame - Can skip another climb speed level
+    Next frame - Can skip another Climb Speed level
 
-### xp loss
+### Experience loss
 
-Climb Speed xp gradually diminishes over time, decreasing by `mul*(rank^2+rank)/3600` every frame.  
-mul is related to【Expert(+)】, when disabled = 3, when enabled = 5, when in Duo = 3 + players with Expert Mode on
+Experience will naturally decrease over time, decreasing by `mul*(level^2+level)/3600` every frame.  
+mul: Regular solo = 3, when activating 【Expert(+)】 or 【Duo+】 = 5, when in Duo = 3 + players with Expert Mode on
 
-When xp is under 0 you lose a Climb Speed level, afterwards your xp becomes the maximum xp of the previous Climb Speed level.
+When promoting a climb speed level a 5 second `experience loss protection` effect is received, to prevent having very little experience after promotion and suddenly lose it thus demoting right after  
+`Promotion fatigue` system: After promoting, the last line's `no loss for 5 seconds` will decrease by 1 second (until 1 second), therefore the effect gets weaker and weaker when repeatedly gaining and losing `levels`  
+To recover you need to reach 50% (peak of the slant on the middle of the experience bar) from a promotion action (rather than demotion), afterwards triggering this effect next time will have 5 seconds
 
 Below are some calculated statistics for convenience:
 
-| `rank` | xp required to promote | seconds to demotion | xp loss per second | 【Expert(+)】seconds to demotion | 【Expert(+)】xp loss per second |
+| `level` | experience required to promote | seconds to demotion | experience loss per second | 【Expert(+)】seconds to demotion | 【Expert(+)】 loss per second |
 | :--: | :-: | :---: | :--: | :---: | :----: |
 |  1   | 4   | 40.00 |  0.1 | 24.00 |  0.17 |
 |  2   | 8   | 26.67 |  0.3 | 16.00 |  0.50 |
@@ -102,7 +101,7 @@ Below are some calculated statistics for convenience:
 
 You can view which Climb Speed you're at under the board, a simple text description of the appearances are shown below:
 
-| `rank` | Multiplier | Color | Shape | Hyperspeed notes |
+| `level` | Multiplier | Color | Shape | Hyperspeed notes |
 | :-: | :--: | :-: | - | - |
 |  1  | 0.25 | none         | a progress bar | |
 |  2  | 0.50 | red          | a triangle added below | |
@@ -110,7 +109,7 @@ You can view which Climb Speed you're at under the board, a simple text descript
 |  4  | 1.00 | yellow-green | wings increase size | |
 |  5  | 1.25 | blue         | wings increase size + add base | |
 |  6  | 1.50 | magenta      | wings extend to full size | |
-|  7  | 1.75 | light orange | wings become more detailed | lowest `rank` without exiting HYPERSPEED |
+|  7  | 1.75 | light orange | wings become more detailed | lowest `level` without exiting HYPERSPEED |
 |  8  | 2.00 | turquoise    | pair of parallelograms added on top | HYPERSPEED trigger at f1/f2 |
 |  9  | 2.25 | cyan         | two pairs of parallelograms | HYPERSPEED trigger at f3/f4 |
 | 10  | 2.50 | light purple | three pairs of parallelograms | HYPERSPEED trigger at f5 |
@@ -118,13 +117,15 @@ You can view which Climb Speed you're at under the board, a simple text descript
 
 ### HYPERSPEED
 
-When the player's `rank` reaches 8/8/9/9/10 in the first five floors, HYPERSPEED is activated.  
+When the player's `level` reaches 8/8/9/9/10 in the first five floors, HYPERSPEED is activated.  
 Once activated there will be a flashy Bejeweled Twist-esque animation, alongside exclusive HYPERSPEED music.
 
 A large display appears on the top of the screen showing floor splits and your pace compared to your PB Zenith Speedrun time.  
-Reaching floor 10 with HYPERSPEED awards a hidden achievement, or when you fall to `rank` 6 or below HYPERSPEED disappears.
+Reaching floor 10 with HYPERSPEED awards a hidden achievement, or when you fall to `level` 6 or below HYPERSPEED disappears.
 
 When activating 【Duo】 or any 【Mod+】 Hyperspeed is disabled
+
+A [strategy](bilibili.com/opus/997806608970940469) that might be used ((translation note: there is now a nerf to this))
 
 ## Attack Target
 
@@ -137,7 +138,7 @@ From additional observation, in most cases attacks are locked to players with si
 
 Only in `Easy mode`, check once every 0.25 seconds, if in danger (conditions not understood, probably when your board flashes red, shouldn't be off by a lot) `Targeting Factor` temporarily decreases by 1.5, after leaving danger the 1.5 is added back
 
-### Shift to Targeting grace (No impact on messiness)
+### Shift to Targeting Grace (No impact on messiness)
 
 There is a `Targeting Grace` value, when attacked, lines*0.25 amount of `Targeting Factor` gets moved to the targeting grace buffer slot (maximum 3, otherwise doesn't move), then gets moved back later.
 
@@ -147,20 +148,20 @@ The `Targeting Grace` value (linear) will decrease garbage messiness, when fully
 
 If `Targeting Grace` has a value, every set amount of time (depending on floor, see table below) 0.25 `Targeting Grace` value is moved back to `Targeting Factor`, meaning the higher the floor, the more the system allows others to attack with garbage lines rapidly.
 
-### Gradual time increase (Caps at doubled past 7 minutes)
+### Gradual time increase (Caps at doubled past 7 utes)
 
-When time hits 3/5/7 minutes, `Targeting Factor` +1
+When time hits 3/5/7 utes, `Targeting Factor` +1
 
 `Targeting Factor` alongside time/when rapidly filled/change when in danger:
 
 | Time range | Factor | when full | when in danger |
 | ----- | :-: | :-: | :-: |
-| 0~2 minutes | 3 | -100% | -50% |
-| 3~4 minutes | 4 | -75% | -75% |
-| 5~6 minutes | 5 | -66% | -60% |
-| past 7 minutes | 6 | -50% | -25% |
+| 0~2 utes | 3 | -100% | -50% |
+| 3~4 utes | 4 | -75% | -75% |
+| 5~6 utes | 5 | -66% | -60% |
+| past 7 utes | 6 | -50% | -25% |
 
-## Targeting grace
+## Targeting Grace
 
 There is a `Targeting Grace` variable, when attacked, increase the same amount of value as lines received (【Volatile Garbage+】's 3x isn't calculated), until capping at **18**  
 `Targeting Grace`'s value decreases `garbage messiness`, although this system is blocked by these reasons: when time reaches 6 minutes in【Expert+】, 【Messier Garbage(+)】  
@@ -241,7 +242,7 @@ The `garbage messiness` in this page is exactly this X, which can be affected by
 > Genuinely didn't write in the wrong order, quite weird here, probably need to pull a table to observe garbage messiness changes deduced from various factors  
 > After receiving the `full scatter` effect when both values are overwritten as 100%, instead between attacks it's even more likely to be on the same column, very interesting
 
-## Garbage favor
+## Garbage Favor
 
 Decides the choosing trend for garbage hole positions. This value can be positive or negative: the more it is when positive, garbage hole positions will be chosen easier to dig, same reasoning, the more it is negative the harder to dig
 
@@ -292,11 +293,11 @@ To prevent a game from being too long, starting from 8 minutes every minute adds
 
 | Time | Negative effect | Description |
 | --- | --- | --- |
-| 8 minutes | +2 permanent garbage | FATIGUE SETS IN… +2 PERMANENT LINES |
-| 9 minutes  | +25% attack received | YOUR BODY GROWS WEAK… receive 25% more garbage |
-| 10 minutes | +3 permanent garbage (total 5) | ALL SENSES BLUR TOGETHER… +3 PERMANENT LINES |
-| 11 minutes | +25% attack received | YOUR CONSCIOUSNESS FADES… receive 25% more garbage |
-| 12 minutes | +5 permanent garbage (total 10) | THIS IS THE END. +5 PERMANENT LINES |
+|  8:00 | +2 permanent garbage | FATIGUE SETS IN… +2 PERMANENT LINES |
+|  9:00 | +25% attack received multiplier | YOUR BODY GROWS WEAK… receive 25% more garbage |
+|  10:00 | +3 permanent garbage (total 5) | ALL SENSES BLUR TOGETHER… +3 PERMANENT LINES |
+|  11:00 | +25% attack received multiplier | YOUR CONSCIOUSNESS FADES… receive 25% more garbage |
+|  12:00 | +5 permanent garbage (total 10) | THIS IS THE END. +5 PERMANENT LINES |
 
 > In 【Expert+】 Fatigue effects are different, see later below for specifics
 
@@ -310,11 +311,11 @@ There are a total of 9 mods, each corresponding with a special effect that can b
 
 ((translation note: in the original readme "Garbage" in "Messier Garbage, Volatile Garbage, Double Hole Garbage" are omitted but to reflect more accurately to that of in-game I'll keep them for now))
 
-### Expert (The Emperor)
+### Expert Mode (The Emperor)
 
 - Harder to receive altitude and experience
 - `Garbage messiness` is increased
-- `Garbage favor` is decreased
+- `Garbage Favor` is decreased
 - Rising garbage animation is removed, instead spawns instantaneously (same as TL)
 - Removes system of decreasing `Targeting Factor` when in danger
 
@@ -325,7 +326,7 @@ There are a total of 9 mods, each corresponding with a special effect that can b
 ### Messier Garbage (Wheel of Fortune)
 
 - `Garbage messiness` increases
-- `Garbage favor` decreases
+- `Garbage Favor` decreases
 
 ### Gravity (The Tower)
 
@@ -358,70 +359,96 @@ There are a total of 9 mods, each corresponding with a special effect that can b
 ### Duo (The Lovers)
 
 - Players with supporter can invite others to play with themselves in this two-player mode
-- To the perspective of one person, most output values will be halved, for example sent attacks and accumulated `xp` etc.
+- To the perspective of one person, most output values will be halved, for example sent attacks and accumulated experience etc.
 - After both players die the game ends, but after one player dies the other player can do revive task(s) to revive their teammate
 
-  The tasks are divided into six grades ABCDEF, listed in full below:
+Tasks that will appear are shown below:
 
-| Difficulty | code ID | value | name | tag type(?) | removed by mod |
+| Difficulty | code ID | Mission value | Name | tag type(?) | Doesn't appear with certain mods |
 | - | - | - | - | - | - |
-| F | combo             | 3   | Perform a 3-Combo | 2 | |
-| F | double            | 2   | Clear 2 Doubles | 2 | |
-| F | quad              | 1   | Clear a Quad | 1 | |
-| F | lines             | 6   | Clear 6 Lines | 1 | |
-| F | odouble           | 1   | Clear a Double \n using an O-Piece | 3 | |
-| F | garbageclear      | 4   | Clear 4 Garbage Lines | 2 | |
-| F | szdouble          | 1   | Clear a Double \n using an S or Z-Piece | 3 | |
-| F | ljtriple          | 1   | Clear a Triple \n using an L or J-Piece | 3 | |
-| E | tspinmini         | 1   | Perform a T-Spin Mini | 1 | |
-| E | tspinsingle       | 1   | Clear a T-Spin Single | 2 | |
-| E | tspindouble       | 1   | Clear a T-Spin Double | 2 | |
-| E | szspin            | 1   | Clear an S/Z-Spin | 1 | |
-| E | ljspin            | 1   | Clear an L/J-Spin | 1 | |
-| E | combo             | 5   | Perform a 5-Combo | 2 | |
-| E | iflat             | 2   | Clear 2 Lines using \n horizontal I-Pieces | 3 | |
-| E | tank              | 4   | Tank 4 Garbage Lines | 2 | |
-| E | cancel            | 4   | Cancel 4 Garbage Lines | 2 | |
-| D | double            | 4   | Clear 4 Doubles | 2 | |
-| D | spam              | 3   | Place 3 pieces in a row \n without moving or rotating | 4 | |
-| D | noclear           | 14  | Place 14 pieces in a row \n without clearing any lines | 4 | |
-| D | send              | 6   | Send 6 Lines | 1 | |
-| D | pieces            | 20  | Place 20 pieces | 2 | |
-| D | szdouble          | 2   | Clear 2 Doubles \n using S or Z-Pieces | 3 | |
-| D | ljtriple          | 2   | Clear 2 Triples \n using L or J-Pieces | 3 | |
-| D | ispinclear        | 1   | Clear an I-Spin | 1 | |
-| D | upperhalfquad     | 1   | Clear a Quad in the \n upper half of the board | 4 | |
-| C | tspintriple       | 1   | Clear a T-Spin Triple | 2 | |
-| C | nohold            | 25  | Place 25 pieces \n without using Hold | 3 | nohold |
-| C | triple            | 3   | Clear 3 Triples | 2 | |
-| C | b2b               | 4   | Reach B2B x4 | 1 | |
-| C | quadbuckets       | 2   | Clear a Quad in \n 2 different columns | 3 | |
-| C | holdconsecutive   | 12  | Use Hold on \n 15 pieces in a row | 3 | nohold |
-| C | softdrop          | 10  | Place 10 pieces without \n releasing Soft Drop | 4 | |
-| C | top3rows          | 3   | Have part of your stack in \n the top 3 rows for 3 seconds | 4 | |
-| C | linesnoti         | 10  | Clear 10 Lines without \n clearing with T or I-pieces | 4 | |
-| C | szspintriple      | 1   | Clear an S/Z-Spin Triple | 2 | |
-| C | odoubleconsecutive| 2   | Clear 2 Doubles consecutively \n using two O-Pieces | 4 | |
-| C | tspinminiclear    | 4   | Clear 4 T-Spin Minis | 2 | |
-| B | oclear            | 6   | Clear 6 Lines \n using O-Pieces | 3 | |
-| B | spinbuckets       | 3   | Clear Spin-Clears \n with 3 different pieces | 3 | |
-| B | quad              | 4   | Clear 4 Quads | 1 | |
-| B | spam              | 5   | Place 5 pieces in a row \n without moving or rotating | 4 | |
-| B | send              | 18  | Send 18 Lines | 1 | |
-| B | ljspintriple      | 1   | Clear an L/J-Spin Triple | 2 | |
-| B | quadconsecutive   | 2   | Clear 2 Quads in a row | 2 | |
-| B | singlesonly       | 8   | Clear 8 Singles without doing \n other clears or using Hold | 4 | |
-| B | nogarbage         | 4   | Have no Garbage Lines on \n your board for 4 seconds | 4 | |
-| B | rotate            | 100 | Rotate 100 times | 2 | |
-| B | nocancel          | 8   | Don't cancel any \n garbage for 8 seconds | 3 | |
-| A | combo             | 7   | Perform a 7-Combo | 2 | |
-| A | ispindouble       | 1   | Clear an I-Spin Double | 2 | |
-| A | szspinconsecutive | 2   | Clear two S/Z-Spin \n Doubles consecutively | 3 | |
-| A | ljspinconsecutive | 2   | Clear two L/J-Spin \n Doubles consecutively | 3 | |
-| A | colorclear        | 1   | Perform a Color Clear | 2 | |
-| A | lines             | 40  | Clear 40 Lines | 1 | |
+| F | combo              | 3   | Perform a 3-Combo | 2 | |
+| F | double             | 2   | Clear 2 Doubles | 2 | |
+| F | quad               | 1   | Clear a Quad | 1 | |
+| F | lines              | 6   | Clear 6 Lines | 1 | |
+| F | osingle            | 1   | Clear a Single\nusing an O-Piece | 3 | |
+| F | odouble            | 1   | Clear a Double\nusing an O-Piece | 3 | |
+| F | szdouble           | 1   | Clear a Double\nusing an S or Z-Piece | 3 | |
+| F | ljtriple           | 1   | Clear a Triple\nusing an L or J-Piece | 3 | |
+| F | iholdlines         | 3   | Clear 3 lines\nwhile holding an I-Piece | 3 | 【No Hold】 |
+| F | hold               | 8   | Use Hold 8 times | 2 | 【No Hold】 |
+| F | rotate             | 20  | Rotate 20 times | 2 | |
+| F | singleconsecutive  | 2   | Clear 2 Singles in a row | 3 | |
+| E | spin               | 1   | Perform any Spin | 2 | |
+| E | tspinsingle        | 1   | Clear a T-Spin Single | 2 | |
+| E | tspindouble        | 1   | Clear a T-Spin Double | 2 | |
+| E | szspin             | 1   | Clear an S/Z-Spin | 1 | |
+| E | ljspin             | 1   | Clear an L/J-Spin | 1 | |
+| E | combo              | 5   | Perform a 5-Combo | 2 | |
+| E | iflat              | 2   | Clear 2 Lines using\nhorizontal I-Pieces | 3 | |
+| E | pieces             | 20  | Place 20 pieces | 2 | |
+| E | attack             | 6   | Send 6 Attack | 1 | |
+| E | placeoconsecutive  | 2   | Place 2 O-Pieces\nin a row | 3 | |
+| E | norotateclockwise  | 12  | Place 12 pieces while only\nrotating counterclockwise | 4 | |
+| E | singlenocombo      | 6   | Clear 6 Singles without\nstarting a combo | 3 | |
+| D | double             | 4   | Clear 4 Doubles | 2 | |
+| D | spam               | 3   | Place 3 pieces in a row\nwithout moving or rotating | 4 | |
+| D | noclear            | 14  | Place 14 pieces in a row\nwithout clearing any lines | 4 | |
+| D | szdouble           | 2   | Clear 2 Doubles\nusing S or Z-Pieces | 3 | |
+| D | ljtriple           | 2   | Clear 2 Triples\nusing L or J-Pieces | 3 | |
+| D | ispinclear         | 1   | Clear an I-Spin | 1 | |
+| D | upperhalfquad      | 1   | Clear a Quad in the\nupper half of the board | 4 | |
+| D | rotate             | 80  | Rotate 80 times | 2 | |
+| D | quadcombo          | 1   | Clear a Quad\nwhile on a 2+-Combo | 4 | |
+| D | szsingle           | 2   | Clear 2 Singles in a row\nusing S or Z-Pieces | 4 | |
+| D | combonohold        | 3   | Perform a 3-Combo\nwithout using Hold | 3 | |
+| D | noclearspin        | 3   | Perform 3 Spins\nthat don't clear any lines | 4 | |
+| D | szljspin           | 2   | | Perform 2\nS/Z/L/J-Spins | 3 | |
+| C | tspintriple        | 1   | Clear a T-Spin Triple | 2 | |
+| C | nohold             | 25  | Place 25 pieces in a row\nwithout using Hold | 4 | 【No Hold】 |
+| C | triple             | 3   | Clear 3 Triples | 2 | |
+| C | b2b                | 4   | Reach B2B x4 | 1 | |
+| C | quadbuckets        | 2   | Clear a Quad in\n2 different columns | 3 | |
+| C | holdconsecutive    | 12  | Use Hold on\n12 pieces in a row | 3 | 【No Hold】 |
+| C | softdrop           | 10  | Place 10 pieces without\nreleasing Soft Drop | 4 | |
+| C | top3rows           | 3   | Have part of your stack in\nthe top 3 rows for 3 seconds | 4 | |
+| C | linesnoti          | 10  | Clear 10 Lines without\nclearing with T or I-pieces | 4 | |
+| C | szspintriple       | 1   | Clear an S/Z-Spin Triple | 2 | |
+| C | odoubleconsecutive | 2   | Clear 2 Doubles consecutively\nusing two O-Pieces | 4 | |
+| C | tspinminiclear     | 4   | Clear 4 T-Spin Minis | 2 | |
+| C | attack             | 14  | Send 14 Attack | 1 | |
+| C | doublespiece       | 3   | Clear 3 Doubles\nwith the same type of piece | 4 | |
+| C | ljgarbage          | 1   | Clear Garbage\nusing a L/J-Spin | 3 | |
+| C | szgarbage          | 1   | Clear Garbage\nusing a S/Z-Spin | 3 | |
+| C | columnopiece       | 3   | Place 3 O-Pieces\nin column 1 | 3 | |
+| C | spinclear          | 2   | Clear 2 Spins\nin one combo | 3 | |
+| C | iclearspam         | 1   | Clear a Single with an I-Piece\nwithout moving or rotating | 4 | |
+| C | holddas            | 6   | Place 6 Pieces\nwithout releasing DAS | 3 | |
+| B | oclear             | 6   | Clear 6 Lines\nusing O-Pieces | 3 | |
+| B | spinbuckets        | 3   | Clear Spin-Clears\nwith 3 different pieces | 3 | |
+| B | quad               | 4   | Clear 4 Quads | 1 | |
+| B | spam               | 5   | Place 5 pieces in a row\nwithout moving or rotating | 4 | |
+| B | ljspintriple       | 1   | Clear an L/J-Spin Triple | 2 | |
+| B | quadconsecutive    | 2   | Clear 2 Quads in a row | 2 | |
+| B | singlesonly        | 8   | Clear 8 Singles without doing\nother clears or using Hold | 4 | |
+| B | nogarbage          | 4   | Have no Garbage Lines on\nyour board for 4 seconds | 4 | 【Duo+】 |
+| B | rotate             | 300 | Rotate 300 times | 2 | |
+| B | nocancel           | 8   | Don't cancel any\ngarbage for 8 seconds | 3 | |
+| B | tspindoubleup      | 1   | Clear a T-Spin Double\nwith the Piece pointing up | 4 | |
+| B | oclearspam         | 1   | Clear a Double with an O-Piece\nwithout moving or rotating | 4 | |
+| B | tnorotate          | 3   | Place 3 T-Pieces\nwithout rotating any | 3 | |
+| B | tspincombo         | 1   | Clear a T-Spin Double\nwhile on a 2+-Combo | 3 | |
+| A | combo              | 7   | Perform a 7-Combo | 2 | |
+| A | ispindouble        | 1   | Clear an I-Spin Double | 2 | |
+| A | szspinconsecutive  | 2   | Clear two S/Z-Spin\nDoubles consecutively | 3 | |
+| A | ljspinconsecutive  | 2   | Clear two L/J-Spin\nDoubles consecutively | 3 | |
+| A | colorclear         | 1   | Perform a Color Clear | 2 | |
+| A | lines              | 40  | Clear 40 Lines | 1 | |
+| A | combospin          | 4   | Clear 4 Spins\nin one Combo | 3 | |
+| A | tspindtcolumn      | 1   | Clear a T-Spin Double/Triple\ncentered in column 1 or 10 | 3 | |
+| X (Special) | ospinconsecutive | 2 | Clear two O-Spin Mini\nDoubles consecutively | 3 | |
 
-Grades F\~A correspond to a difficulty score of 1\~6, upon revival the difficulty of the tasks=`floor+revives*2` (try to split into three whole numbers), a detailed table is listed below:
+When needing to revive calculate the revive difficulty score = `floor+times revived`, then pick from the list below and choose random tasks from the list above while shuffling the order:
+
 1. F
 1. F F
 1. F F F
@@ -437,15 +464,15 @@ Grades F\~A correspond to a difficulty score of 1\~6, upon revival the difficult
 1. C C B
 1. C B B
 1. B B B
-1. B B A
-1. B A A
-1. A A A (Upper bound)
+1. B B (It actually is like this in the source code, missing an A, estimated to be an accidental error that will be fixed later)
+1. A B A (Upper bound, and is fixed at ABA order without shuffling)
 
 ((translation note: the difficulty orders aren't exact, for example score 7 can be E D E or D E E too, it doesn't necessarily have to be E E D))
 
 ## Mod+
 
-Every mod has a corresponding buffed mod (except for 【Duo】), needing 30,000 meters climbed with the mod to unlock (activating multiple mods can accumulate for them at the same time)
+Every mod has a corresponding buffed mod, needing 30,000 meters climbed with the mod to unlock (activating multiple mods can accumulate for them at the same time)
+【Duo+】is special, see the corresponding chapter
 
     If you want to unlock all buffed mods as quick as possible it's recommended to activate multiple at the same time, below is a reference strategy (if you can smoothly get a few f10 with all of the mods individually)  
     `【Gravity】+【Messier Garbage】+【Double Hole Garbage】+【All-Spin】` activate these four and rely on All-Spin's fierce output, try not to let garbage lines enter, finish 30,000 meters. If you can use brainless Blitz mode looping and aren't afraid of `【Invisible】` you can bring it too, otherwise it 
@@ -473,7 +500,7 @@ On top of all limits of the original basis,
 - When you stay on the same floor for over 60 seconds, every second permanently gain 0.5% multiplier to be attacked (for example after accumulating the effect for 200 seconds all incoming garbage is doubled)
 - Fatigue system becomes even more harsh
 
-|     Floor     |  Descent speed | Corresponding rank and spm |
+|     Floor     |  Descent speed | Corresponding `level` and spm |
 | :--------: | :-----: | :---------: |
 |  1 (0m)    | 0.6 m/s | 3 & 48spm |
 |  2 (50m)   | 0.8 m/s | 4 & 48spm |
@@ -487,18 +514,18 @@ On top of all limits of the original basis,
 | 10 (1650m) | 6.0 m/s | 7 & 206spm |
 
 > Descent speed formula is `(floor^2+floor+10)/20`  
-> rank and spm are only for reference, in reality cancelling doesn't count for spm so it can't be achieved, after the fifth-sixth floor you have to rely on 3-digit surge APM to continue climbing  ((translation note: SPM = Sent Per Minunte))  
+> `level` and spm are only for reference, in reality cancelling doesn't count for spm so it can't be achieved, after the fifth-sixth floor you have to rely on 3-digit surge APM to continue climbing  ((translation note: SPM = Sent Per Minunte))  
 > During gameplay descent looks like it has acceleration, but it's only a visual effect, in reality it's still even
 
 | Time | Negative effect | Text description |
 | --- | --- | --- |
-| 6 minutes | garbage becomes messier (disables `Targeting Grace` effect) | YOUR POWER SLIPS… garbage received becomes messier |
-| 7 minutes | +25% attack received | WHISPERS OF DISCONTENT SPREAD… receive 25% more garbage |
-| 8 minutes | +3 permanent garbage | PROTESTERS LINE THE STREETS… +3 PERMANENT LINES |
-| 9 minutes | +25% attack received | YOUR CLOSEST ALLIES DEFECT… receive 25% more garbage |
-| 10 minutes | +5 permanent garbage (total 8) | PARANOIA CLOUDS YOUR JUDGEMENT… +5 PERMANENT LINES |
-| 11 minutes | garbage becomes noticeably messier (receive `full scatter` effect) | THE REVOLUTION HAS BEGUN… garbage received becomes much messier |
-| 12 minutes | +12 permanent garbage (total 20) | THE END OF AN ERA. +12 PERMANENT LINES |
+|  6:00 | garbage becomes messier (disables `Targeting Grace` effect) | YOUR POWER SLIPS… garbage received becomes messier |
+|  7:00 | +25% attack received multiplier | WHISPERS OF DISCONTENT SPREAD… receive 25% more garbage |
+|  8:00 | +3 permanent garbage | PROTESTERS LINE THE STREETS… +3 PERMANENT LINES |
+|  9:00 | +25% attack received multiplier | YOUR CLOSEST ALLIES DEFECT… receive 25% more garbage |
+|  10:00 | +5 permanent garbage (total 8) | PARANOIA CLOUDS YOUR JUDGEMENT… +5 PERMANENT LINES |
+|  11:00 | garbage becomes noticeably messier (receive `full scatter` effect) | THE REVOLUTION HAS BEGUN… garbage received becomes much messier |
+|  12:00 | +12 permanent garbage (total 20) | THE END OF AN ERA. +12 PERMANENT LINES |
 
 ### No Hold+ (Asceticism)
 
@@ -550,7 +577,7 @@ Starting pattern：
 - Received attack multiplier becomes 3x (notice: cancelling multiplier isn't changed)
 - 14 high playfield
 - Garbage hole positions have two warnings
-- `Garbage favor` is locked to a very high value
+- `Garbage Favor` is locked to a very high value
 
 ### Double Hole Garbage+ (Damnation)
 
@@ -580,6 +607,42 @@ Starting pattern：
 - `Garbage messiness` is increased
 - Activates `Garbage line protection`
 
+### Duo+ (Bleeding Hearts)
+
+> Even as we bleed, we keep holding on...  
+
+Special mod, exclusive to 2025 Valentine's Day event, free to play for everyone for a week (includes regular version), unlocking not required
+
+- When sending attack (sending/cancelling both count) it will also instantly inject garbage lines on your partner's board (amount is attack/2, rounding method unknown), if your partner is already dead attacks will send to yourself  
+- When one of the players dies the altitude will be temporary locked, until being revived  
+- Climb Speed level is locked to a highest of 4 (normally unlimited)  
+- Special fatigue process
+
+|  Time  | Effect | Description |
+| ----- | --- | --- |
+|  1:00 | `Garbage messiness`= 5% | THE RELATIONSHIP STAGNATES…  garbage becomes a bit messier |
+|  1:30 | `Garbage messiness`= 15% | INSECURITIES GROW STRONGER…  garbage becomes messier |
+|  2:00 | `Garbage messiness`= 30% | {PARTNER} FEELS NEGLECTED…  garbage becomes much messier |
+|  2:30 | `Garbage messiness`= 20% | {SELF} SUCCESSFULLY APOLOGIZES…?  garbage becomes a bit cleaner |
+|  3:00 | `Garbage messiness`= 0% | THINGS ARE BACK TO HOW THEY SHOULD BE…!  garbage becomes much cleaner |
+|  3:30 | `Garbage messiness`= 10% | THE WEIGHT OF WORDS UNSPOKEN…  garbage becomes messier |
+|  4:00 | `Garbage messiness`= 25% | "WHY CAN'T YOU JUST LISTEN TO ME?"  garbage becomes much messier |
+|  4:30 | Revive difficulty +3 levels | "THIS IS ALL YOUR FAULT."  revive difficulty increased |
+|  5:00 | `Garbage messiness`= 10% | {PARTNER} MAKES THE SAME PROMISE AGAIN…  garbage becomes cleaner |
+|  5:30 | +4 permanent garbage lines | "THIS TIME WILL BE DIFFERENT."  +4 PERMANENT GARBAGE |
+|  6:00 | `Garbage messiness`= 30% | SOME HABITS CAN'T BE BROKEN…  garbage becomes much messier |
+|  6:30 | `Garbage messiness`= 40% | ALL TRUST HAS WITHERED AWAY…  garbage becomes messier |
+|  7:00 | `Garbage messiness`= 50% | {SELF} SETS AN ULTIMATUM…  garbage becomes messier |
+|  7:30 | `Garbage messiness`= 60% | {PARTNER} CONTEMPLATES THEIR WASTED EFFORT…  garbage becomes messier |
+|  8:00 | +25% attack received multiplier | ONE LAST PAINFUL ARGUMENT…  receive 25% more garbage |
+| `8:30`| “Disable reviving” | GOODBYE.  you can no longer revive |
+| `9:30`| `Garbage messiness`= 20% | "I MISS YOU"  garbage becomes much cleaner |
+| 10:00 | `Garbage messiness`= 10% | WHAT IF…?  garbage becomes a bit cleaner |
+| 10:30 | +12 permanent garbage lines (total of 16) | …  +12 PERMANENT LINES |
+
+> In this mode `garbage messiness` is only decided by Fatigue, original systems are completely ignored  
+> After receiving “disable reviving” buff, revival tasks are locked to the impossible X rank task
+
 ## Tarot Card basic summary
 
 | Upright name | Effect summary | Reversed name | Effect summary (includes upright effects) |
@@ -608,13 +671,16 @@ Thanks to friends in the group chat for testing, indicating problems and helping
 
 If you want to search for variables, here are some integer names below:
 
+1. `level` rank
+1. `experience` climb_pts
+1. `Promotion fatigue` promotion_fatigue, rank_locked_until
 1. `Targeting factor` targetingfactor
 1. `Targeting grace` targetinggrace
 1. `Mods` zenith_[modname]
 1. `Reverse mods` [modname]_reverse
 1. `Change between attacks` messiness_change
 1. `Change during attack` messiness_inner
-1. `Garbage favor` garbagefavor
+1. `Garbage Favor` garbagefavor
 1. `garbage waiting time` garbagephase
 
 ```js
@@ -629,7 +695,7 @@ If you want to search for variables, here are some integer names below:
     GravityBumps = [0, .48, .3, .3, .3, .3, .3, .3, .3, .3, .3];
     GravLockDelay = [0, 30, 29, 28, 27, 26, 24, 22, 20, 18, 16];
     GravRevLockDelay = [0, 24, 22, 20, 18, 16, 15, 14, 13, 12, 11];
-    SpeedrunReq = [7, 8, 8, 9, 9, 10, 0, 0, 0, 0, 0]; // First element is the minimum rank to not exit
+    SpeedrunReq = [7, 8, 8, 9, 9, 10, 0, 0, 0, 0, 0]; // First element is the minimum level to not exit
     TargetingGrace = [0, 4.8, 3.9, 2.1, 1.4, 1.3, .9, .6, .4, .3, .2];
     TargetingGraceRevEx = [0, 1, .9, .8, .7, .6, .5, .4, .3, .2, .1];
     RevNoHoldHoleSideChangeChance = [.1, .1, .15, .2, .25, .3, .35, .4, .45, .5, .55];
@@ -647,7 +713,7 @@ If you want to search for variables, here are some integer names below:
         // Experience loss
         if (frame >= this.S.zenith.rank_locked_until) {
             let leakSpeed = ...; // Solo:Normal3 Expert5  Duo:3+players with Expert
-            this.S.zenith.climb_pts -= leakSpeed * (rank ** 2 + rank) / 3600 // climb_pts is current xp
+            this.S.zenith.climb_pts -= leakSpeed * (rank ** 2 + rank) / 3600 // climb_pts is current experience
         }
 
         const nextRankXP = 4 * rank;
@@ -655,7 +721,7 @@ If you want to search for variables, here are some integer names below:
         if (this.S.zenith.climb_pts < 0)
             // Demotion
             if (rank <= 1)
-                // Won't fall to under rank 0
+                // Won't fall to under level 0
                 this.S.zenith.climb_pts = 0;
             else {
                 // Recover calculation of total xp ((?))
@@ -757,7 +823,7 @@ If you want to search for variables, here are some integer names below:
             this.S.setoptions.messiness_inner = 1;
         }
 
-        // Garbage favor
+        // Garbage Favor
         this.S.setoptions.garbagefavor = MOD_volatileRev ? 50 : (MOD_expert ? 0 : 33) - 3 * floor - (MOD_messy ? 25 : 0);
 
         // Garbage waiting time
@@ -778,7 +844,7 @@ If you want to search for variables, here are some integer names below:
     }
 
     // Some methods
-    function getHolePosition() { // Calculations related to garbage hole position, mainly to deal with garbage favor (used copilot to organize source code, can't confirm fully correct)
+    function getHolePosition() { // Calculations related to garbage hole position, mainly to deal with Garbage Favor (used Copilot to organize source code, can't confirm fully correct)
         let pos = 0;
 
         if (MOD_volatileRev) t.zenith.garbageahead.shift();
@@ -851,6 +917,7 @@ If you want to search for variables, here are some integer names below:
                 return 0;
             }();
         } else {
+            // This block is affected by 【Duo+】 and is obsolete
             if (t.setoptions.messiness_nosame && t.lastcolumn !== null) {
                 pos = Math.floor(t.rngex.nextFloat() * (e.bm.ColumnWidth() - 1));
                 if (pos >= t.lastcolumn) pos++;
