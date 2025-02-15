@@ -193,7 +193,7 @@ Warning method: When receiving this type of attack start playing warning animati
 The amount of sound effects corresponds to the amount of groups the current round's attack split into (for example 3 sounds corresponds to 4+4+n, or 9~12 attack)  
 1 second later the attacks start entering the garbage queue, each split is separated by 0.5s
 
-If 【Volatile Garbage】 is activated, values above related to attack are all multiplied (seems like so, individual circumstances will ±1) ((translation note: I have no idea what inside the parentheses means, sorry if it's unclear.))
+If 【Volatile Garbage】 is activated, values above related to attack are all multiplied (seems like so, individual circumstances will ±1) ((: I have no idea what inside the parentheses means, sorry if it's unclear.))
 
 ## Others related to attack
 
@@ -252,7 +252,7 @@ Calculate `cancel penalty` = `consecutive cancels + 5*how many half-minutes with
 
 Multiply received attack by `100% + base multiplier*cancel penalty^2`
 
-If `cancel penalty` hits 25 and 【Volatile Garbage】 isn't activated, this attack countdown/2 ((translation note: not sure what this means))
+If `cancel penalty` hits 25 and 【Volatile Garbage】 isn't activated, this attack countdown/2 ((: not sure what this means))
 
 #### Carrying protection
 
@@ -266,7 +266,7 @@ If `Targeting Grace` is over 8, multiply sent attack by `100% - 5%*(Targeting Gr
 
 Multiply attack by `attack received multiplier`, then round (use decimals as weighted randomness in qp), spawn in garbage queue
 
-Update `Targeting Grace`, let attack amount ((translation note: this sentence seems like it got cutoff, probably will be continued in a later commit))
+Update `Targeting Grace`, let attack amount ((: this sentence seems like it got cutoff, probably will be continued in a later commit))
 
 
 
@@ -308,7 +308,7 @@ When activating 【Expert(+)】, this value -33, which means evenly random at th
 When activating 【Messier Garbage(+)】, this value -25  
 When activating 【Volatile Garbage+】, this value is locked to 50 for the entire run
 
-> The worst condition is Floor 10【Expert】【Messier Garbage】's -55 ((translation note: I assume it means when both mods are enabled rather than either one))  
+> The worst condition is Floor 10【Expert】【Messier Garbage】's -55   
 > The easiest is 【Volatile Garbage+】's 50
 
 Specific garbage hole position choosing process:
@@ -522,8 +522,6 @@ When needing to revive calculate the revive difficulty score = `floor+times revi
 1. B B (It actually is like this in the source code, missing an A, estimated to be an accidental error that will be fixed later)
 1. A B A (Upper bound, and is fixed at ABA order without shuffling)
 
-((translation note: the difficulty orders aren't exact, for example score 7 can be E D E or D E E too, it doesn't necessarily have to be E E D))
-
 ## Mod+
 
 Every mod has a corresponding buffed mod, needing 30,000 meters climbed with the mod to unlock (activating multiple mods can accumulate for them at the same time)
@@ -569,7 +567,7 @@ On top of all limits of the original basis,
 | 10 (1650m) | 6.0 m/s | 7 & 206spm |
 
 > Descent speed formula is `(floor^2+floor+10)/20`  
-> `level` and spm are only for reference, in reality cancelling doesn't count for spm so it can't be achieved, after the fifth-sixth floor you have to rely on 3-digit surge APM to continue climbing  ((translation note: SPM = Sent Per Minunte))  
+> `level` and spm are only for reference, in reality cancelling doesn't count for spm so it can't be achieved, after the fifth-sixth floor you have to rely on 3-digit surge APM to continue climbing  ((translation note: SPM = Sent Per Minute))  
 > During gameplay descent looks like it has acceleration, but it's only a visual effect, in reality it's still even
 
 | Time | Negative effect | Text description |
