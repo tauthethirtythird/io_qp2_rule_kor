@@ -193,7 +193,7 @@ Warning method: When receiving this type of attack start playing warning animati
 The amount of sound effects corresponds to the amount of groups the current round's attack split into (for example 3 sounds corresponds to 4+4+n, or 9~12 attack)  
 1 second later the attacks start entering the garbage queue, each split is separated by 0.5s
 
-If 【Volatile Garbage】 is activated, values above related to attack are all multiplied (seems like so, individual circumstances will ±1) ((: I have no idea what inside the parentheses means, sorry if it's unclear.))
+If 【Volatile Garbage】 is activated, values above related to attack are all multiplied (seems like so, individual circumstances will ±1) ((translation note: I have no idea what inside the parentheses means, sorry if it's unclear.))
 
 ## Others related to attack
 
@@ -252,7 +252,7 @@ Calculate `cancel penalty` = `consecutive cancels + 5*how many half-minutes with
 
 Multiply received attack by `100% + base multiplier*cancel penalty^2`
 
-If `cancel penalty` hits 25 and 【Volatile Garbage】 isn't activated, this attack countdown/2 ((: not sure what this means))
+If `cancel penalty` hits 25 and 【Volatile Garbage】 isn't activated, this attack countdown/2 ((translation note: not sure what this means))
 
 #### Carrying protection
 
@@ -266,7 +266,7 @@ If `Targeting Grace` is over 8, multiply sent attack by `100% - 5%*(Targeting Gr
 
 Multiply attack by `attack received multiplier`, then round (use decimals as weighted randomness in qp), spawn in garbage queue
 
-Update `Targeting Grace`, let attack amount ((: this sentence seems like it got cutoff, probably will be continued in a later commit))
+Update `Targeting Grace`, let attack amount ((translation note: this sentence seems like it got cutoff, probably will be continued in a later commit))
 
 
 
