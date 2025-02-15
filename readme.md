@@ -38,11 +38,12 @@ At Climb Speed 1 the multiplier is ×0.25, every increase in Climb Speed level a
 | Natural increase | Every second 1m | naturally loses, see `experience loss` chapter | Will get `stuck`, slowly becomes 0 when 6m~1m away from next floor |
 | KO | `15m` | | `8m` in【Expert+】|
 | Sending attack | `lines`m | `lines+0.05` experience | |
-| Cancelling garbage | | `lines/2+0.05` experience | In【Expert(+)】or【Volatile+】considered as 0 lines |
+| Cancelling garbage | | `lines*50%+0.05` experience | During【Expert(+)】【Volatile+】【Duo+】 considered as 0 lines |
 | Clearing lines | | `min(lines,2)+0.05` experience | None in【Expert(+)】, during 【All-Spin+】 non-spin clears are all considered 1 line |
 | `Crossing floors` | 3m | | Judgement condition is when current altitude (calculating temporary altitude that hasn't released yet) is less than 2m away from next floor |
 
-> Altitude gain above excluding `crossing floors` are all affected by your `level`, for example at the start `level` is 1, multiplier is ×0.25, every 4 seconds gain 1m
+> Altitude gain above excluding `crossing floors` are all affected by your `level`, for example at the start `level` is 1, multiplier is ×0.25, every 4 seconds gain 1m  
+> `Cancel penalty` will decrease the awarded experience from cancelling. When `cancel penalty` is over 25 every point will make the formula's 50% decrease by 0.5%, lowest 5%, when activating 【Volatile Garbage】 threshold changes from 25 to 40
 
 When gaining altitude, the newly increased altitude will first be stored into a temporary variable, every frame release 10%, at maximum 10m 
 
@@ -125,8 +126,6 @@ Reaching floor 10 with HYPERSPEED awards a hidden achievement, or when you fall 
 
 When activating 【Duo】 or any 【Mod+】 Hyperspeed is disabled
 
-A [strategy](https://bilibili.com/opus/997806608970940469) that could be used ((translation note: there is now a nerf to this))
-
 ## Attack Target
 
 You can't manually target someone in this mode, but the state of the player will impact the probability of yourself being attacked: `Targeting Factor`  
@@ -148,37 +147,18 @@ The `Targeting Grace` value (linear) will decrease garbage messiness, when fully
 
 If `Targeting Grace` has a value, every set amount of time (depending on floor, see table below) 0.25 `Targeting Grace` value is moved back to `Targeting Factor`, meaning the higher the floor, the more the system allows others to attack with garbage lines rapidly.
 
-### Gradual time increase (Caps at doubled past 7 utes)
+### Gradual time increase (Caps at doubled past 7 minutes)
 
-When time hits 3/5/7 utes, `Targeting Factor` +1
+When time hits 3/5/7 minutes, `Targeting Factor` +1
 
 `Targeting Factor` alongside time/when rapidly filled/change when in danger:
 
 | Time range | Factor | when full | when in danger |
 | ----- | :-: | :-: | :-: |
-| 0~2 utes | 3 | -100% | -50% |
-| 3~4 utes | 4 | -75% | -75% |
-| 5~6 utes | 5 | -66% | -60% |
-| past 7 utes | 6 | -50% | -25% |
-
-## Targeting Grace
-
-There is a `Targeting Grace` variable, when attacked, increase the same amount of value as lines received (【Volatile Garbage+】's 3x isn't calculated), until capping at **18**  
-`Targeting Grace`'s value decreases `garbage messiness`, although this system is blocked by these reasons: when time reaches 6 minutes in【Expert+】, 【Messier Garbage(+)】  
-If `Targeting Grace`>0, then it will decrease by 1 a bit of time after “last moment of being attacked”, and refresh “last moment of being attacked” as the current moment, release gaps are shown below:
-
-| Floor | Release every (seconds) | During【Expert+】|
-| :-: | :-: | :-: |
-| 1  | 4.8 | 1.0 |
-| 2  | 3.9 | 0.9 |
-| 3  | 2.1 | 0.8 |
-| 4  | 1.4 | 0.7 |
-| 5  | 1.3 | 0.6 |
-| 6  | 0.9 | 0.5 |
-| 7  | 0.6 | 0.4 |
-| 8  | 0.4 | 0.3 |
-| 9  | 0.3 | 0.2 |
-| 10 | 0.2 | 0.1 |
+| 0~2 minutes | 3 | -100% | -50% |
+| 3~4 minutes | 4 | -75% | -75% |
+| 5~6 minutes | 5 | -66% | -60% |
+| past 7 minutes | 6 | -50% | -25% |
 
 ## Attack, All-Spin, B2B
 
@@ -215,6 +195,81 @@ The amount of sound effects corresponds to the amount of groups the current roun
 
 If 【Volatile Garbage】 is activated, values above related to attack are all multiplied (seems like so, individual circumstances will ±1) ((translation note: I have no idea what inside the parentheses means, sorry if it's unclear.))
 
+## Others related to attack
+
+### Consecutive cancel
+
+There is a `consecutive cancel` variable, the amount of garbage lines you cancel the amount its added
+
+When garbage in queue releases as garbage lines, every line entered through the bottom of the board -3 (lowest is 0)
+
+When clearing grey blocks (garbage lines) instantly turns into 0
+
+This variable is a punishment parameter, the higher it is the more attack you receive, see `received amount calculation` chapter for detail
+
+> This system's addition can basically be attributed to the [Mechanical Hearts](https://bilibili.com/opus/997806608970940469) strategy
+
+### Targeting Grace
+
+There is a `Targeting Grace` variable, when attacked increase the same amount of value as received garbage in queue (value through various penalty/protection adjustments, not the original attack amount, excluding 【Volatile Garbage+】's 3x isn't counted), until capping at **18**  
+`Targeting Grace`'s value decreases `garbage messiness`, although this system is blocked by these reasons: when time reaches 6 minutes in【Expert+】, 【Messier Garbage(+)】  
+If `Targeting Grace`>0, then it will decrease by 1 a bit of time after “last moment of being attacked”, and refresh “last moment of being attacked” as the current moment, release gaps are shown below:
+
+| Floor | Release every (seconds) | During【Expert+】|
+| :-: | :-: | :-: |
+| 1  | 4.8 | 1.0 |
+| 2  | 3.9 | 0.9 |
+| 3  | 2.1 | 0.8 |
+| 4  | 1.4 | 0.7 |
+| 5  | 1.3 | 0.6 |
+| 6  | 0.9 | 0.5 |
+| 7  | 0.6 | 0.4 |
+| 8  | 0.4 | 0.3 |
+| 9  | 0.3 | 0.2 |
+| 10 | 0.2 | 0.1 |
+
+### Received amount calculation
+
+When attacked the amount is adjusted based off various factors, before lastly appearing in the garbage queue, specific process listed below:
+
+#### Altitude penalty
+
+Calculate `critical altitude` = `max(min(attacker's altitude,3500), min(altitude-1000,2000))`
+
+If altitude is greater than `critical altitude`, multiply received attack by `100% + 0.4% *(altitude - critical altitude)^2) / (altitude + critical altitude)`
+
+#### Partner penalty
+
+If 【Duo(+)】 is activated and the partner is dead, multiply received attack by `150%`
+
+#### Cancel penalty (looping penalty)
+
+Confirmed base multiplier:  
+Default: 0.2%  
+With 【All-Spin】 without 【Volatile Garbage】: 0.4% | With 【Volatile Garbage】 without 【All-Spin】: 0.06%
+
+Calculate `cancel penalty` = `consecutive cancels + 5*how many half-minutes without tanking garbage (round down)`
+
+Multiply received attack by `100% + base multiplier*cancel penalty^2`
+
+If `cancel penalty` hits 25 and 【Volatile Garbage】 isn't activated, this attack countdown/2 ((translation note: not sure what this means))
+
+#### Carrying protection
+
+If 【Duo(+)】 is activated and bonus altitude contribution percentage through sending/KOs is less than 20%, multiply sent attack by `55%+contribution%`
+
+#### Targeting Grace protection
+
+If `Targeting Grace` is over 8, multiply sent attack by `100% - 5%*(Targeting Grace-8)`
+
+#### Result
+
+Multiply attack by `attack received multiplier`, then round (use decimals as weighted randomness in qp), spawn in garbage queue
+
+Update `Targeting Grace`, let attack amount ((translation note: this sentence seems like it got cutoff, probably will be continued in a later commit))
+
+
+
 ## Garbage messiness
 
 The chance for garbage holes to continue. The higher this value, the more likely each line's hole is different
@@ -225,7 +280,7 @@ TETR.IO's garbage messiness system is decided by two numbers:
 In TL X=0, Y=100%, which means the garbage lines in the same attack are always on the same column, and different attacks are always on different columns  
 But in qp2 these two numbers aren't as extreme, meaning you'll feel the position of garbage holes aren't that related to the attacks in queue.
 
-In qp2 the situation is Y=2.5*X, which means between received garbage attacks there's a higher chance (2.5 times) to be on a different column
+In qp2, by default Y=2.5*X, which means between received garbage attacks there's a higher chance (2.5 times) to be on a different column
 
 The `garbage messiness` in this page is exactly this X, which can be affected by various factors
 
@@ -247,7 +302,7 @@ The `garbage messiness` in this page is exactly this X, which can be affected by
 Decides the choosing trend for garbage hole positions. This value can be positive or negative: the more it is when positive, garbage hole positions will be chosen easier to dig, same reasoning, the more it is negative the harder to dig
 
 When this value is 0 (TL etc. modes' normal condition), garbage hole positions are evenly randomly chosen. If `Garbage lines aren't continuous` (messiness_nosame, for example custom room options) is activated at the same time, then it will avoid the last column picked  
-In qp2, this value's formula is `33-floor*3`
+In qp2, this value's default formula is `33-floor*3`
 
 When activating 【Expert(+)】, this value -33, which means evenly random at the start  
 When activating 【Messier Garbage(+)】, this value -25  
@@ -613,7 +668,7 @@ Starting pattern：
 
 Special mod, exclusive to 2025 Valentine's Day event, free to play for everyone for a week (includes regular version), unlocking not required
 
-- When sending attack (sending/cancelling both count) it will also instantly inject garbage lines on your partner's board (amount is attack/2, rounding method unknown), if your partner is already dead attacks will send to yourself  
+- When attacking (sending/cancelling both count) there is a Backfire, prioritizing the partner, if already dead then it will attack yourself (parameter is Zen mode's unclear 0.5x, without warning or waiting instantaneously enter the board)
 - When one of the players dies the altitude will be temporary locked, until being revived  
 - Climb Speed level is locked to a highest of 4 (normally unlimited)  
 - Special fatigue process
