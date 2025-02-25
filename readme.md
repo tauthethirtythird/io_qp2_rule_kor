@@ -43,7 +43,7 @@ At Climb Speed 1 the multiplier is ×0.25, every increase in Climb Speed level a
 | `Crossing floors` | 3m | | Judgement condition is when current altitude (calculating temporary altitude that hasn't released yet) is less than 2m away from next floor |
 
 > Altitude gain above excluding `crossing floors` are all affected by your `level`, for example at the start `level` is 1, multiplier is ×0.25, every 4 seconds gain 1m  
-> `Cancel penalty` will decrease the awarded experience from cancelling. When `cancel penalty` is over 25 every point will make the formula's 50% decrease by 0.5%, lowest 5%, when activating 【Volatile Garbage】 threshold changes from 25 to 40
+> `Cancel penalty` (see later on for calculation formula details) will decrease received experience from cancelling. Once `cancel penalty` surpasses `consecutive cancels minus experience threshold`, for every extra point the 50% in the formula will decrease by 0.5%, to a lowest of 5%. This threshold is 40 when activating 【Volatile Garbage(+)】, otherwise when 【All-Spin(+)】 is activated it's 10, otherwise it's 25.
 
 When gaining altitude, the newly increased altitude will first be stored into a temporary variable, every frame release 10%, at maximum 10m 
 
@@ -131,7 +131,12 @@ When activating 【Duo】 or any 【Mod+】 Hyperspeed is disabled
 You can't manually target someone in this mode, but the state of the player will impact the probability of yourself being attacked: `Targeting Factor`  
 The higher this value the likelier it is to be attacked, **with a starting value of 3**.
 
-From additional observation, in most cases attacks are locked to players with similar altitude, specific calculations aren't clear
+Note that `Targeting Factor` isn't the only factor that affects being attacked by other players, the player's attack target is fully decided by the server, can only say this value is likely one of the main factors
+
+Other factors that could increase the chance of being chosen as another player's target:
+
+- high Climb Speed level
+- smaller altitude difference to other players
 
 ### Temporary decrease if in danger
 
@@ -670,6 +675,7 @@ Special mod, exclusive to 2025 Valentine's Day event, free to play for everyone 
 - When one of the players dies the altitude will be temporary locked, until being revived  
 - Climb Speed level is locked to a highest of 4 (normally unlimited)  
 - Special fatigue process
+- ((translation note: apparently Climb Speed level is capped at 5 (blue) as well, not sure if this is correct though))
 
 |  Time  | Effect | Description |
 | ----- | --- | --- |
@@ -708,7 +714,7 @@ Special mod, exclusive to 2025 Valentine's Day event, free to play for everyone 
 | The Devil | double hole garbage | Damnation | debris garbage lines + checkerboard start |
 | The Hermit | invisible + 5 second flash | The Exile | no more flashing + can't see all garbage |
 | The Magician | no mini + penalize repeats | The Warlock | sudden death + non-spins count as Single + cheese start |
-| The Lovers | two players | | |
+| The Lovers | two players | Bleeding Hearts | Backfire but prioritizes partner |
 
 ## Extra notes
 
