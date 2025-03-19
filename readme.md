@@ -280,9 +280,9 @@ Update `Targeting Grace`, let attack amount ((translation note: this sentence se
 The chance for garbage holes to continue. The higher this value, the more likely each line's hole is different
 
 TETR.IO's garbage messiness system is decided by two numbers:  
-“every line in the same attack has an X% chance to not stay on the same column”, “different attacks have a Y% chance to not stay on the same column” 
+“every line in the same attack has an X% chance to reroll the position”, “different attacks have a Y% chance to reroll the position” 
 
-In TL X=0, Y=100%, which means the garbage lines in the same attack are always on the same column, and different attacks are always on different columns  
+In TL X=0, Y=100%, which means the garbage lines in the same attack are always on the same column, and different attacks are almost always on different columns (unchanged if rerolled on the same position, 10%)  
 But in qp2 these two numbers aren't as extreme, meaning you'll feel the position of garbage holes aren't that related to the attacks in queue.
 
 In qp2, by default Y=2.5*X, which means between received garbage attacks there's a higher chance (2.5 times) to be on a different column
@@ -295,7 +295,7 @@ The `garbage messiness` in this page is exactly this X, which can be affected by
 | 【Expert(+)】 | +Floor*2% |
 | 【Messier Garbage(+)】 | +25% (100%) |
 | 【All-Spin+】 | +30% |
-| 【Expert+】's 6 minute Fatigue `full scatter` effect | =100% (calculations above can surpass 100%, this effect overwrites) |
+| 【Expert+】's 11 minute Fatigue `full scatter` effect | =100% (calculations above can surpass 100%, this effect overwrites) |
 | `Targeting Grace` (calculated when finally spawns) | every point of `Targeting Grace` decreases Y by 3.75%, X by 1.5% |
 
 > When `Targeting Grace` hits 18 points, Y is decreased by 67.5%, X by 27%  
@@ -624,7 +624,7 @@ Starting pattern：
 
 ### Gravity (Freefall)
 
-> The ground you stood on never existed in the first place.
+> In retrospect, the ground you stood on never existed in the first place.
 
 - 20G from the start (lock delay table for the ten floors: 24, 22, 20, 18, 16, 15, 14, 13, 12, 11)
 
@@ -643,9 +643,9 @@ Starting pattern：
 
 - The starting board state becomes 12-row checkerboard garbage lines
 - Garbage lines become messy garbage lines with 3~4 random grey blocks  
-- Can't cancel garbage lines (though you also don't receive much)  
+- Can't cancel garbage lines, though received attack multiplier becomes 0.5  
 - Activates `Garbage line protection`  
-((translation note: garbage cap is reduced to 2 as well, and apparently incoming garbage is x0.5))
+((translation note: garbage cap is reduced to 2 as well))
 
 ### Invisible+ (The Exile)
 
