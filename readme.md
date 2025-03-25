@@ -26,7 +26,7 @@ Upon reaching certain altitudes one will proceed to the next floor
 
 ## Climb Speed
 
-`Climb Speed` (called `level` below) decides the speed of climbing, every action that increases altitude is impaccted by its' multiplier bonus. Increasing Climb Speed requires experience
+`Climb Speed` (called `level` below) decides the speed of climbing, every action that increases altitude is impacted by its' multiplier bonus. Increasing Climb Speed requires experience
 
 At Climb Speed 1 the multiplier is ×0.25, every level increase adds another ×0.25 (upon reaching ×2.75 it becomes white with no further difference, but in reality there's no upper limit)
 
@@ -197,19 +197,31 @@ Warning method: When receiving this type of attack start playing warning animati
 The amount of sound effects corresponds to the amount of groups the current round's attack split into (for example 3 sounds corresponds to 4+4+n, or 9~12 attack)  
 1 second later the attacks start entering the garbage queue, each split is separated by 0.5s
 
-If 【Volatile Garbage】 is activated, values above related to attack are all multiplied (seems like so, individual circumstances will ±1) ((translation note: I have no idea what inside the parentheses means, sorry if it's unclear.))
+If 【Volatile Garbage】 is activated, values above related to attack are all multiplied (seems like so, individual circumstances will ±1) ((translation note: I have no idea what the text inside the parentheses mean, sorry if it's unclear.))
 
 ## Others related to attack
 
 ### Consecutive cancel
 
-There is a `consecutive cancel` variable, the amount of garbage lines you cancel the amount its added
+There is a `consecutive cancel` variable, the amount of garbage lines cancelled the amount is added  
+All Clears add **+5**
+Every 30 seconds without tanking garbage lines **+5**, timer then resets to zero  
+When clearing grey tiles (garbage lines) instantly **becomes 0**  
+When garbage in queue releases as garbage lines, every line entered through the bottom of the board -3 (lowest is 0)  
+When an I-Spin clears lines **-2**
+When clearing a Quad **-3**, track the column, if different from both of the previous two times (doesn't repeat tracking, only keep new ones ((translation note: I have no idea what the text inside the parentheses mean, sorry if it's unclear))) then another **-4**  
+SZ/JL piece spins clearing lines is the same as I piece clearing Quads, just changed to rotation center column, when both different **-2** (SZ and JL each use the same table)
 
-When garbage in queue releases as garbage lines, every line entered through the bottom of the board -3 (lowest is 0)
+Once `consecutive cancel` reaches certain values, the 7-bag order becomes modified, adding extra pieces to every bag:
 
-When clearing grey blocks (garbage lines) instantly turns into 0
+ - 20: O piece
+ - 30: random of L/J
+ - 40: random of S/Z
+ - 50: random of L/J
+ - 50: random of T/I
+ - 60: random of S/Z
 
-This variable is a punishment parameter, the higher it is the more attack you receive, see `received amount calculation` chapter for detail
+Will also shorten received garbage amount ((translation note: not sure what this means)), see `received amount calculation` chapter for detail
 
 > This system's addition can basically be attributed to the [Mechanical Hearts](https://bilibili.com/opus/997806608970940469) strategy
 
@@ -236,33 +248,38 @@ If `Targeting Grace`>0, then it will decrease by 1 a bit of time after “last m
 
 When attacked the amount is adjusted based off various factors, before lastly appearing in the garbage queue, specific process listed below:
 
-#### Altitude penalty
+#### 1. Altitude penalty
 
 Calculate `critical altitude` = `max(min(attacker's altitude,3500), min(altitude-1000,2000))`
 
 If altitude is greater than `critical altitude`, multiply received attack by `100% + 0.4% *(altitude - critical altitude)^2) / (altitude + critical altitude)`
 
-#### Partner penalty
+#### 2. Partner penalty
 
 If 【Duo(+)】 is activated and the partner is dead, multiply received attack by `150%`
 
-#### Cancel penalty (looping penalty)
+#### 3. Cancel penalty (looping penalty)
 
-Confirmed base multiplier:  
-Default: 0.2%  
-With 【All-Spin】 without 【Volatile Garbage】: 0.4% | With 【Volatile Garbage】 without 【All-Spin】: 0.06%
+First fetch `penalty coefficient`  
+Default 0.001  
+With 【All-Spin】 without 【Volatile Garbage】: 0.0003  
+With 【Volatile Garbage】 without 【All-Spin】: 0.002
 
-Calculate `cancel penalty` = `consecutive cancels + 5*how many half-minutes without tanking garbage (round down)`
+Attacks add `penalty coefficicent * consecutive cancels ^ 2`, although increase amount won't surpass:
+
+- Basic upper limit: Check floor count, first 7 floors is **floor+3**, unlimited after eighth floor  
+- If currently in windup: choose lower value compared to 6  
+- If 【Volatile】 is enabled multiply by 2
 
 Multiply received attack by `100% + base multiplier*cancel penalty^2`
 
 If `cancel penalty` hits 25 and 【Volatile Garbage】 isn't activated, this attack countdown/2 ((translation note: not sure what this means))
 
-#### Carrying protection
+#### 4. Carrying protection
 
 If 【Duo(+)】 is activated and bonus altitude contribution percentage through sending/KOs is less than 20%, multiply sent attack by `55%+contribution%`
 
-#### Targeting Grace protection
+#### 5. Targeting Grace protection
 
 If `Targeting Grace` is over 8, multiply sent attack by `100% - 5%*(Targeting Grace-8)`
 
@@ -270,18 +287,14 @@ If `Targeting Grace` is over 8, multiply sent attack by `100% - 5%*(Targeting Gr
 
 Multiply attack by `attack received multiplier`, then round (use decimals as weighted randomness in qp), spawn in garbage queue
 
-Update `Targeting Grace`, let attack amount ((translation note: this sentence seems like it got cutoff, probably will be continued in a later commit))
-
-
-
 ## Garbage messiness
 
 The chance for garbage holes to continue. The higher this value, the more likely each line's hole is different
 
 TETR.IO's garbage messiness system is decided by two numbers:  
-“every line in the same attack has an X% chance to not stay on the same column”, “different attacks have a Y% chance to not stay on the same column” 
+“every line in the same attack has an X% chance to reroll the position”, “different attacks have a Y% chance to reroll the position” 
 
-In TL X=0, Y=100%, which means the garbage lines in the same attack are always on the same column, and different attacks are always on different columns  
+In TL X=0, Y=100%, which means the garbage lines in the same attack are almost always on different columns (unchanged if rerolled on the same position, 10%) 
 But in qp2 these two numbers aren't as extreme, meaning you'll feel the position of garbage holes aren't that related to the attacks in queue.
 
 In qp2, by default Y=2.5*X, which means between received garbage attacks there's a higher chance (2.5 times) to be on a different column
@@ -294,7 +307,7 @@ The `garbage messiness` in this page is exactly this X, which can be affected by
 | 【Expert(+)】 | +Floor*2% |
 | 【Messier Garbage(+)】 | +25% (100%) |
 | 【All-Spin+】 | +30% |
-| 【Expert+】's 6 minute Fatigue `full scatter` effect | =100% (calculations above can surpass 100%, this effect overwrites) |
+| 【Expert+】's 11 minute Fatigue `full scatter` effect | =100% (calculations above can surpass 100%, this effect overwrites) |
 | `Targeting Grace` (calculated when finally spawns) | every point of `Targeting Grace` decreases Y by 3.75%, X by 1.5% |
 
 > When `Targeting Grace` hits 18 points, Y is decreased by 67.5%, X by 27%  
@@ -325,6 +338,12 @@ Specific garbage hole position choosing process:
     1. You can observe the graph in this [Desmos document](https://www.desmos.com/calculator/yfzabziltb)
     1. The X axis is the column numbers (left side column 0 is the easiest to dig, right side column 9 is the hardest to dig), the Y axis is the weight, use the slider at the left side to tune the favor value
 1. Decide a column as the garbage hole position via the weight calculation of the previous step
+
+## Garbage gathering
+ 
+There is a `garbage gathering` toggle, enabled when `garbage messiness` <=15% and within the first 5 floors
+ 
+When enabled, garbage hole positions will never be on the two leftmost or rightmost columns, which means it's always on columns 3~8
 
 ## Garbage waiting time
 
@@ -368,8 +387,6 @@ Mods are ways you can increase the difficulty before starting a run, with basica
 
 There are a total of 9 mods, each corresponding with a special effect that can be individually toggled, with the setting having them as Tarot Cards, a description will be written after the mod name below, there will also be a table for convenience at the end of the chapter
 
-((translation note: in the original readme "Garbage" in "Messier Garbage, Volatile Garbage, Double Hole Garbage" are omitted but to reflect more accurately to that of in-game I'll keep them for now))
-
 ### Expert Mode (The Emperor)
 
 - Harder to receive altitude and experience
@@ -394,7 +411,7 @@ There are a total of 9 mods, each corresponding with a special effect that can b
 
 ### Volatile Garbage (Strength)
 
-- Attack multiplier and cancel multiplier are both x2
+- `Attack multiplier` and `cancel multiplier` are both x2
 
 > Can be summarized as received garbage on the board is x2  
 > Because it just increases the amount of garbage lines, therefore also indirectly decreases garbage messiness, so this mod can speed up climbing progress at the start, but poses too much of a threat in the endgame so whether its good or not is dependent on the specific type of play
@@ -472,7 +489,7 @@ Tasks that will appear are shown below:
 | C | top3rows           | 3   | Have part of your stack in\nthe top 3 rows for 3 seconds | 4 | |
 | C | linesnoti          | 10  | Clear 10 Lines without\nclearing with T or I-pieces | 4 | |
 | C | szspintriple       | 1   | Clear an S/Z-Spin Triple | 2 | |
-| C | odoubleconsecutive | 2   | Clear 2 Doubles consecutively\nusing two O-Pieces | 4 | |
+| C | odoubleconsecutive | 2   | Clear 2 Doubles consecutively\nusing two O-Pieces | 4 | ((translation note: disabled in NH now)) |
 | C | tspinminiclear     | 4   | Clear 4 T-Spin Minis | 2 | |
 | C | attack             | 14  | Send 14 Attack | 1 | |
 | C | doublespiece       | 3   | Clear 3 Doubles\nwith the same type of piece | 4 | |
@@ -506,8 +523,10 @@ Tasks that will appear are shown below:
 | A | tspindtcolumn      | 1   | Clear a T-Spin Double/Triple\ncentered in column 1 or 10 | 3 | |
 | X (Special) | ospinconsecutive | 2 | Clear two O-Spin Mini\nDoubles consecutively | 3 | |
 
-When needing to revive calculate the revive difficulty score = `floor+times revived`, then pick from the list below and choose random tasks from the list above while shuffling the order:
+There is a `accumulated revive difficulty` variable, when reviving increase (First five floors +1, floors six to nine +2, floor 10 +3)
 
+When needing to revive calculate revive difficulty score = `floor+accumulated revive difficulty`, and then select a group based off the score, lastly choose tasks from the list above and randomize order:
+ 
 1. F
 1. F F
 1. F F F
@@ -523,7 +542,7 @@ When needing to revive calculate the revive difficulty score = `floor+times revi
 1. C C B
 1. C B B
 1. B B B
-1. B B (It actually is like this in the source code, missing an A, estimated to be an accidental error that will be fixed later)
+1. B B A
 1. A B A (Upper bound, and is fixed at ABA order without shuffling)
 
 ## Mod+
@@ -631,20 +650,22 @@ Starting pattern：
 
 > Strength isn't necessary for those with nothing to lose.
 
-- Received attack multiplier becomes 3x (notice: cancelling multiplier isn't changed)
+- Received attack multiplier becomes 3x (notice: `cancelling multiplier` isn't changed)
 - 14 high playfield
 - Garbage hole positions have two warnings
-- `Garbage Favor` is locked to a very high value
+- `Garbage Favor` is locked to a very high value, and `garbage gathering` is permanently enabled
 
 ### Double Hole Garbage+ (Damnation)
 
-> No more second chances.
+> Neither the freedom of life or peace of death.
 
 - The starting board state becomes 12-row checkerboard garbage lines
 - Garbage lines become messy garbage lines with 3~4 random grey blocks  
-- Can't cancel garbage lines (though you also don't receive much)  
-- Activates `Garbage line protection`  
-((translation note: garbage cap is reduced to 2 as well, and apparently incoming garbage is x0.5))
+- Cannot attack (including cancelling). Unless during: clearing garbage lines, or with the “BLIGHTED” effect
+ - BLIGHTED: Received after clearing garbage lines, when enabled the next line clear's attack *1.75 and +1, disappears after triggered
+ - Board has 4 fixed garbage lines, when cleared spontaneously appears again
+ - Activates `garbage line protection` (er... isn't there always 4 lines)
+((translation note: garbage cap is reduced to 2 as well))
 
 ### Invisible+ (The Exile)
 
@@ -658,8 +679,9 @@ Starting pattern：
 
 > Into realms beyond heaven and earth.
 
-- Repeating the same line clear is punished, and the penalty is changed to 20 lines of full garbage (instant death) ((translation note: it's technically survivable but really hard))
-- At the same time non-spin line clears are all viewed as Single (clearing 2 lines then clearing 4 lines, counts as two Singles, death)  
+- Even more strict consecutive same clear penalty: only track Spin's lines cleared count (including 0) or Void actions, as long as two consecutive attacks are the same then 20 penalty lines are added leading to instant death  
+- After reaching B2B x 4, any Spin (including ones that don't clear lines) +2 attack, and B2B counter can be increased without clearing lines  
+- All non-Spin clears are called “Void”, no attack ((translation note: Void acts as a Single but doesn't penalize if a Spin Single is done previously))
 - Receive 10 lines of garbage at the start by the system  
 - `Garbage messiness` is increased
 - Activates `Garbage line protection`
@@ -753,10 +775,12 @@ If you want to search for variables, here are some integer names below:
     GravityBumps = [0, .48, .3, .3, .3, .3, .3, .3, .3, .3, .3];
     GravLockDelay = [0, 30, 29, 28, 27, 26, 24, 22, 20, 18, 16];
     GravRevLockDelay = [0, 24, 22, 20, 18, 16, 15, 14, 13, 12, 11];
-    SpeedrunReq = [7, 8, 8, 9, 9, 10, 0, 0, 0, 0, 0]; // First element is the minimum level to not exit
-    TargetingGrace = [0, 4.8, 3.9, 2.1, 1.4, 1.3, .9, .6, .4, .3, .2];
+    SpeedrunReq = [7, 8, 8, 9, 9, 10, 0, 0, 0, 0, 0]; // [0] stores minimum level before exiting
+    TargetingGrace = [0, 4.8, 3.9, 2.1, 1.4, 1.3, .9, .6, .4, .3, .2]; // Targeting Grace's “release interval”, this variable's name isn't written completely, same with the one below
     TargetingGraceRevEx = [0, 1, .9, .8, .7, .6, .5, .4, .3, .2, .1];
     RevNoHoldHoleSideChangeChance = [.1, .1, .15, .2, .25, .3, .35, .4, .45, .5, .55];
+    ReviveLevelIncrease = [1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 3];
+    CancelingFatigueBumpCap = [4, 4, 5, 6, 7, 8, 9, 10, 1 / 0, 1 / 0, 1 / 0];
     GetSpeedCap(frame) {
         const t = this.FloorDistance.find((t => frame < t)) - frame;
         return Math.max(0, Math.min(1, t / 5 - .2))
@@ -789,7 +813,7 @@ If you want to search for variables, here are some integer names below:
             }
         else if (this.S.zenith.climb_pts >= nextRankXP) {
             // Clear xp and promote one rank
-            this.S.zenith.climb_pts -= nextRankXP; 
+            this.S.zenith.climb_pts -= nextRankXP;
             this.S.zenith.last_rank_change_was_promote = true;
             this.S.zenith.rank_locked_until = frame + Math.max(60, 60 * (5 - this.S.zenith.promotion_fatigue));
             this.S.zenith.promotion_fatigue++;
