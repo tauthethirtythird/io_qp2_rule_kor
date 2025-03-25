@@ -1,18 +1,17 @@
-# Translation of TETR.IO qp2 rules observance summary By MrZ_26
+# TETR.IO rules observance summary by MrZ_26
 
-This page's `【XX】` is the format for mods, for specifics see the Mods chapter
+The`【XX】`in this document is the format for mods. For specifics see the Mods chapter
 
 ## Start
 
-This mode doesn't have a global "round", everyone can enter at any time without waiting
+This mode doesn't have a global "round", anyone can enter at any time without waiting
 
-## QP2
+## Climbing
 
-This mode's theme is climbing the `Zenith Tower`, the final score is your `Altitude`.
+This mode's theme is climbing the `Zenith Tower`, the final score is `altitude`  
+Upon reaching certain altitudes one will proceed to the next floor
 
-Upon reaching a certain altitude you will proceed to the next floor
-
-| Floor | Altitude Range | Name |
+| Floor | Altitude range | Name |
 | - | - | :-: |
 | Floor 1 | 0m - 50m | Hall of Beginnings |
 | Floor 2 | 50m - 150m | The Hotel |
@@ -27,20 +26,20 @@ Upon reaching a certain altitude you will proceed to the next floor
 
 ## Climb Speed
 
-`Climb Speed` (called `level` below) affects how fast you gain altitude, every action that increases altitude is impacted by its' multiplier bonus. Increasing Climb Speed requires experience (called `xp` hereafter).
+`Climb Speed` (called `level` below) decides the speed of climbing, every action that increases altitude is impaccted by its' multiplier bonus. Increasing Climb Speed requires experience
 
-At Climb Speed 1 the multiplier is ×0.25, every increase in Climb Speed level adds another ×0.25 (Upon reaching ×2.75 it becomes white with no further difference, but in reality there's no upper limit).
+At Climb Speed 1 the multiplier is ×0.25, every level increase adds another ×0.25 (upon reaching ×2.75 it becomes white with no further difference, but in reality there's no upper limit)
 
 ### Experience
 
 | Action | Altitude | Experience | Notes |
 | :--: | :--: | :--: | :-- |
-| Natural increase | Every second 1m | naturally loses, see `experience loss` chapter | Will get `stuck`, slowly becomes 0 when 6m~1m away from next floor |
+| Natural increase | Every second 1m | naturally depletes, see `experience loss` chapter | Will get `stuck`, slowly becomes 0 when 6m~1m away from next floor |
 | KO | `15m` | | `8m` in【Expert+】|
 | Sending attack | `lines`m | `lines+0.05` experience | |
 | Cancelling garbage | | `lines*50%+0.05` experience | During【Expert(+)】【Volatile+】【Duo+】 considered as 0 lines |
-| Clearing lines | | `min(lines,2)+0.05` experience | None in【Expert(+)】, during 【All-Spin+】 non-spin clears are all considered 1 line |
-| `Crossing floors` | 3m | | Judgement condition is when current altitude (calculating temporary altitude that hasn't released yet) is less than 2m away from next floor |
+| Clearing lines | | `min(lines,2)+0.05` experience | ***Doesn't trigger*** during【Expert(+)】, during【All-Spin+】non-spin clears are all considered 1 line |
+| `Crossing floors` | 3m | | The judgement condition is when current altitude (including unreleased temporary altitude) ***triggers*** one of sending/cancelling/clearing while less than 2m away from the next floor |
 
 > Altitude gain above excluding `crossing floors` are all affected by your `level`, for example at the start `level` is 1, multiplier is ×0.25, every 4 seconds gain 1m  
 > `Cancel penalty` (see later on for calculation formula details) will decrease received experience from cancelling. Once `cancel penalty` surpasses `consecutive cancels minus experience threshold`, for every extra point the 50% in the formula will decrease by 0.5%, to a lowest of 5%. This threshold is 40 when activating 【Volatile Garbage(+)】, otherwise when 【All-Spin(+)】 is activated it's 10, otherwise it's 25.
@@ -280,9 +279,9 @@ Update `Targeting Grace`, let attack amount ((translation note: this sentence se
 The chance for garbage holes to continue. The higher this value, the more likely each line's hole is different
 
 TETR.IO's garbage messiness system is decided by two numbers:  
-“every line in the same attack has an X% chance to reroll the position”, “different attacks have a Y% chance to reroll the position” 
+“every line in the same attack has an X% chance to not stay on the same column”, “different attacks have a Y% chance to not stay on the same column” 
 
-In TL X=0, Y=100%, which means the garbage lines in the same attack are always on the same column, and different attacks are almost always on different columns (unchanged if rerolled on the same position, 10%)  
+In TL X=0, Y=100%, which means the garbage lines in the same attack are always on the same column, and different attacks are always on different columns  
 But in qp2 these two numbers aren't as extreme, meaning you'll feel the position of garbage holes aren't that related to the attacks in queue.
 
 In qp2, by default Y=2.5*X, which means between received garbage attacks there's a higher chance (2.5 times) to be on a different column
@@ -295,7 +294,7 @@ The `garbage messiness` in this page is exactly this X, which can be affected by
 | 【Expert(+)】 | +Floor*2% |
 | 【Messier Garbage(+)】 | +25% (100%) |
 | 【All-Spin+】 | +30% |
-| 【Expert+】's 11 minute Fatigue `full scatter` effect | =100% (calculations above can surpass 100%, this effect overwrites) |
+| 【Expert+】's 6 minute Fatigue `full scatter` effect | =100% (calculations above can surpass 100%, this effect overwrites) |
 | `Targeting Grace` (calculated when finally spawns) | every point of `Targeting Grace` decreases Y by 3.75%, X by 1.5% |
 
 > When `Targeting Grace` hits 18 points, Y is decreased by 67.5%, X by 27%  
@@ -624,7 +623,7 @@ Starting pattern：
 
 ### Gravity (Freefall)
 
-> In retrospect, the ground you stood on never existed in the first place.
+> The ground you stood on never existed in the first place.
 
 - 20G from the start (lock delay table for the ten floors: 24, 22, 20, 18, 16, 15, 14, 13, 12, 11)
 
@@ -643,9 +642,9 @@ Starting pattern：
 
 - The starting board state becomes 12-row checkerboard garbage lines
 - Garbage lines become messy garbage lines with 3~4 random grey blocks  
-- Can't cancel garbage lines, though received attack multiplier becomes 0.5  
+- Can't cancel garbage lines (though you also don't receive much)  
 - Activates `Garbage line protection`  
-((translation note: garbage cap is reduced to 2 as well))
+((translation note: garbage cap is reduced to 2 as well, and apparently incoming garbage is x0.5))
 
 ### Invisible+ (The Exile)
 
