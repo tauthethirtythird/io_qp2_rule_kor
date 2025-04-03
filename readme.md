@@ -212,7 +212,7 @@ When an I-Spin clears lines **-2**
 When clearing a Quad **-3**, track the column, if different from both of the previous two times (doesn't repeat tracking, only keep new ones ((translation note: I have no idea what the text inside the parentheses mean, sorry if it's unclear))) then another **-4**  
 SZ/JL piece spins clearing lines is the same as I piece clearing Quads, just changed to rotation center column, when both different **-2** (SZ and JL each use the same table)
 
-Once `consecutive cancel` reaches certain values, the 7-bag order becomes modified, adding extra pieces to every bag:
+Once `consecutive cancel` reaches certain values, the original 7-bag order becomes modified, adding extra pieces to every bag:
 
  - 20: O piece
  - 30: random of L/J
@@ -314,12 +314,12 @@ The `garbage messiness` in this page is exactly this X, which can be affected by
 > Genuinely didn't write in the wrong order, quite weird here, probably need to pull a table to observe garbage messiness changes deduced from various factors  
 > After receiving the `full scatter` effect when both values are overwritten as 100%, instead between attacks it's even more likely to be on the same column, very interesting
 
-## Garbage Favor
+## Garbage Difficulty
 
-Decides the choosing trend for garbage hole positions. This value can be positive or negative: the more it is when positive, garbage hole positions will be chosen easier to dig, same reasoning, the more it is negative the harder to dig
+Decides the choosing trend for garbage hole positions. This value can be positive or negative: the more it is when positive, garbage hole positions will be chosen harder to dig, same reasoning, the more it is negative the easier to dig
 
 When this value is 0 (TL etc. modes' normal condition), garbage hole positions are evenly randomly chosen. If `Garbage lines aren't continuous` (messiness_nosame, for example custom room options) is activated at the same time, then it will avoid the last column picked  
-In qp2, this value's default formula is `33-floor*3`
+In qp2, this value's default formula is `33-floor*3`, the further the easier, suspected to be used to cancel overly fast difficulty increase from garbage messiness
 
 When activating 【Expert(+)】, this value -33, which means evenly random at the start  
 When activating 【Messier Garbage(+)】, this value -25  
@@ -329,12 +329,12 @@ When activating 【Volatile Garbage+】, this value is locked to 50 for the enti
 > The easiest is 【Volatile Garbage+】's 50
 
 Specific garbage hole position choosing process:
-1. Calculate every columns' `dig easiness`
-    1. If the column is one of the highest ones and doesn't have empty spaces, the `dig easiness` is 0
+1. Calculate every columns' `dig hardness`
+    1. If the column is one of the highest ones and doesn't have empty spaces, the `dig hardness` is 0
     1. Find the column's lowest empty space, find the height of the board's highest spot
-    1. `dig easiness = height difference between empty space and highest spot + 5*empty space to highest garbage hole's horizontal distance`
-1. Rank the ten columns according to their `dig easiness`, put the highest in the front (randomly sort for same values)
-1. Use `Garbage Favor` to calculate probability spread, formula is `weight[i] = 10 + favor * (1 - i / 4.5)`, consider negative values 0
+    1. `dig hardness = height difference between empty space and highest spot + 5*empty space to highest garbage hole's horizontal distance`
+1. Rank the ten columns according to their `dig hardness`, put the highest in the front (randomly sort for same values)
+1. Use `Garbage difficulty` to calculate probability spread, formula is `weight[i] = 10 + favor * (1 - i / 4.5)`, consider negative values 0
     1. You can observe the graph in this [Desmos document](https://www.desmos.com/calculator/yfzabziltb)
     1. The X axis is the column numbers (left side column 0 is the easiest to dig, right side column 9 is the hardest to dig), the Y axis is the weight, use the slider at the left side to tune the favor value
 1. Decide a column as the garbage hole position via the weight calculation of the previous step
@@ -389,27 +389,37 @@ There are a total of 9 mods, each corresponding with a special effect that can b
 
 ### Expert Mode (The Emperor)
 
+> A display of power for those willing to bear its burden.
+
 - Harder to receive altitude and experience
 - `Garbage messiness` is increased
-- `Garbage Favor` is decreased
+- `Garbage difficulty` is decreased
 - Rising garbage animation is removed, instead spawns instantaneously (same as TL)
 - Removes system of decreasing `Targeting Factor` when in danger
 
 ### No Hold (Temperance)
 
+> Use each piece as they come and embrace the natural flow of stacking.
+
 - Disables holding
 
 ### Messier Garbage (Wheel of Fortune)
 
+> The only constant in life is change.
+
 - `Garbage messiness` increases
-- `Garbage Favor` decreases
+- `Garbage difficulty` decreases
 
 ### Gravity (The Tower)
+
+> What will you do when it all comes crumbling down?
 
 - Gravity noticeably increases
 - Lock delay table for the ten floors (unit frames): 30, 29, 28, 27, 26, 24, 22, 20, 18, 16
 
 ### Volatile Garbage (Strength)
+
+> Match great obstacles with greater determination.
 
 - `Attack multiplier` and `cancel multiplier` are both x2
 
@@ -418,14 +428,20 @@ There are a total of 9 mods, each corresponding with a special effect that can b
 
 ### Double Hole Garbage (The Devil)
 
+> Redefine your limits or succumb to his chains.
+
 - Every line of garbage has a chance to have two holes
 
 ### Invisible (The Hermit)
+
+> When the outside world fails you, trust the voice within to light a path.
 
 - Pieces placed become invisible  
 - Every 5 seconds the whole board flashes which can be convenient for digging
 
 ### All-Spin (The Magician)
+
+> Inspiration is nothing short of magic.
 
 - Non-T tetromino's Spins can be like T providing lines*2 of base attack (see the start for Spin detection rules)
 - Whenever clearing lines (accurately it should be when a piece locks and action text appears, non-line-clear Spins can also trigger), if it's the exact same as the action text in the top-left corner, then a special full garbage line instantly appears as punishment, with a reverse tally of `current floor+5` on a random position, when the player does an unpunished line clear -1, upon hitting zero it turns into a regular one-hole garbage line, with the garbage hole on the same position as where the number was
@@ -433,6 +449,8 @@ There are a total of 9 mods, each corresponding with a special effect that can b
 > Only mod that can give a more positive effect after the player reaeches a certain skill level
 
 ### Duo (The Lovers)
+
+> Love, and resign yourself to the fate of another.
 
 - Players with supporter can invite others to play with themselves in this two-player mode
 - To the perspective of one person, most output values will be halved, for example sent attacks and accumulated experience etc.
@@ -528,22 +546,22 @@ There is a `accumulated revive difficulty` variable, when reviving increase (Fir
 When needing to revive calculate revive difficulty score = `floor+accumulated revive difficulty`, and then select a group based off the score, lastly choose tasks from the list above and randomize order:
  
 1. F
-1. F F
-1. F F F
-1. F F E
-1. F E E
-1. E E E
-1. E E D
-1. E D D
-1. D D D
-1. D D C
-1. D C C
-1. C C C
-1. C C B
-1. C B B
-1. B B B
-1. B B A
-1. A B A (Upper bound, and is fixed at ABA order without shuffling)
+2. F F
+3. F F F
+4. F F E
+5. F E E
+6. E E E
+7. E E D
+8. E D D
+9. D D D
+10. D D C
+11. D C C
+12. C C C
+13. C C B
+14. C B B
+15. B B B
+16. B B A
+17. A B A (Upper bound, and is fixed at ABA order without shuffling)
 
 ## Mod+
 
@@ -653,7 +671,7 @@ Starting pattern：
 - Received attack multiplier becomes 3x (notice: `cancelling multiplier` isn't changed)
 - 14 high playfield
 - Garbage hole positions have two warnings
-- `Garbage Favor` is locked to a very high value, and `garbage gathering` is permanently enabled
+- `Garbage difficulty` is locked to a very high value, and `garbage gathering` is permanently enabled
 
 ### Double Hole Garbage+ (Damnation)
 
@@ -662,7 +680,7 @@ Starting pattern：
 - The starting board state becomes 12-row checkerboard garbage lines
 - Garbage lines become messy garbage lines with 3~4 random grey blocks  
 - Cannot attack (including cancelling). Unless during: clearing garbage lines, or with the “BLIGHTED” effect
- - BLIGHTED: Received after clearing garbage lines, when enabled the next line clear's attack *1.75 and +1, disappears after triggered
+ - BLIGHTED: Received after clearing garbage lines, when enabled the next line clear's attack *1.75, if doesn't clear garbage lines buff disappears and +1 attack
  - Board has 4 fixed garbage lines, when cleared spontaneously appears again
  - Activates `garbage line protection` (er... isn't there always 4 lines)
 ((translation note: garbage cap is reduced to 2 as well))
@@ -686,11 +704,13 @@ Starting pattern：
 - `Garbage messiness` is increased
 - Activates `Garbage line protection`
 
+## Special Mods
+
 ### Duo+ (Bleeding Hearts)
 
 > Even as we bleed, we keep holding on...  
 
-Special mod, exclusive to 2025 Valentine's Day event, free to play for everyone for a week (includes regular version), unlocking not required
+Exclusive to 2025 Valentine's Day event, free to play for everyone for a week (includes regular version), unlocking not required
 
 - When attacking (sending/cancelling both count) there is a Backfire, prioritizing the partner, if already dead then it will attack yourself (parameter is Zen mode's unclear 0.5x, without warning or waiting instantaneously enter the board)
 - When one of the players dies the altitude will be temporary locked, until being revived  
@@ -723,6 +743,26 @@ Special mod, exclusive to 2025 Valentine's Day event, free to play for everyone 
 > In this mode `garbage messiness` is only decided by Fatigue, original systems are completely ignored  
 > After receiving “disable reviving” buff, revival tasks are locked to the impossible X rank task
 
+### PENTR.IO (The Fool)
+
+> A journey of one thousand six hundred fifty meters starts with a single step.
+
+ Exclusive to 2025 April Fools event, free to play for a week
+ 
+ - Pentominoes  
+ - ASC-DX rotation system (same idea as ASC, but range expanded from ±2 to ±3)  
+ - Garbo's personally drawn monochromatic sketch background
+ - If【Duo】is also enabled, revive tasks will become a “Clear 4*revive difficulty lines”
+ - When activating every mod (except for【Duo】), mod combination name is “WHY”
+ 
+ ### PENTR.IO+ (A Fool's Errand)
+ 
+ > You'll never escape who you are.
+ 
+ 2025 April Fools event similarly to【PENTR.IO】, requires climbing 2500m with【PENTR.IO】to unlock
+ 
+ -【PENTR.IO】's base but changed to hexominoes
+   
 ## Tarot Card basic summary
 
 | Upright name | Effect summary | Reversed name | Effect summary (includes upright effects) |
@@ -735,7 +775,7 @@ Special mod, exclusive to 2025 Valentine's Day event, free to play for everyone 
 | The Devil | double hole garbage | Damnation | debris garbage lines + checkerboard start |
 | The Hermit | invisible + 5 second flash | The Exile | no more flashing + can't see all garbage |
 | The Magician | no mini + penalize repeats | The Warlock | sudden death + non-spins count as Single + cheese start |
-| The Lovers | two players | Bleeding Hearts | Backfire but prioritizes partner |
+| The Lovers | two players | | |
 
 ## Extra notes
 
@@ -760,7 +800,8 @@ If you want to search for variables, here are some integer names below:
 1. `Reverse mods` [modname]_reverse
 1. `Change between attacks` messiness_change
 1. `Change during attack` messiness_inner
-1. `Garbage Favor` garbagefavor
+1. `Garbage difficulty` garbagefavor
+1. `Garbage gathering` messiness_center
 1. `garbage waiting time` garbagephase
 
 ```js
@@ -905,7 +946,7 @@ If you want to search for variables, here are some integer names below:
             this.S.setoptions.messiness_inner = 1;
         }
 
-        // Garbage Favor
+        // Garbage difficulty
         this.S.setoptions.garbagefavor = MOD_volatileRev ? 50 : (MOD_expert ? 0 : 33) - 3 * floor - (MOD_messy ? 25 : 0);
 
         // Garbage waiting time
@@ -926,7 +967,7 @@ If you want to search for variables, here are some integer names below:
     }
 
     // Some methods
-    function getHolePosition() { // Calculations related to garbage hole position, mainly to deal with Garbage Favor (used Copilot to organize source code, can't confirm fully correct)
+    function getHolePosition() { // Calculations related to garbage hole position, mainly to deal with Garbage difficulty (used Copilot to organize source code, can't confirm fully correct)
         let pos = 0;
 
         if (MOD_volatileRev) t.zenith.garbageahead.shift();
@@ -955,7 +996,7 @@ If you want to search for variables, here are some integer names below:
                     }
                 }
 
-                // For every column, first find the lowest empty tile, track this column's “dig easiness”
+                // For every column, first find the lowest empty tile, track this column's “dig hardness”
                 e: for (let x = 0; x < field.width; x++) {
                     for (let y = 0; y < field.height; y++) {
                         if (null !== t.board[y][x]) {
@@ -967,10 +1008,10 @@ If you want to search for variables, here are some integer names below:
                     scores.push([x, .1 * t.rngex.nextFloat()]);
                 }
 
-                // Rank every column based off the dig easiness from high to low
+                // Rank every column based off the dig hardness from high to low
                 scores.sort((e, t) => t[1] - e[1]);
 
-                // Calculate every column's weight based off favor amount, which means decide whether to incline towards high or low dig easiness
+                // Calculate every column's weight based off favor amount, which means decide whether to incline towards high or low dig hardness
                 // favor为0时每一列的权重都是10，也就是等概率，图像画出来是一条直线（虽然0的时候其实会跳过这些步骤，不用这么麻烦），正数的时候就会把这条直线绕中点(4.5，10)顺时针旋转，也就是增加前五项好挖的列的权重，减少后五项不好挖的列的权重（负权重计为0）
                 // ((translation work in progress))
                 let scoreSum = 0;
