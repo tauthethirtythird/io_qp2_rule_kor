@@ -754,6 +754,17 @@ Exclusive to 2025 Valentine's Day event, free to play for everyone for a week (i
  - Garbo's personally drawn monochromatic sketch background
  - If【Duo】is also enabled, revive tasks will become a “Clear 4*revive difficulty lines”
  - When activating every mod (except for【Duo】), mod combination name is “WHY”
+
+ ASC-DX's kick table (clockwise and 0←→2's 180°, counterclockwise and 1←→3's 180° is mirror symmetrical):
+ ```
+ 35 34 33 __ __ __ __
+ 28 27 26 25 __ __ __
+ 22 20 19 18 31 __ __
+ _9 _7 _1 _0 16 24 __
+ 10 _8 _3 _2 17 29 36
+ 13 11 _5 _4 21 30 37
+ 15 14 12 _6 23 32 38
+ ```
  
  ### PENTR.IO+ (A Fool's Errand)
  
