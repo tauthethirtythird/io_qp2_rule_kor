@@ -102,23 +102,23 @@ To recover you need to reach 50% (peak of the slant on the middle of the experie
 |  25  | 100 | 3.08  | 32.5 |  1.85 | 54.17 |
 |  26  | 104 | 2.96  | 35.1 |  1.78 | 58.50 |
 
-### Appearance
+### 등반 속도 표식
 
-You can view which Climb Speed you're at under the board, a simple text description of the appearances are shown below:
+보드 밑에 있는 표식으로 등반 속도를 구별할 수 있으며, 그 표식의 모양들은 다음과 같습니다:
 
-| `level` | Multiplier | Color | Shape | Hyperspeed notes |
+| 등급 | 배율 | 색 | 모양 | 하이퍼스피드 |
 | :-: | :--: | :-: | - | - |
-|  1  | 0.25 | none         | a progress bar | |
-|  2  | 0.50 | red          | a triangle added below | |
-|  3  | 0.75 | orange       | wings added to triangle | |
-|  4  | 1.00 | yellow-green | wings increase size | |
-|  5  | 1.25 | blue         | wings increase size + add base | |
-|  6  | 1.50 | magenta      | wings extend to full size | |
-|  7  | 1.75 | light orange | wings become more detailed | lowest `level` without exiting HYPERSPEED |
-|  8  | 2.00 | turquoise    | pair of parallelograms added on top | HYPERSPEED trigger at f1/f2 |
-|  9  | 2.25 | cyan         | two pairs of parallelograms | HYPERSPEED trigger at f3/f4 |
-| 10  | 2.50 | light purple | three pairs of parallelograms | HYPERSPEED trigger at f5 |
-| 11+ | 2.75 | white        | pair of white triangles added | |
+|  1  | 0.25 | 검정         | a progress bar | |
+|  2  | 0.50 | 빨강          | a triangle added below | |
+|  3  | 0.75 | 주황       | wings added to triangle | |
+|  4  | 1.00 | 초록 | wings increase size | |
+|  5  | 1.25 | 파랑         | wings increase size + add base | |
+|  6  | 1.50 | 분홍      | wings extend to full size | |
+|  7  | 1.75 | 연주황/금색 | wings become more detailed | lowest `level` without exiting HYPERSPEED |
+|  8  | 2.00 | 청록색    | pair of parallelograms added on top | HYPERSPEED trigger at f1/f2 |
+|  9  | 2.25 | 시안         | two pairs of parallelograms | HYPERSPEED trigger at f3/f4 |
+| 10  | 2.50 | 연분홍 | three pairs of parallelograms | HYPERSPEED trigger at f5 |
+| 11+ | 2.75 | 하양        | pair of white triangles added | |
 
 ### HYPERSPEED
 
@@ -350,12 +350,12 @@ There is a `garbage gathering` toggle, enabled when `garbage messiness` <=15% an
  
 When enabled, garbage hole positions will never be on the two leftmost or rightmost columns, which means it's always on columns 3~8
 
-## Garbage waiting time
+## 가비지 대기 시간
 
-When attacked garbage lines will wait in queue for a certain amount of time before entering a triggerable state, during this state placing pieces that don't clear lines causes garbage to enter through the board: transparent yellow → transparent red → opaque red (triggerable)  
-Waiting time is decided by the floor or certain mods, for specific values see below:
+가비지가 큐에 들어오고 나서 보드에 들어올 수 있는 상태가 되기까지 일정 시간이 걸리며, 일정 시간이 지나기 전에는 미노를 놓음으로써 줄을 지우지 않아도 가비지가 보드에 들어오지 않습니다. 반투명 노랑 → 반투명 빨강 → 불투명 빨강 (이때 보드에 들어올 수 있음)  
+이러한 대기 시간은 층과 특정 모드에 의해서 결정되며, 자세한 내용은 아래 표를 참고하세요:
 
-| Floor |  Regular (Non-Expert)   |  【Expert(+)】   | 【Messier+/Volatile+/Double Hole+】 | Other【Mod+】 |
+| Floor |  일반(엑스퍼트 아님)   |  [(Rev.) 엑스퍼트]  | [Rev. 메시어/Rev. 볼라타일/Rev. 더블홀] | 이외의 리버스 모드들 |
 | :-: | :----------: | :---------: | :-------------: | :-----: |
 |  1  |  5.0s (300f)  | 2.2s (132f) |   **2.5s**    |**2.5s**|
 |  2  |  4.5s (270f)  | 2.0s (120f) |   **2.5s**    |**2.5s**|
@@ -363,13 +363,12 @@ Waiting time is decided by the floor or certain mods, for specific values see be
 |  4  |  3.5s (210f)  | 1.6s  (96f) |   **2.5s**    |**2.5s**|
 |  5  |  3.0s (180f)  | 1.4s  (84f) |   **2.5s**    |**2.5s**|
 |**6**|**2.5s (150f)**| 1.2s  (72f) |   **2.5s**    |**2.5s**|
-|  7  |  2.0s (120f)  | 1.0s  (60f) |   **2.5s**    | `2.0s` |
-|  8  |  1.5s  (90f)  | 0.8s  (48f) |   **2.5s**    | `1.5s` |
-|  9  |  1.0s  (60f)  | 0.6s  (36f) |   **2.5s**    | `1.0s` |
-| 10  |  0.5s  (30f)  | 0.4s  (24f) |   **2.5s**    | `0.5s` |
+|  7  |  2.0s (120f)  | 1.0s  (60f) |   **2.5s**    |  2.0s  |
+|  8  |  1.5s  (90f)  | 0.8s  (48f) |   **2.5s**    |  1.5s  |
+|  9  |  1.0s  (60f)  | 0.6s  (36f) |   **2.5s**    |  1.0s  |
+| 10  |  0.5s  (30f)  | 0.4s  (24f) |   **2.5s**    |  0.5s  |
 
-> Note: Because garbage has to switch twice to enter a triggerable state, the statistics in the source code are half of the table above
-
+> 참고: 가비지가 보드에 들어올 수 있는 상태가 되려면 상태가 2번 바뀌어야 하기 때문에, 실제로 게임 내 코드에 있는 수치들은 위 표의 절반입니다.
 ## 피로
 
 한 판이 너무 길어지는 것을 막기 위해서, 시작 8분 후부터 매 분마다 디버프가 걸립니다.
@@ -382,7 +381,7 @@ Waiting time is decided by the floor or certain mods, for specific values see be
 |  11:00 | +25% attack received multiplier | YOUR CONSCIOUSNESS FADES… receive 25% more garbage |
 |  12:00 | +5 permanent garbage (total 10) | THIS IS THE END. +5 PERMANENT LINES |
 
-> In [Rev. 엑스퍼트]에서는 피로 효과가 다릅니다. (자세한 내용은 후술)
+> [Rev. 엑스퍼트]에서는 피로 효과가 다릅니다. (자세한 내용은 후술)
 
 ## 모드
 
