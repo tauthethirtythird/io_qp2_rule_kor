@@ -26,7 +26,7 @@
 
 ## 등반 속도
 
-`Climb Speed` (called `level` below) decides the speed of climbing, every action that increases altitude is impacted by its' multiplier bonus. Increasing Climb Speed requires experience
+<b>등반 속도</b>(또는 "등급")는 플레이어의 점수가 오르는 속도를 결정하며, 점수를 증가시키는 모든 행동은 등반 속도로 인한 배율의 영향을 받습니다. 등반 속도가 올라가려면 경험치가 필요합니다.
 
 At Climb Speed 1 the multiplier is ×0.25, every level increase adds another ×0.25 (upon reaching ×2.75 it becomes white with no further difference, but in reality there's no upper limit)
 
@@ -113,7 +113,7 @@ You can view which Climb Speed you're at under the board, a simple text descript
 |  8  | 2.00 | turquoise    | pair of parallelograms added on top | HYPERSPEED trigger at f1/f2 |
 |  9  | 2.25 | cyan         | two pairs of parallelograms | HYPERSPEED trigger at f3/f4 |
 | 10  | 2.50 | light purple | three pairs of parallelograms | HYPERSPEED trigger at f5 |
-| 11  | 2.75 | white        | pair of white triangles added | |
+| 11+ | 2.75 | white        | pair of white triangles added | |
 
 ### HYPERSPEED
 
