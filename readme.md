@@ -1,36 +1,36 @@
-# TETR.IO rules observance summary by MrZ_26
+# TETR.IO 퀵 플레이 규칙 설명 (원문: MrZ_26, 영어 번역본: Had0j)
 
-The`【XX】`in this document is the format for mods. For specifics see the Mods chapter
+이 한국어 번역본은 영어 번역본을 중역한 것입니다. 또한, 번역의 정확성을 장담할 수 없습니다.
 
-## Start
+## 게임의 시작
 
-This mode doesn't have a global "round", anyone can enter at any time without waiting
+퀵 플레이 모드는 모두에게 똑같이 적용되는 "라운드"의 개념이 없으며, 누구나 원하는 때에 입장하여 게임을 시작할 수 있습니다.
 
-## Climbing
+## 등반
 
-This mode's theme is climbing the `Zenith Tower`, the final score is `altitude`  
-Upon reaching certain altitudes one will proceed to the next floor
+이 모드의 목표는 <b>제니스 탑(Zenith tower)</b>을 등반하는 것으로, 최종 점수는 <b>고도</b>로 결정됩니다.
+특정 고도에 다다르게 되면 플레이어는 다음 층으로 올라가게 됩니다.
 
-| Floor | Altitude range | Name |
+| 층 | 고도 범위 | 이름 |
 | - | - | :-: |
-| Floor 1 | 0m - 50m | Hall of Beginnings |
-| Floor 2 | 50m - 150m | The Hotel |
-| Floor 3 | 150m - 300m | The Casino |
-| Floor 4 | 300m - 450m | The Arena |
-| Floor 5 | 450m - 650m | The Museum |
-| Floor 6 | 650m - 850m | Abandoned Offices |
-| Floor 7 | 850m - 1100m | The Laboratory |
-| Floor 8 | 1100m - 1350m | The Core |
-| Floor 9 | 1350m - 1650m | Corruption |
-| Floor 10 | 1650m+ | Platform of The Gods |
+| 1층 | 0m - 50m | 시작의 전당(Hall of Beginnings) |
+| 2층 | 50m - 150m | 호텔(The Hotel) |
+| 3층 | 150m - 300m | 카지노(The Casino) |
+| 4층 | 300m - 450m | 경기장(The Arena) |
+| 5층 | 450m - 650m | 박물관(The Museum) |
+| 6층 | 650m - 850m | 버려진 사무실들(Abandoned Offices) |
+| 7층 | 850m - 1100m | 실험실(The Laboratory) |
+| 8층 | 1100m - 1350m | 중심(The Core) |
+| 9층 | 1350m - 1650m | 오염(Corruption) |
+| 10층 | 1650m+ | 신의 단<sub>壇</sub>(Platform of The Gods) |
 
-## Climb Speed
+## 등반 속도
 
 `Climb Speed` (called `level` below) decides the speed of climbing, every action that increases altitude is impacted by its' multiplier bonus. Increasing Climb Speed requires experience
 
 At Climb Speed 1 the multiplier is ×0.25, every level increase adds another ×0.25 (upon reaching ×2.75 it becomes white with no further difference, but in reality there's no upper limit)
 
-### Experience
+### 경험치
 
 | Action | Altitude | Experience | Notes |
 | :--: | :--: | :--: | :-- |
