@@ -1,6 +1,11 @@
 # TETR.IO 퀵 플레이 규칙 설명 (원문: MrZ_26, 영어 번역본: Had0j)
 
+## 일러두기
+
 이 한국어 번역본은 영어 번역본을 중역한 것입니다. 또한, 번역의 정확성을 장담할 수 없습니다.
+대괄호로 둘러싸인 글씨는 모드를, "Rev."는 리버스 모드를 가리킵니다.
+이 글에서 "쉬운 모드"란, [(Rev.) 엑스퍼트]나 리버스 모드를 적용시키지 않은 상태를 편의상 가리키는 말입니다.
+"매 프레임마다"는 "1/60초마다"를 뜻합니다.
 
 ## 게임의 시작
 
@@ -28,27 +33,27 @@
 
 <b>등반 속도</b>(또는 "등급")는 플레이어의 점수가 오르는 속도를 결정하며, 점수를 증가시키는 모든 행동은 등반 속도로 인한 배율의 영향을 받습니다. 등반 속도가 올라가려면 경험치가 필요합니다.
 
-At Climb Speed 1 the multiplier is ×0.25, every level increase adds another ×0.25 (upon reaching ×2.75 it becomes white with no further difference, but in reality there's no upper limit)
+등반 속도가 1일 때 배율은 ×0.25배이며, 등반 속도가 1씩 오를 때마다 배율도 ×0.25배씩 오릅니다. (배율이 ×2.75배 이상일 때 등반 속도 표시는 하얀색으로 유지되지만, 실제로는 상한이 없기 때문에 얼마든지 배율을 높일 수 있습니다)
 
 ### 경험치
 
-| Action | Altitude | Experience | Notes |
+| 행동 | 얻는 고도(배율 적용 전) | 얻는 경험치 | 비고 |
 | :--: | :--: | :--: | :-- |
-| Natural increase | Every second 1m | naturally depletes, see `experience loss` chapter | Will get `stuck`, slowly becomes 0 when 6m~1m away from next floor |
-| KO | `15m` | | `8m` in【Expert+】|
-| Sending attack | `lines`m | `lines+0.05` experience | |
-| Cancelling garbage | | `lines*50%+0.05` experience | During【Expert(+)】【Volatile+】【Duo+】 considered as 0 lines |
-| Clearing lines | | `min(lines,2)+0.05` experience | ***Doesn't trigger*** during【Expert(+)】, during【All-Spin+】non-spin clears are all considered 1 line |
-| `Crossing floors` | 3m | | The judgement condition is when current altitude (including unreleased temporary altitude) ***triggers*** one of sending/cancelling/clearing while less than 2m away from the next floor |
+| 자연적 증가 | 매초 1m | 자동으로 감소, 자세한 내용은 "경험치 감소" 챕터를 참고 | 다음 층과의 경계에 가까워질 때 고도 증가는 멈추게 됩니다. (다음 층과의 거리가 6-1m 남았을 때 점진적으로 0으로 줄어듦) |
+| KO | 15m | | [Rev. 엑스퍼트]에서 8m |
+| 공격 보내기 | `줄 수`m | `줄 수+0.05` 경험치 | |
+| 가비지 상쇄 | | `줄 수*50%+0.05` 경험치 | [(Rev.) 엑스퍼트]/[Rev. 볼라타일]/<s>[Rev. 듀오]</s>에서는 0줄을 상쇄한 것으로 취급 (역주: 경험치를 아예 얻지 않는단 소리가 아닙니다) |
+| 줄 지우기 | | `min(줄 수,2)+0.05` 경험치 | [(Rev.) 엑스퍼트]에서 ***적용되지 않으며***, [Rev. 올스핀]에서 모든 스핀이 아닌 클리어는 1줄로 취급됩니다. |
+| 층 건너기 | 3m(배율에 영향을 받지 않음) | | 다음 층까지 2m 이내가 남은 상황에서 줄을 지울 시 발동됩니다. (역주: 솔직히 말해서 영어 번역본에 있었던 내용을 전혀 이해하지 못했으며, 오역일 가능성이 매우 높습니다) |
 
-> Altitude gain above excluding `crossing floors` are all affected by your `level`, for example at the start `level` is 1, multiplier is ×0.25, every 4 seconds gain 1m  
-> `Cancel penalty` (see later on for calculation formula details) will decrease received experience from cancelling. Once `cancel penalty` surpasses `consecutive cancels minus experience threshold`, for every extra point the 50% in the formula will decrease by 0.5%, to a lowest of 5%. This threshold is 40 when activating 【Volatile Garbage(+)】, otherwise when 【All-Spin(+)】 is activated it's 10, otherwise it's 25.
+> "층 건너기"를 제외한 모든 고도 상승은 등급에 영향을 받습니다. 예를 들어 게임을 시작할 때, 등급은 1이고, 배율은 ×0.25배이므로, 매 4초마다 1m씩 올라가게 됩니다.  
+> "상쇄 페널티"(자세한 내용은 후술)는 상쇄로 얻는 경험치를 감소시킵니다. Once `cancel penalty` surpasses `consecutive cancels minus experience threshold`, for every extra point the 50% in the formula will decrease by 0.5%, to a lowest of 5%. This threshold is 40 when activating 【Volatile Garbage(+)】, otherwise when 【All-Spin(+)】 is activated it's 10, otherwise it's 25.
 
 When gaining altitude, the newly increased altitude will first be stored into a temporary variable, every frame release 10%, at maximum 10m 
 
 The experience required to promote to the next Climb Speed level is `4*level`, once your experience meets the conditions your Climb Speed level increases by one and your experience decreases by the amount previously required
 
-### Skipping levels
+### 등급 스킵
 
 Whenever you promote a Climb Speed level, if there's still a large amount of remaining experience (occuring when several tens of large B2B attack is released) and is still over the amount to increase another Climb Speed level, then you gain an extra `expreience/required experience` levels, **and these extra experience are not removed**
 
@@ -57,18 +62,18 @@ Whenever you promote a Climb Speed level, if there's still a large amount of rem
     Next frame - Promote + skip levels 
     Next frame - Can skip another Climb Speed level
 
-### Experience loss
+### 경험치 감소
 
-Experience will naturally decrease over time, decreasing by `mul*(level^2+level)/3600` every frame.  
-mul: Regular solo = 3, when activating 【Expert(+)】 or 【Duo+】 = 5, when in Duo = 3 + players with Expert Mode on
+경험치는 자동적으로 매 프레임마다 `배율*(등급^2+등급)/3600` 씩 감소합니다. 
+배율: 엑스퍼트나 듀오가 아닐 때: 3, [(Rev.) 엑스퍼트]나 [Rev. 듀오]에서: 5, 듀오에서: = 3 + 엑스퍼트를 적용한 사람의 수
 
-When promoting a climb speed level a 5 second `experience loss protection` effect is received, to prevent having very little experience after promotion and suddenly lose it thus demoting right after  
+등반 속도를 승급할 때 5초 동안 `경험치 보호` 효과가 발동되며, 이는 승급 후에 바로 강등되는 것을 막기 위함입니다.
 `Promotion fatigue` system: After promoting, the last line's `no loss for 5 seconds` will decrease by 1 second (until 1 second), therefore the effect gets weaker and weaker when repeatedly gaining and losing `levels`  
 To recover you need to reach 50% (peak of the slant on the middle of the experience bar) from a promotion action (rather than demotion), afterwards triggering this effect next time will have 5 seconds
 
-Below are some calculated statistics for convenience:
+편의를 위해 계산된 통계치:
 
-| `level` | experience required to promote | seconds to demotion | experience loss per second | 【Expert(+)】seconds to demotion | 【Expert(+)】 loss per second |
+| 등급 | 승급에 필요한 경험치 | 강등까지 걸리는 시간 | 초당 경험치 감소량 | [(Rev.) 엑스퍼트]에서 강등까지 걸리는 시간 | [(Rev.) 엑스퍼트]에서 초당 경험치 감소량 |
 | :--: | :-: | :---: | :--: | :---: | :----: |
 |  1   | 4   | 40.00 |  0.1 | 24.00 |  0.17 |
 |  2   | 8   | 26.67 |  0.3 | 16.00 |  0.50 |
@@ -164,9 +169,9 @@ When time hits 3/5/7 minutes, `Targeting Factor` +1
 | 5~6 minutes | 5 | -66% | -60% |
 | past 7 minutes | 6 | -50% | -25% |
 
-## Attack, All-Spin, B2B
+## 공격, 올스핀, 백투백
 
-Clearing 1, 2, 3 lines respectively send 0, 1, 2 attack
+한 번에 각각 1, 2, 3줄을 지우는 것은 0, 1, 2줄의 공격을 보냅니다.
 
 Limited to `Easy mode`: “0 combo single 一 +1 attack”, making clearing 1 line also have 1 attack efficiency, can be considered under specific circumstances
 
@@ -181,13 +186,13 @@ Consecutive `special clears` starting from the second one start gathering B2B co
 
 Whether to keep decimals or not uses RNG, in calculating process keep decimals, lastly take the decimal part as the chance for whether or not to round up, for example 1.2 has a 20% final chance to become 2, 80% final chance to become 1
 
-### Surge Attack
+### 서지 공격
 
 When B2B is broken a large attack is created, attack is `B2B count -3`, (or the amount of consecutive special clears count -4) (slightly different in TL, however many B2B however many attack, no -3)
 
 > This is a very important system in qp, really needed in certain situations
 
-### Windup Attack
+### 와인드업 공격
 
 If a single attack with 8 or more lines is received, this attack will be split into multiple parts and have a warning hint before being received, to prevent easily topping out after targeting multiplier is increased due to various reasons
 
@@ -201,7 +206,7 @@ If 【Volatile Garbage】 is activated, values above related to attack are all m
 
 ## Others related to attack
 
-### Consecutive cancel
+### 연속적 상쇄
 
 There is a `consecutive cancel` variable, the amount of garbage lines cancelled the amount is added  
 All Clears add **+5**
@@ -223,7 +228,7 @@ Once `consecutive cancel` reaches certain values, the original 7-bag order becom
 
 Will also shorten received garbage amount ((translation note: not sure what this means)), see `received amount calculation` chapter for detail
 
-> This system's addition can basically be attributed to the [Mechanical Hearts](https://bilibili.com/opus/997806608970940469) strategy
+> This system's addition can basically be attributed to the [메커니컬 하트](https://bilibili.com/opus/997806608970940469) strategy
 
 ### Targeting Grace
 
@@ -314,7 +319,7 @@ The `garbage messiness` in this page is exactly this X, which can be affected by
 > Genuinely didn't write in the wrong order, quite weird here, probably need to pull a table to observe garbage messiness changes deduced from various factors  
 > After receiving the `full scatter` effect when both values are overwritten as 100%, instead between attacks it's even more likely to be on the same column, very interesting
 
-## Garbage Difficulty
+## 가비지 난이도
 
 Decides the choosing trend for garbage hole positions. This value can be positive or negative: the more it is when positive, garbage hole positions will be chosen harder to dig, same reasoning, the more it is negative the easier to dig
 
@@ -365,11 +370,11 @@ Waiting time is decided by the floor or certain mods, for specific values see be
 
 > Note: Because garbage has to switch twice to enter a triggerable state, the statistics in the source code are half of the table above
 
-## Fatigue
+## 피로
 
-To prevent a game from being too long, starting from 8 minutes every minute adds a negative effect
+한 판이 너무 길어지는 것을 막기 위해서, 시작 8분 후부터 매 분마다 디버프가 걸립니다.
 
-| Time | Negative effect | Description |
+| 시간 |  디버프 | 인게임 텍스트 |
 | --- | --- | --- |
 |  8:00 | +2 permanent garbage | FATIGUE SETS IN… +2 PERMANENT LINES |
 |  9:00 | +25% attack received multiplier | YOUR BODY GROWS WEAK… receive 25% more garbage |
@@ -377,11 +382,9 @@ To prevent a game from being too long, starting from 8 minutes every minute adds
 |  11:00 | +25% attack received multiplier | YOUR CONSCIOUSNESS FADES… receive 25% more garbage |
 |  12:00 | +5 permanent garbage (total 10) | THIS IS THE END. +5 PERMANENT LINES |
 
-> In 【Expert+】 Fatigue effects are different, see later below for specifics
+> In [Rev. 엑스퍼트]에서는 피로 효과가 다릅니다. (자세한 내용은 후술)
 
-## Mods
-
-In this page `Easy mode` means not activating 【Expert(+)】 and not activating 【Mod+】
+## 모드
 
 Mods are ways you can increase the difficulty before starting a run, with basically only downsides and no upsides, but activating mods (or specific mod combinations) and reaching certain altitudes can grant achievements
 
@@ -458,30 +461,30 @@ There are a total of 9 mods, each corresponding with a special effect that can b
 
 Tasks that will appear are shown below:
 
-| Difficulty | code ID | Mission value | Name | tag type(?) | Doesn't appear with certain mods |
+| 난이도 | 코드 내 ID | 미션 값 | 내용 | 분류 | 특정 모드에서 나타나지 않음 |
 | - | - | - | - | - | - |
-| F | combo              | 3   | Perform a 3-Combo | 2 | |
-| F | double             | 2   | Clear 2 Doubles | 2 | |
-| F | quad               | 1   | Clear a Quad | 1 | |
-| F | lines              | 6   | Clear 6 Lines | 1 | |
-| F | osingle            | 1   | Clear a Single\nusing an O-Piece | 3 | |
-| F | odouble            | 1   | Clear a Double\nusing an O-Piece | 3 | |
-| F | szdouble           | 1   | Clear a Double\nusing an S or Z-Piece | 3 | |
-| F | ljtriple           | 1   | Clear a Triple\nusing an L or J-Piece | 3 | |
-| F | iholdlines         | 3   | Clear 3 lines\nwhile holding an I-Piece | 3 | 【No Hold】 |
-| F | hold               | 8   | Use Hold 8 times | 2 | 【No Hold】 |
-| F | rotate             | 20  | Rotate 20 times | 2 | |
+| F | combo              | 3   | 3-콤보 달성하기 | 2 | |
+| F | double             | 2   | 더블을 2번 클리어하기 | 2 | |
+| F | quad               | 1   | 쿼드를 클리어하기 | 1 | |
+| F | lines              | 6   | 6줄을 클리어하기 | 1 | |
+| F | osingle            | 1   | O미노로 싱글 클리어하기 | 3 | |
+| F | odouble            | 1   | O미노로 더블 클리어하기 | 3 | |
+| F | szdouble           | 1   | S 또는 Z미노로 더블 클리어하기 | 3 | |
+| F | ljtriple           | 1   | L 또는 J미노로 트리플 클리어하기 | 3 | |
+| F | iholdlines         | 3   | Clear 3 lines\nwhile holding an I-Piece | 3 | [노홀드] |
+| F | hold               | 8   | 홀드를 8회 사용하기 | 2 | [노홀드] |
+| F | rotate             | 20  | 20회 회전하기 | 2 | |
 | F | singleconsecutive  | 2   | Clear 2 Singles in a row | 3 | |
-| E | spin               | 1   | Perform any Spin | 2 | |
-| E | tspinsingle        | 1   | Clear a T-Spin Single | 2 | |
-| E | tspindouble        | 1   | Clear a T-Spin Double | 2 | |
-| E | szspin             | 1   | Clear an S/Z-Spin | 1 | |
-| E | ljspin             | 1   | Clear an L/J-Spin | 1 | |
-| E | combo              | 5   | Perform a 5-Combo | 2 | |
+| E | spin               | 1   | 아무 스핀 수행하기 | 2 | |
+| E | tspinsingle        | 1   | T스핀 싱글 클리어하기 | 2 | |
+| E | tspindouble        | 1   | T스핀 더블 클리어하기 | 2 | |
+| E | szspin             | 1   | S/Z스핀 클리어하기 | 1 | |
+| E | ljspin             | 1   | L/J스핀 클리어하기 | 1 | |
+| E | combo              | 5   | 5-콤보 달성하기 | 2 | |
 | E | iflat              | 2   | Clear 2 Lines using\nhorizontal I-Pieces | 3 | |
 | E | pieces             | 20  | Place 20 pieces | 2 | |
-| E | attack             | 6   | Send 6 Attack | 1 | |
-| E | placeoconsecutive  | 2   | Place 2 O-Pieces\nin a row | 3 | |
+| E | attack             | 6   | 공격 6줄 보내기 | 1 | |
+| E | placeoconsecutive  | 2   | 연속으로 2개의 O미노 놓기 | 3 | |
 | E | norotateclockwise  | 12  | Place 12 pieces while only\nrotating counterclockwise | 4 | |
 | E | singlenocombo      | 6   | Clear 6 Singles without\nstarting a combo | 3 | |
 | D | double             | 4   | Clear 4 Doubles | 2 | |
@@ -491,7 +494,7 @@ Tasks that will appear are shown below:
 | D | ljtriple           | 2   | Clear 2 Triples\nusing L or J-Pieces | 3 | |
 | D | ispinclear         | 1   | Clear an I-Spin | 1 | |
 | D | upperhalfquad      | 1   | Clear a Quad in the\nupper half of the board | 4 | |
-| D | rotate             | 80  | Rotate 80 times | 2 | |
+| D | rotate             | 80  | 80회 회전하기 | 2 | |
 | D | quadcombo          | 1   | Clear a Quad\nwhile on a 2+-Combo | 4 | |
 | D | szsingle           | 2   | Clear 2 Singles in a row\nusing S or Z-Pieces | 4 | |
 | D | combonohold        | 3   | Perform a 3-Combo\nwithout using Hold | 3 | |
@@ -507,9 +510,9 @@ Tasks that will appear are shown below:
 | C | top3rows           | 3   | Have part of your stack in\nthe top 3 rows for 3 seconds | 4 | |
 | C | linesnoti          | 10  | Clear 10 Lines without\nclearing with T or I-pieces | 4 | |
 | C | szspintriple       | 1   | Clear an S/Z-Spin Triple | 2 | |
-| C | odoubleconsecutive | 2   | Clear 2 Doubles consecutively\nusing two O-Pieces | 4 | ((translation note: disabled in NH now)) |
+| C | odoubleconsecutive | 2   | 2개의 O미노를 사용해 더블 연속으로 클리어하기 | 4 | [노홀드] |
 | C | tspinminiclear     | 4   | Clear 4 T-Spin Minis | 2 | |
-| C | attack             | 14  | Send 14 Attack | 1 | |
+| C | attack             | 14  | 공격 14줄 보내기 | 1 | |
 | C | doublespiece       | 3   | Clear 3 Doubles\nwith the same type of piece | 4 | |
 | C | ljgarbage          | 1   | Clear Garbage\nusing a L/J-Spin | 3 | |
 | C | szgarbage          | 1   | Clear Garbage\nusing a S/Z-Spin | 3 | |
@@ -519,13 +522,13 @@ Tasks that will appear are shown below:
 | C | holddas            | 6   | Place 6 Pieces\nwithout releasing DAS | 3 | |
 | B | oclear             | 6   | Clear 6 Lines\nusing O-Pieces | 3 | |
 | B | spinbuckets        | 3   | Clear Spin-Clears\nwith 3 different pieces | 3 | |
-| B | quad               | 4   | Clear 4 Quads | 1 | |
+| B | quad               | 4   | 쿼드 4번 클리어하기 | 1 | |
 | B | spam               | 5   | Place 5 pieces in a row\nwithout moving or rotating | 4 | |
 | B | ljspintriple       | 1   | Clear an L/J-Spin Triple | 2 | |
 | B | quadconsecutive    | 2   | Clear 2 Quads in a row | 2 | |
 | B | singlesonly        | 8   | Clear 8 Singles without doing\nother clears or using Hold | 4 | |
 | B | nogarbage          | 4   | Have no Garbage Lines on\nyour board for 4 seconds | 4 | 【Duo+】 |
-| B | rotate             | 300 | Rotate 300 times | 2 | |
+| B | rotate             | 300 | 300회 회전하기 | 2 | |
 | B | nocancel           | 8   | Don't cancel any\ngarbage for 8 seconds | 3 | |
 | B | tspindoubleup      | 1   | Clear a T-Spin Double\nwith the Piece pointing up | 4 | |
 | B | oclearspam         | 1   | Clear a Double with an O-Piece\nwithout moving or rotating | 4 | |
@@ -536,7 +539,7 @@ Tasks that will appear are shown below:
 | A | szspinconsecutive  | 2   | Clear two S/Z-Spin\nDoubles consecutively | 3 | |
 | A | ljspinconsecutive  | 2   | Clear two L/J-Spin\nDoubles consecutively | 3 | |
 | A | colorclear         | 1   | Perform a Color Clear | 2 | |
-| A | lines              | 40  | Clear 40 Lines | 1 | |
+| A | lines              | 40  | 40줄 클리어하기 | 1 | |
 | A | combospin          | 4   | Clear 4 Spins\nin one Combo | 3 | |
 | A | tspindtcolumn      | 1   | Clear a T-Spin Double/Triple\ncentered in column 1 or 10 | 3 | |
 | X (Special) | ospinconsecutive | 2 | Clear two O-Spin Mini\nDoubles consecutively | 3 | |
@@ -561,12 +564,12 @@ When needing to revive calculate revive difficulty score = `floor+accumulated re
 14. C B B
 15. B B B
 16. B B A
-17. A B A (Upper bound, and is fixed at ABA order without shuffling)
+17. A B A (상한, ABA 순서로 항상 고정되어 있음)
 
-## Mod+
+## 리버스 모드
 
-Every mod has a corresponding buffed mod, needing 30,000 meters climbed with the mod to unlock (activating multiple mods can accumulate for them at the same time)
-【Duo+】is special, see the corresponding chapter
+모든 모드는 그에 대응하는 업그레이드 버전이 있으며, 이는 그 모드를 적용한 챠로 총합 3만 미터를 등반하면 해금됩니다. (한 번에 여러 모드를 적용하여 동시에 쌓을 수 있습니다)
+[Rev. 듀오]는 특별합니다. (자세한 내용은 후술)
 
     If you want to unlock all buffed mods as quick as possible it's recommended to activate multiple at the same time, below is a reference strategy (if you can smoothly get a few f10 with all of the mods individually)  
     `【Gravity】+【Messier Garbage】+【Double Hole Garbage】+【All-Spin】` activate these four and rely on All-Spin's fierce output, try not to let garbage lines enter, finish 30,000 meters. If you can use brainless Blitz mode looping and aren't afraid of `【Invisible】` you can bring it too, otherwise it 
@@ -582,19 +585,19 @@ Introduction to effects that will appear later:
 1. `Garbage line protection`: (Only appears in certain mods)    
 Every line of `Non-permanent garbage lines` (includes lines with clearable ***grey*** blocks) will cause `Targeting Factor` to decrease by 0.5, at maximum decrease by 2.5 (due to the starting value being 3, so for these modes you rarely get attacked in the opening), check every 0.25 seconds
 
-### Expert+ (The Tyrant)
+### Rev. 엑스퍼트 (The Tyrant)
 
-> Fear, oppression, and limitless ambition.
+> Fear, oppression, and limitless ambition. (두려움, 짓누름, 그리고 한없는 야망)
 
-On top of all limits of the original basis,  
-- KO base attack is decreased from 15m to 8m
-- Climb speed no longer gains altitude over time, sending attack and KOs are required to receive height
+엑스퍼트 모드의 모든 디버프에 더해,  
+- KO로 인한 고도 획득(배율 적용 전): 15m -> 8m
+- 고도가 등반 속도에 따라 자연적으로 증가하지 않음
 - `Targeting Grace` releases faster (see `Targeting Grace` related chapters for detail)
 - Adds a descent system, altitude decreases over time, although it gets blocked by each floor's borderline so you can't fall to the previous floor
 - When you stay on the same floor for over 60 seconds, every second permanently gain 0.5% multiplier to be attacked (for example after accumulating the effect for 200 seconds all incoming garbage is doubled)
 - Fatigue system becomes even more harsh
 
-|     Floor     |  Descent speed | Corresponding `level` and spm |
+|     층     | 고도 감소 속도 | 그에 대응되는 등급과 SPM |
 | :--------: | :-----: | :---------: |
 |  1 (0m)    | 0.6 m/s | 3 & 48spm |
 |  2 (50m)   | 0.8 m/s | 4 & 48spm |
@@ -611,7 +614,7 @@ On top of all limits of the original basis,
 > `level` and spm are only for reference, in reality cancelling doesn't count for spm so it can't be achieved, after the fifth-sixth floor you have to rely on 3-digit surge APM to continue climbing  ((translation note: SPM = Sent Per Minute))  
 > During gameplay descent looks like it has acceleration, but it's only a visual effect, in reality it's still even
 
-| Time | Negative effect | Text description |
+| 시간 | 디버프 | 인게임 텍스트 |
 | --- | --- | --- |
 |  6:00 | garbage becomes messier (disables `Targeting Grace` effect) | YOUR POWER SLIPS… garbage received becomes messier |
 |  7:00 | +25% attack received multiplier | WHISPERS OF DISCONTENT SPREAD… receive 25% more garbage |
@@ -766,7 +769,7 @@ Exclusive to 2025 Valentine's Day event, free to play for everyone for a week (i
  15 14 12 _6 23 32 38
  ```
  
- ### PENTR.IO+ (A Fool's Errand)
+ ### Rev. 펜트리오 (A Fool's Errand)
  
  > You'll never escape who you are.
  
