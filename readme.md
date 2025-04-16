@@ -108,29 +108,28 @@ To recover you need to reach 50% (peak of the slant on the middle of the experie
 
 | 등급 | 배율 | 색 | 모양 | 하이퍼스피드 |
 | :-: | :--: | :-: | - | - |
-|  1  | 0.25 | 검정         | a progress bar | |
-|  2  | 0.50 | 빨강          | a triangle added below | |
-|  3  | 0.75 | 주황       | wings added to triangle | |
-|  4  | 1.00 | 초록 | wings increase size | |
-|  5  | 1.25 | 파랑         | wings increase size + add base | |
-|  6  | 1.50 | 분홍      | wings extend to full size | |
-|  7  | 1.75 | 연주황/금색 | wings become more detailed | lowest `level` without exiting HYPERSPEED |
-|  8  | 2.00 | 청록색    | pair of parallelograms added on top | HYPERSPEED trigger at f1/f2 |
-|  9  | 2.25 | 시안         | two pairs of parallelograms | HYPERSPEED trigger at f3/f4 |
-| 10  | 2.50 | 연분홍 | three pairs of parallelograms | HYPERSPEED trigger at f5 |
-| 11+ | 2.75 | 하양        | pair of white triangles added | |
+|  1  | 0.25 | 검정         | 진행도 표시 막대 | |
+|  2  | 0.50 | 빨강          | 하단에 삼각형 추가 | |
+|  3  | 0.75 | 주황       | 삼각형에 날개 추가 | |
+|  4  | 1.00 | 초록 | 날개 크기 증가 | |
+|  5  | 1.25 | 파랑         | 날개 크기 증가 + 받침 생김 | |
+|  6  | 1.50 | 분홍      | 날개 크기 최대로 증가 | |
+|  7  | 1.75 | 연주황/금색 | 날개 디테일 추가 | 하이퍼스피드 유지를 위해 필요한 최소 등급 |
+|  8  | 2.00 | 청록색    | 위쪽에 평행사변형 한 쌍 추가 | 1/2층에서 하이퍼스피드 발동 |
+|  9  | 2.25 | 시안         | 평행사변형 두 쌍 | 3/4층에서 하이퍼스피드 발동 |
+| 10  | 2.50 | 연분홍 | 평행사변형 세 쌍 | 5층에서 하이퍼스피드 발동 |
+| 11+ | 2.75 | 하양        | 하얀 삼각형 한 쌍 추가 | |
 
-### HYPERSPEED
+### 하이퍼스피드
 
-When the player's `level` reaches 8/8/9/9/10 in the first five floors, HYPERSPEED is activated.  
-Once activated there will be a flashy Bejeweled Twist-esque animation, alongside exclusive HYPERSPEED music.
+플레이어의 등급이 첫 다섯 개의 층에서 8/8/9/9/10에 도달하게 되면, <b>하이퍼스피드</b>가 발동됩니다.
+하이퍼스피드가 발동되면 화려한 시각 효과가 표시되며 하이퍼스피드 전용 배경음악이 재생됩니다.
 
-A large display appears on the top of the screen showing floor splits and your pace compared to your PB Zenith Speedrun time.  
-Reaching floor 10 with HYPERSPEED awards a hidden achievement, or when you fall to `level` 6 or below HYPERSPEED disappears.
+화면 상단에 각 층에 도달하는 데 걸린 시간을 개인 최고 기록과 비교해 보여주는 초시계가 표시됩니다. 하이퍼스피드가 발동된 상태로 10층에 도달하면 숨겨진 업적을 얻을 수 있으며, 등반 속도가 6 이하로 떨어지는 순간 하이퍼스피드는 사라집니다. 
 
-When activating 【Duo】 or any 【Mod+】 Hyperspeed is disabled
+[듀오]나 어떠한 리버스 모드라도 사용할 경우 하이퍼스피드가 발동되지 않습니다. (역주: BETA 1.6.1 업데이트로 이제 어떤 모드라도 사용하고 있지 않을 때만 하이퍼스피드를 발동시킬 수 있습니다)
 
-## Attack Target
+## 공격 타깃
 
 You can't manually target someone in this mode, but the state of the player will impact the probability of yourself being attacked: `Targeting Factor`  
 The higher this value the likelier it is to be attacked, **with a starting value of 3**.
@@ -385,11 +384,12 @@ When enabled, garbage hole positions will never be on the two leftmost or rightm
 
 ## 모드
 
-Mods are ways you can increase the difficulty before starting a run, with basically only downsides and no upsides, but activating mods (or specific mod combinations) and reaching certain altitudes can grant achievements
+모드는 게임을 시작하기 전에 난도를 높일 수 있는 방법으로, 모드를 발동하고 특정 고도에 도달하면 업적을 얻을 수 있습니다.
 
-There are a total of 9 mods, each corresponding with a special effect that can be individually toggled, with the setting having them as Tarot Cards, a description will be written after the mod name below, there will also be a table for convenience at the end of the chapter
+총 9개의 모드가 존재하며, 각각의 모드는 "타로 카드"의 컨셉트로 독립적으로 켜고 끌 수 있는 특별한 효과에 대응됩니다.
+하단에 설명이 적혀 있으며, 이 챕터의 마지막에는 편의를 위한 모드의 요약 설명이 적힌 표가 있을 것입니다.
 
-### Expert Mode (The Emperor)
+### 엑스퍼트 모드 (The Emperor)
 
 > A display of power for those willing to bear its burden.
 
@@ -470,57 +470,57 @@ Tasks that will appear are shown below:
 | F | odouble            | 1   | O미노로 더블 클리어하기 | 3 | |
 | F | szdouble           | 1   | S 또는 Z미노로 더블 클리어하기 | 3 | |
 | F | ljtriple           | 1   | L 또는 J미노로 트리플 클리어하기 | 3 | |
-| F | iholdlines         | 3   | Clear 3 lines\nwhile holding an I-Piece | 3 | [노홀드] |
+| F | iholdlines         | 3   | I미노를 홀드한 채로 3줄 클리어하기 | 3 | [노홀드] |
 | F | hold               | 8   | 홀드를 8회 사용하기 | 2 | [노홀드] |
 | F | rotate             | 20  | 20회 회전하기 | 2 | |
-| F | singleconsecutive  | 2   | Clear 2 Singles in a row | 3 | |
+| F | singleconsecutive  | 2   | 싱글 2번 연속으로 클리어하기기 | 3 | |
 | E | spin               | 1   | 아무 스핀 수행하기 | 2 | |
 | E | tspinsingle        | 1   | T스핀 싱글 클리어하기 | 2 | |
 | E | tspindouble        | 1   | T스핀 더블 클리어하기 | 2 | |
 | E | szspin             | 1   | S/Z스핀 클리어하기 | 1 | |
 | E | ljspin             | 1   | L/J스핀 클리어하기 | 1 | |
 | E | combo              | 5   | 5-콤보 달성하기 | 2 | |
-| E | iflat              | 2   | Clear 2 Lines using\nhorizontal I-Pieces | 3 | |
-| E | pieces             | 20  | Place 20 pieces | 2 | |
+| E | iflat              | 2   | I미노를 가로로 눕혀 2줄 클리어하기 | 3 | |
+| E | pieces             | 20  | 미노 20개 놓기 | 2 | |
 | E | attack             | 6   | 공격 6줄 보내기 | 1 | |
 | E | placeoconsecutive  | 2   | 연속으로 2개의 O미노 놓기 | 3 | |
-| E | norotateclockwise  | 12  | Place 12 pieces while only\nrotating counterclockwise | 4 | |
-| E | singlenocombo      | 6   | Clear 6 Singles without\nstarting a combo | 3 | |
-| D | double             | 4   | Clear 4 Doubles | 2 | |
-| D | spam               | 3   | Place 3 pieces in a row\nwithout moving or rotating | 4 | |
-| D | noclear            | 14  | Place 14 pieces in a row\nwithout clearing any lines | 4 | |
-| D | szdouble           | 2   | Clear 2 Doubles\nusing S or Z-Pieces | 3 | |
-| D | ljtriple           | 2   | Clear 2 Triples\nusing L or J-Pieces | 3 | |
-| D | ispinclear         | 1   | Clear an I-Spin | 1 | |
-| D | upperhalfquad      | 1   | Clear a Quad in the\nupper half of the board | 4 | |
+| E | norotateclockwise  | 12  | 시계 반대 방향으로만 회전하여 12개의 미노 놓기 | 4 | |
+| E | singlenocombo      | 6   | 콤보를 발동하지 않고 싱글 6회 클리어하기 | 3 | |
+| D | double             | 4   | 더블 4회 클리어하기 | 2 | |
+| D | spam               | 3   | 좌우로 움직이거나 회전하지 않고 연속으로 3개의 미노 놓기 | 4 | |
+| D | noclear            | 14  | 줄을 클리어하지 않고 14개의 미노 연속으로 놓기 | 4 | |
+| D | szdouble           | 2   | S/Z미노로 더블 2번 클리어하기 | 3 | |
+| D | ljtriple           | 2   | L/J미노로 트리플 2번 클리어하기 | 3 | |
+| D | ispinclear         | 1   | I스핀 수행하기 | 1 | |
+| D | upperhalfquad      | 1   | 보드의 위쪽 절반에서 퀴드 수행하기기 | 4 | |
 | D | rotate             | 80  | 80회 회전하기 | 2 | |
-| D | quadcombo          | 1   | Clear a Quad\nwhile on a 2+-Combo | 4 | |
-| D | szsingle           | 2   | Clear 2 Singles in a row\nusing S or Z-Pieces | 4 | |
-| D | combonohold        | 3   | Perform a 3-Combo\nwithout using Hold | 3 | |
-| D | noclearspin        | 3   | Perform 3 Spins\nthat don't clear any lines | 4 | |
-| D | szljspin           | 2   | | Perform 2\nS/Z/L/J-Spins | 3 | |
-| C | tspintriple        | 1   | Clear a T-Spin Triple | 2 | |
-| C | nohold             | 25  | Place 25 pieces in a row\nwithout using Hold | 4 | 【No Hold】 |
-| C | triple             | 3   | Clear 3 Triples | 2 | |
-| C | b2b                | 4   | Reach B2B x4 | 1 | |
-| C | quadbuckets        | 2   | Clear a Quad in\n2 different columns | 3 | |
-| C | holdconsecutive    | 12  | Use Hold on\n12 pieces in a row | 3 | 【No Hold】 |
-| C | softdrop           | 10  | Place 10 pieces without\nreleasing Soft Drop | 4 | |
-| C | top3rows           | 3   | Have part of your stack in\nthe top 3 rows for 3 seconds | 4 | |
-| C | linesnoti          | 10  | Clear 10 Lines without\nclearing with T or I-pieces | 4 | |
-| C | szspintriple       | 1   | Clear an S/Z-Spin Triple | 2 | |
+| D | quadcombo          | 1   | 2콤보 이상에서 쿼드 클리어하기 | 4 | |
+| D | szsingle           | 2   | S/Z미노 이용하여 싱글 2회 연속 클리어하기 | 4 | |
+| D | combonohold        | 3   | 홀드를 사용하지 않고 3콤보 달성하기 | 3 | |
+| D | noclearspin        | 3   | 줄을 지우지 않는 스핀 3회 수행하기 | 4 | |
+| D | szljspin           | 2   | S/Z/J/L스핀 2회 수행하기 | 3 | |
+| C | tspintriple        | 1   | T스핀 트리플 수행하기 | 2 | |
+| C | nohold             | 25  | 홀드를 사용하지 않고 25개의 미노 연속으로 놓기 | 4 | 【No Hold】 |
+| C | triple             | 3   | 트리플 3회 클리어하기 | 2 | |
+| C | b2b                | 4   | 백투백 x4 달성하기 | 1 | |
+| C | quadbuckets        | 2   | 2개의 다른 열에서 쿼드 클리어하기 | 3 | |
+| C | holdconsecutive    | 12  | 12개의 미노에 연속으로 홀드 사용하기 | 3 | 【No Hold】 |
+| C | softdrop           | 10  | 소프트 드롭을 놓지 않고 10개의 미노 놓기 | 4 | |
+| C | top3rows           | 3   | 3초간 쌓은 부분의 일부가 보드의 맨 위 3줄에 오도록 하기 | 4 | |
+| C | linesnoti          | 10  | T나 I미노를 사용하지 않고 10줄 클리어하기 | 4 | |
+| C | szspintriple       | 1   | S/Z스핀 트리플 수행하기 | 2 | |
 | C | odoubleconsecutive | 2   | 2개의 O미노를 사용해 더블 연속으로 클리어하기 | 4 | [노홀드] |
-| C | tspinminiclear     | 4   | Clear 4 T-Spin Minis | 2 | |
+| C | tspinminiclear     | 4   | T스핀 미니 4회 수행하기기 | 2 | |
 | C | attack             | 14  | 공격 14줄 보내기 | 1 | |
-| C | doublespiece       | 3   | Clear 3 Doubles\nwith the same type of piece | 4 | |
-| C | ljgarbage          | 1   | Clear Garbage\nusing a L/J-Spin | 3 | |
-| C | szgarbage          | 1   | Clear Garbage\nusing a S/Z-Spin | 3 | |
-| C | columnopiece       | 3   | Place 3 O-Pieces\nin column 1 | 3 | |
-| C | spinclear          | 2   | Clear 2 Spins\nin one combo | 3 | |
-| C | iclearspam         | 1   | Clear a Single with an I-Piece\nwithout moving or rotating | 4 | |
-| C | holddas            | 6   | Place 6 Pieces\nwithout releasing DAS | 3 | |
-| B | oclear             | 6   | Clear 6 Lines\nusing O-Pieces | 3 | |
-| B | spinbuckets        | 3   | Clear Spin-Clears\nwith 3 different pieces | 3 | |
+| C | doublespiece       | 3   | 같은 미노로 더블 3회 수행하기 | 4 | |
+| C | ljgarbage          | 1   | L/J스핀으로 가비지 지우기 | 3 | |
+| C | szgarbage          | 1   | S/Z스핀으로 가비지 지우기 | 3 | |
+| C | columnopiece       | 3   | 1열에 O미노 3개 놓기 | 3 | |
+| C | spinclear          | 2   | 한 콤보에 스핀 2회 수행하기 | 3 | |
+| C | iclearspam         | 1   | 움직이거나 회전하지 않고 I미노로 싱글 클리어하기 | 4 | |
+| C | holddas            | 6   | DAS를 놓지 않고 6개의 미노 놓기 | 3 | |
+| B | oclear             | 6   | O미노를 사용해 6줄 지우기기 | 3 | |
+| B | spinbuckets        | 3   | 3개의 다른 조각으로 스핀 수행하기  | 3 | |
 | B | quad               | 4   | 쿼드 4번 클리어하기 | 1 | |
 | B | spam               | 5   | Place 5 pieces in a row\nwithout moving or rotating | 4 | |
 | B | ljspintriple       | 1   | Clear an L/J-Spin Triple | 2 | |
