@@ -496,52 +496,7 @@ Tasks that will appear are shown below:
 | D | rotate             | 80  | 80회 회전하기 | 2 | |
 | D | quadcombo          | 1   | 2콤보 이상에서 쿼드 클리어하기 | 4 | |
 | D | szsingle           | 2   | S/Z미노 이용하여 싱글 2회 연속 클리어하기 | 4 | |
-| D | combonohold        | 3   | 홀드를 사용하지 않고 3콤보 달성하기 | 3 | |
-| D | noclearspin        | 3   | 줄을 지우지 않는 스핀 3회 수행하기 | 4 | |
-| D | szljspin           | 2   | S/Z/J/L스핀 2회 수행하기 | 3 | |
-| C | tspintriple        | 1   | T스핀 트리플 수행하기 | 2 | |
-| C | nohold             | 25  | 홀드를 사용하지 않고 25개의 미노 연속으로 놓기 | 4 | 【No Hold】 |
-| C | triple             | 3   | 트리플 3회 클리어하기 | 2 | |
-| C | b2b                | 4   | 백투백 x4 달성하기 | 1 | |
-| C | quadbuckets        | 2   | 2개의 다른 열에서 쿼드 클리어하기 | 3 | |
-| C | holdconsecutive    | 12  | 12개의 미노에 연속으로 홀드 사용하기 | 3 | 【No Hold】 |
-| C | softdrop           | 10  | 소프트 드롭을 놓지 않고 10개의 미노 놓기 | 4 | |
-| C | top3rows           | 3   | 3초간 쌓은 부분의 일부가 보드의 맨 위 3줄에 오도록 하기 | 4 | |
-| C | linesnoti          | 10  | T나 I미노를 사용하지 않고 10줄 클리어하기 | 4 | |
-| C | szspintriple       | 1   | S/Z스핀 트리플 수행하기 | 2 | |
-| C | odoubleconsecutive | 2   | 2개의 O미노를 사용해 더블 연속으로 클리어하기 | 4 | [노홀드] |
-| C | tspinminiclear     | 4   | T스핀 미니 4회 수행하기기 | 2 | |
-| C | attack             | 14  | 공격 14줄 보내기 | 1 | |
-| C | doublespiece       | 3   | 같은 미노로 더블 3회 수행하기 | 4 | |
-| C | ljgarbage          | 1   | L/J스핀으로 가비지 지우기 | 3 | |
-| C | szgarbage          | 1   | S/Z스핀으로 가비지 지우기 | 3 | |
-| C | columnopiece       | 3   | 1열에 O미노 3개 놓기 | 3 | |
-| C | spinclear          | 2   | 한 콤보에 스핀 2회 수행하기 | 3 | |
-| C | iclearspam         | 1   | 움직이거나 회전하지 않고 I미노로 싱글 클리어하기 | 4 | |
-| C | holddas            | 6   | DAS를 놓지 않고 6개의 미노 놓기 | 3 | |
-| B | oclear             | 6   | O미노를 사용해 6줄 지우기기 | 3 | |
-| B | spinbuckets        | 3   | 3개의 다른 조각으로 스핀 수행하기  | 3 | |
-| B | quad               | 4   | 쿼드 4번 클리어하기 | 1 | |
-| B | spam               | 5   | Place 5 pieces in a row\nwithout moving or rotating | 4 | |
-| B | ljspintriple       | 1   | Clear an L/J-Spin Triple | 2 | |
-| B | quadconsecutive    | 2   | Clear 2 Quads in a row | 2 | |
-| B | singlesonly        | 8   | Clear 8 Singles without doing\nother clears or using Hold | 4 | |
-| B | nogarbage          | 4   | Have no Garbage Lines on\nyour board for 4 seconds | 4 | 【Duo+】 |
-| B | rotate             | 300 | 300회 회전하기 | 2 | |
-| B | nocancel           | 8   | Don't cancel any\ngarbage for 8 seconds | 3 | |
-| B | tspindoubleup      | 1   | Clear a T-Spin Double\nwith the Piece pointing up | 4 | |
-| B | oclearspam         | 1   | Clear a Double with an O-Piece\nwithout moving or rotating | 4 | |
-| B | tnorotate          | 3   | Place 3 T-Pieces\nwithout rotating any | 3 | |
-| B | tspincombo         | 1   | Clear a T-Spin Double\nwhile on a 2+-Combo | 3 | |
-| A | combo              | 7   | Perform a 7-Combo | 2 | |
-| A | ispindouble        | 1   | Clear an I-Spin Double | 2 | |
-| A | szspinconsecutive  | 2   | Clear two S/Z-Spin\nDoubles consecutively | 3 | |
-| A | ljspinconsecutive  | 2   | Clear two L/J-Spin\nDoubles consecutively | 3 | |
-| A | colorclear         | 1   | Perform a Color Clear | 2 | |
-| A | lines              | 40  | 40줄 클리어하기 | 1 | |
-| A | combospin          | 4   | Clear 4 Spins\nin one Combo | 3 | |
-| A | tspindtcolumn      | 1   | Clear a T-Spin Double/Triple\ncentered in column 1 or 10 | 3 | |
-| X (Special) | ospinconsecutive | 2 | Clear two O-Spin Mini\nDoubles consecutively | 3 | |
+| D | combonohold        | 3   | 홀드를 사용하지 않고 3콤보 달기 | 3 | |
 
 There is a `accumulated revive difficulty` variable, when reviving increase (First five floors +1, floors six to nine +2, floor 10 +3)
 
