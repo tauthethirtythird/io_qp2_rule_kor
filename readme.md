@@ -374,11 +374,11 @@ When enabled, garbage hole positions will never be on the two leftmost or rightm
 
 | 시간 |  디버프 | 인게임 텍스트 |
 | --- | --- | --- |
-|  8:00 | +2 permanent garbage | FATIGUE SETS IN… +2 PERMANENT LINES |
-|  9:00 | +25% attack received multiplier | YOUR BODY GROWS WEAK… receive 25% more garbage |
-|  10:00 | +3 permanent garbage (total 5) | ALL SENSES BLUR TOGETHER… +3 PERMANENT LINES |
-|  11:00 | +25% attack received multiplier | YOUR CONSCIOUSNESS FADES… receive 25% more garbage |
-|  12:00 | +5 permanent garbage (total 10) | THIS IS THE END. +5 PERMANENT LINES |
+|  8:00 | +2 솔리드 가비지 | FATIGUE SETS IN… +2 PERMANENT LINES |
+|  9:00 | +25% 공격 받음 | YOUR BODY GROWS WEAK… receive 25% more garbage |
+|  10:00 | +3 솔리드 가비지 (총 5) | ALL SENSES BLUR TOGETHER… +3 PERMANENT LINES |
+|  11:00 | +25% 공격 받음 (총 +50%) | YOUR CONSCIOUSNESS FADES… receive 25% more garbage |
+|  12:00 | +5 솔리드 가비지 (총 10) | THIS IS THE END. +5 PERMANENT LINES |
 
 > [Rev. 엑스퍼트]에서는 피로 효과가 다릅니다. (자세한 내용은 후술)
 
@@ -392,6 +392,7 @@ When enabled, garbage hole positions will never be on the two leftmost or rightm
 ### 엑스퍼트 모드 (The Emperor)
 
 > A display of power for those willing to bear its burden.
+> 그 무게를 견디려는 자에게만 허락되는 왕관
 
 - Harder to receive altitude and experience
 - `Garbage messiness` is increased
@@ -399,51 +400,58 @@ When enabled, garbage hole positions will never be on the two leftmost or rightm
 - Rising garbage animation is removed, instead spawns instantaneously (same as TL)
 - Removes system of decreasing `Targeting Factor` when in danger
 
-### No Hold (Temperance)
+### 노홀드 (Temperance)
 
 > Use each piece as they come and embrace the natural flow of stacking.
+> 오는 대로 쓰고, 흐름이 이끄는 대로 쌓아라
 
-- Disables holding
+- 홀드 비활성화
 
-### Messier Garbage (Wheel of Fortune)
+### 메시어 (Wheel of Fortune)
 
 > The only constant in life is change.
+> 삶에서 바뀌지 않는 것은 변화뿐이다
 
 - `Garbage messiness` increases
 - `Garbage difficulty` decreases
 
-### Gravity (The Tower)
+### 중력 (The Tower)
 
 > What will you do when it all comes crumbling down?
+> 모든 것이 무너진다면 당신은 무엇을 하겠는가?
 
 - Gravity noticeably increases
 - Lock delay table for the ten floors (unit frames): 30, 29, 28, 27, 26, 24, 22, 20, 18, 16
 
-### Volatile Garbage (Strength)
+### 볼라타일 (Strength)
 
 > Match great obstacles with greater determination.
+> 큰 벽에는 더 큰 결심으로 맞서라
 
 - `Attack multiplier` and `cancel multiplier` are both x2
 
 > Can be summarized as received garbage on the board is x2  
 > Because it just increases the amount of garbage lines, therefore also indirectly decreases garbage messiness, so this mod can speed up climbing progress at the start, but poses too much of a threat in the endgame so whether its good or not is dependent on the specific type of play
 
-### Double Hole Garbage (The Devil)
+### 더블홀 (The Devil)
 
 > Redefine your limits or succumb to his chains.
+> 당신의 한계를 부정하거나, 그의 사슬에 무릎을 꿇거나
 
 - Every line of garbage has a chance to have two holes
 
-### Invisible (The Hermit)
+### 투명 (The Hermit)
 
 > When the outside world fails you, trust the voice within to light a path.
+> 네 바깥의 세상이 너를 져버릴 때는, 네 안의 목소리를 믿고 길을 밝혀라
 
 - Pieces placed become invisible  
 - Every 5 seconds the whole board flashes which can be convenient for digging
 
-### All-Spin (The Magician)
+### 올스핀 (The Magician)
 
 > Inspiration is nothing short of magic.
+> 영감은 마법과 다름없다
 
 - Non-T tetromino's Spins can be like T providing lines*2 of base attack (see the start for Spin detection rules)
 - Whenever clearing lines (accurately it should be when a piece locks and action text appears, non-line-clear Spins can also trigger), if it's the exact same as the action text in the top-left corner, then a special full garbage line instantly appears as punishment, with a reverse tally of `current floor+5` on a random position, when the player does an unpunished line clear -1, upon hitting zero it turns into a regular one-hole garbage line, with the garbage hole on the same position as where the number was
@@ -453,6 +461,7 @@ When enabled, garbage hole positions will never be on the two leftmost or rightm
 ### Duo (The Lovers)
 
 > Love, and resign yourself to the fate of another.
+> 사랑하라, 그리고 다른 이의 운명을 위해 자신을 내려놓아라
 
 - Players with supporter can invite others to play with themselves in this two-player mode
 - To the perspective of one person, most output values will be halved, for example sent attacks and accumulated experience etc.
@@ -584,9 +593,10 @@ Introduction to effects that will appear later:
 1. `Garbage line protection`: (Only appears in certain mods)    
 Every line of `Non-permanent garbage lines` (includes lines with clearable ***grey*** blocks) will cause `Targeting Factor` to decrease by 0.5, at maximum decrease by 2.5 (due to the starting value being 3, so for these modes you rarely get attacked in the opening), check every 0.25 seconds
 
-### Rev. 엑스퍼트 (The Tyrant)
+### 리버스 엑스퍼트 (The Tyrant)
 
-> Fear, oppression, and limitless ambition. (두려움, 짓누름, 그리고 한없는 야망)
+> Fear, oppression, and limitless ambition.
+> 두려움, 짓누름, 그리고 한없는 야망
 
 엑스퍼트 모드의 모든 디버프에 더해,  
 - KO로 인한 고도 획득(배율 적용 전): 15m -> 8m
@@ -623,9 +633,10 @@ Every line of `Non-permanent garbage lines` (includes lines with clearable ***gr
 |  11:00 | garbage becomes noticeably messier (receive `full scatter` effect) | THE REVOLUTION HAS BEGUN… garbage received becomes much messier |
 |  12:00 | +12 permanent garbage (total 20) | THE END OF AN ERA. +12 PERMANENT LINES |
 
-### No Hold+ (Asceticism)
+### 리버스 노홀드 (Asceticism)
 
 > A detachment from even that which is moderate.
+> 적당함을 넘어선 절대적인 단절
 
 - Holding is disabled
 - 1 piece preview
@@ -634,9 +645,10 @@ Every line of `Non-permanent garbage lines` (includes lines with clearable ***gr
 - Spins all count as Mini (base attack of `lines-1`)
 - Garbage holes all become 2-wide style
 
-### Messier Garbage+ (Loaded Dice)
+### 리버스 메시어 (Loaded Dice)
 
 > In a rigged game, your mind is the only fair advantage.
+> 속임수만 남은 판에서, 너의 두뇌만이 너의 유일한 희망이다
 
 - `Garbage messiness` is increased 
 - Line clear delay increases from 0 to 1.15 seconds
@@ -644,7 +656,7 @@ Every line of `Non-permanent garbage lines` (includes lines with clearable ***gr
 - Activates `Garbage line protection`
 
 ```
-Starting pattern：
+시작 패턴：
 ..........
 .XXX..XXX.
 .X.X..X.X.
@@ -660,24 +672,27 @@ Starting pattern：
 ..........
 ```
 
-### Gravity (Freefall)
+### 리버스 중력 (Freefall)
 
 > The ground you stood on never existed in the first place.
+> 네가 밟고 있던 땅은 처음부터 존재하지 않았다
 
 - 20G from the start (lock delay table for the ten floors: 24, 22, 20, 18, 16, 15, 14, 13, 12, 11)
 
-### Volatile Garbage+ (Last Stand)
+### 리버스 볼라타일 (Last Stand)
 
 > Strength isn't necessary for those with nothing to lose.
+> 잃을 것이 없는 자에게 힘 따위는 필요 없다
 
 - Received attack multiplier becomes 3x (notice: `cancelling multiplier` isn't changed)
 - 14 high playfield
 - Garbage hole positions have two warnings
 - `Garbage difficulty` is locked to a very high value, and `garbage gathering` is permanently enabled
 
-### Double Hole Garbage+ (Damnation)
+### 리버스 더블홀 (Damnation)
 
 > Neither the freedom of life or peace of death.
+> 삶의 자유도, 죽음의 평화도 없을지어다
 
 - The starting board state becomes 12-row checkerboard garbage lines
 - Garbage lines become messy garbage lines with 3~4 random grey blocks  
@@ -687,17 +702,19 @@ Starting pattern：
  - Activates `garbage line protection` (er... isn't there always 4 lines)
 ((translation note: garbage cap is reduced to 2 as well))
 
-### Invisible+ (The Exile)
+### 리버스 투명 (The Exile)
 
 > Never underestimate blind faith.
+> 눈먼 자의 믿음을 무시하지 마라
 
 - Pieces placed are invisible (but the board doesn't flash anymore)
 - Only the top three garbage lines are visible  
 - Receive 3 lines of garbage at the start by the system
 
-### All-Spin+ (The Warlock)
+### 리버스 올스핀 (The Warlock)
 
 > Into realms beyond heaven and earth.
+> 천국과 지구 사이의 영역으로
 
 - Even more strict consecutive same clear penalty: only track Spin's lines cleared count (including 0) or Void actions, as long as two consecutive attacks are the same then 20 penalty lines are added leading to instant death  
 - After reaching B2B x 4, any Spin (including ones that don't clear lines) +2 attack, and B2B counter can be increased without clearing lines  
@@ -710,10 +727,10 @@ Starting pattern：
 
 ### Duo+ (Bleeding Hearts)
 
-> Even as we bleed, we keep holding on...  
+> Even as we bleed, we keep holding on...
+> 피가 흘러도 우리는 손을 놓지 않아...
 
-Exclusive to 2025 Valentine's Day event, free to play for everyone for a week (includes regular version), unlocking not required
-
+2025년 발렌타인 데이 이벤트 한정 모드였으며, 1주간 일반 듀오 모드와 더불어 무료로 플레이할 수 있었습니다. 따로 해금할 필요도 없었습니다
 - When attacking (sending/cancelling both count) there is a Backfire, prioritizing the partner, if already dead then it will attack yourself (parameter is Zen mode's unclear 0.5x, without warning or waiting instantaneously enter the board)
 - When one of the players dies the altitude will be temporary locked, until being revived  
 - Climb Speed level is locked to a highest of 4 (normally unlimited)  
