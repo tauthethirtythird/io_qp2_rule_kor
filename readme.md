@@ -487,7 +487,7 @@ Tasks that will appear are shown below:
 | E | norotateclockwise  | 12  | 시계 반대 방향으로만 회전하여 12개의 미노 놓기 | 4 | |
 | E | singlenocombo      | 6   | 콤보를 발동하지 않고 싱글 6회 클리어하기 | 3 | |
 | D | double             | 4   | 더블 4회 클리어하기 | 2 | |
-| D | spam               | 3   | 좌우로 움직이거나 회전하지 않고 연속으로 3개의 미노 놓기 | 4 | |
+| D | spam               | 3   | 이동이나 회전 없이 연속으로 5개 미노 놓기 | 4 | |
 | D | noclear            | 14  | 줄을 클리어하지 않고 14개의 미노 연속으로 놓기 | 4 | |
 | D | szdouble           | 2   | S/Z미노로 더블 2번 클리어하기 | 3 | |
 | D | ljtriple           | 2   | L/J미노로 트리플 2번 클리어하기 | 3 | |
@@ -497,6 +497,51 @@ Tasks that will appear are shown below:
 | D | quadcombo          | 1   | 2콤보 이상에서 쿼드 클리어하기 | 4 | |
 | D | szsingle           | 2   | S/Z미노 이용하여 싱글 2회 연속 클리어하기 | 4 | |
 | D | combonohold        | 3   | 홀드를 사용하지 않고 3콤보 달기 | 3 | |
+| D | noclearspin        | 3   | 줄을 지우지 않는 스핀 3회 수행하기 | 4 | |
+| D | szljspin           | 2   | S/Z/L/J스핀 2회 수행하기 | 3 | |
+| C | tspintriple        | 1   | T스핀 트리플 수행하기 | 2 | |
+| C | nohold             | 25  | 홀드를 사용하지 않고 연속으로 25개의 미노 놓기 | 4 | [노홀드] |
+| C | triple             | 3   | 트리플 3회 클리어하기 | 2 | |
+| C | b2b                | 4   | 백투백 4 달성하기 | 1 | |
+| C | quadbuckets        | 2   | 2개의 다른 열에서 쿼드 수행하기 | 3 | |
+| C | holdconsecutive    | 12  | 12개의 미노를 연속으로 홀드를 사용하여 놓기 | 3 | [노홀드] |
+| C | softdrop           | 10  | 소프트 드롭을 누른 채로 미노 10개 놓기 | 4 | |
+| C | top3rows           | 3   | 3초간 스택의 일부가 보드의 맨 위 3줄에 있도록 하기 | 4 | |
+| C | linesnoti          | 10  | T나 I미노를 사용하지 않고 10줄 클리어하기 | 4 | |
+| C | szspintriple       | 1   | S/Z스핀 트리플 수행하기 | 2 | |
+| C | odoubleconsecutive | 2   | 2개의 O미노를 사용하여 연속으로 더블을 클리어하기 | 4 | [노홀드] |
+| C | tspinminiclear     | 4   | T스핀 미니 4회 수행하기 | 2 | |
+| C | attack             | 14  | 공격 14줄 보내기 | 1 | |
+| C | doublespiece       | 3   | 같은 종류의 미노로 더불 3회 클리어하기 | 4 | |
+| C | ljgarbage          | 1   | L/J스핀으로 가비지 지우기 | 3 | |
+| C | szgarbage          | 1   | S/Z스핀으로 가비지 지우기 | 3 | |
+| C | columnopiece       | 3   | 1열에 O미노 3개 놓기 | 3 | |
+| C | spinclear          | 2   | 콤보를 끊지 않고 스핀 3회 수행하기 | 3 | |
+| C | iclearspam         | 1   | 이동이나 회전 없이 I미노로 싱글 클리어하기 | 4 | |
+| C | holddas            | 6   | DAS를 유지한 채로 미노 6개 놓기 | 3 | |
+| B | oclear             | 6   | O미노를 이용해 6줄 클리어하기 | 3 | |
+| B | spinbuckets        | 3   | 3종류의 스핀으로 줄 클리어하기 | 3 | |
+| B | quad               | 4   | 쿼드 4회 클리어하기 | 1 | |
+| B | spam               | 5   | 이동이나 회전 없이 연속으로 5개 미노 놓기 | 4 | |
+| B | ljspintriple       | 1   | L/J스핀 트리플 수행하기 | 2 | |
+| B | quadconsecutive    | 2   | 쿼드 연속으로 2회 클리어하기 | 2 | |
+| B | singlesonly        | 8   | 다른 클리어나 홀드를 하지 않고 싱글로 8줄 지우기 | 4 | |
+| B | nogarbage          | 4   | 4초간 보드에 가비지가 없도록 하기 | 4 | [Rev. 듀오] |
+| B | rotate             | 300 | 300회 회전하기 | 2 | |
+| B | nocancel           | 8   | 8초간 가비지를 상쇄하지 않기 | 3 | |
+| B | tspindoubleup      | 1   | T미노가 위를 향하게 하여 T스핀 더블 수행하기 | 4 | |
+| B | oclearspam         | 1   | 이동이나 회전 없이 O미노로 더블 클리어하기 | 4 | |
+| B | tnorotate          | 3   | 회전하지 않고 3개의 T미노 놓기 | 3 | |
+| B | tspincombo         | 1   | 2콤보 이상일 때 T스핀 더블 수행하기 | 3 | |
+| A | combo              | 7   | 7콤보 달성하기 | 2 | |
+| A | ispindouble        | 1   | I스핀 달성하기 | 2 | |
+| A | szspinconsecutive  | 2   | 2회의 S/Z스핀 더블 연속으로 수행하기 | 3 | |
+| A | ljspinconsecutive  | 2   | 2회의 L/J스핀 더블 연속으로 수행하기 | 3 | |
+| A | colorclear         | 1   | 컬러 클리어 수행하기 | 2 | |
+| A | lines              | 40  | 40줄 클리어하기 | 1 | |
+| A | combospin          | 4   | 콤보를 끊지 않고 스핀 4회 수행하기 | 3 | |
+| A | tspindtcolumn      | 1   | T미노의 중심이 1열이나 10열에 오게 하여 T스핀 더블 또는 트리플 수행하기 | 3 | |
+| X (스페셜) | ospinconsecutive | 2 | 2회 연속으로 O스핀 더블 수행하기 | 3 | |
 
 There is a `accumulated revive difficulty` variable, when reviving increase (First five floors +1, floors six to nine +2, floor 10 +3)
 
