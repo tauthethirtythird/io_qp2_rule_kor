@@ -131,8 +131,8 @@ To recover you need to reach 50% (peak of the slant on the middle of the experie
 
 ## 공격 타깃
 
-You can't manually target someone in this mode, but the state of the player will impact the probability of yourself being attacked: `Targeting Factor`  
-The higher this value the likelier it is to be attacked, **with a starting value of 3**.
+이 모드에서 수동으로 특정 플레이어를 타깃하는 것은 불가능하지만, 플레이어의 상태는 플레이어가 공격을 받을 확률에 영향을 주며 이를 `타깃 배율`이라 합니다.
+이 값이 높을 수록 공격을 받을 확률도 높으며, **기본값은 3입니다**.
 
 Note that `Targeting Factor` isn't the only factor that affects being attacked by other players, the player's attack target is fully decided by the server, can only say this value is likely one of the main factors
 
@@ -552,9 +552,9 @@ Tasks that will appear are shown below:
 | A | tspindtcolumn      | 1   | T미노의 중심이 1열이나 10열에 오게 하여 T스핀 더블 또는 트리플 수행하기 | 3 | |
 | X (스페셜) | ospinconsecutive | 2 | 2회 연속으로 O스핀 더블 수행하기 | 3 | |
 
-There is a `accumulated revive difficulty` variable, when reviving increase (First five floors +1, floors six to nine +2, floor 10 +3)
+`누적 부활 난도`라는 변수가 있으며, 부활시킬 때마다 이 값은 1-5층에서 1, 6-9층에서 2, 10층에서 3씩 올라가게 됩니다.
 
-When needing to revive calculate revive difficulty score = `floor+accumulated revive difficulty`, and then select a group based off the score, lastly choose tasks from the list above and randomize order:
+부활 미션이 나올 때는 `층 + 누적 부활 난도`의 값에 따라 난이도가 정해진 뒤, 그 난이도에 맞는 미션들이 랜덤한 순서로 나오게 됩니다.
  
 1. F
 2. F F
@@ -638,12 +638,12 @@ Every line of `Non-permanent garbage lines` (includes lines with clearable ***gr
 > A detachment from even that which is moderate.
 > 적당함을 넘어선 절대적인 단절
 
-- Holding is disabled
-- 1 piece preview
-- No piece shadow
-- Completely random piece generation
-- Spins all count as Mini (base attack of `lines-1`)
-- Garbage holes all become 2-wide style
+- 홀드 비활성화
+- 넥스트 개수 1개로 감소
+- 고스트 피스 비활성화
+- 미노 생성 완전 랜덤 (7-bag 없음)
+- 모든 스핀이 미니로 취급 (`지운 줄-1`줄의 공격을 보냄)
+- 가비지가 2와이드 스타일로 변합
 
 ### 리버스 메시어 (Loaded Dice)
 
