@@ -44,23 +44,25 @@
 | 공격 보내기 | `줄 수`m | `줄 수+0.05` 경험치 | |
 | 가비지 상쇄 | | `줄 수*50%+0.05` 경험치 | [(Rev.) 엑스퍼트]/[Rev. 볼라타일]/<s>[Rev. 듀오]</s>에서는 0줄을 상쇄한 것으로 취급 (역주: 경험치를 아예 얻지 않는단 소리가 아닙니다) |
 | 줄 지우기 | | `min(줄 수,2)+0.05` 경험치 | [(Rev.) 엑스퍼트]에서 ***적용되지 않으며***, [Rev. 올스핀]에서 모든 스핀이 아닌 클리어는 1줄로 취급됩니다. |
-| 층 건너기 | 3m(배율에 영향을 받지 않음) | | 다음 층까지 2m 이내가 남은 상황에서 줄을 지울 시 발동됩니다. (역주: 솔직히 말해서 영어 번역본에 있었던 내용을 전혀 이해하지 못했으며, 오역일 가능성이 매우 높습니다) |
+| 층 건너기 | 3m(배율에 영향을 받지 않음) | | 다음 층까지 2m 이내가 남은 상황에서 줄을 지울 시 발동됩니다. (역주: 솔직히 말해서 영어 번역본에 있었던 내용을 이해하지 못했습니다) |
 
 > "층 건너기"를 제외한 모든 고도 상승은 등급에 영향을 받습니다. 예를 들어 게임을 시작할 때, 등급은 1이고, 배율은 ×0.25배이므로, 매 4초마다 1m씩 올라가게 됩니다.  
-> "상쇄 페널티"(자세한 내용은 후술)는 상쇄로 얻는 경험치를 감소시킵니다. Once `cancel penalty` surpasses `consecutive cancels minus experience threshold`, for every extra point the 50% in the formula will decrease by 0.5%, to a lowest of 5%. This threshold is 40 when activating 【Volatile Garbage(+)】, otherwise when 【All-Spin(+)】 is activated it's 10, otherwise it's 25.
+> "상쇄 페널티"(자세한 내용은 후술)는 상쇄로 얻는 경험치를 감소시킵니다. 상쇄 페널티가 `연속된 상쇄 - 경험치 임계점`을 초과하게 되면, 상쇄로 얻는 경험치의 배율이 50%에서 상쇄 페널티 1당 0.5% (최소 5%)까지 감소하게 됩니다. 이 임계점은 [(Rev.) 볼라타일] 모드에서 40, [(Rev.) 올스핀] 모드에서 10, 그 외의 경우에 25입니다.
 
-When gaining altitude, the newly increased altitude will first be stored into a temporary variable, every frame release 10%, at maximum 10m 
+고도가 증가할 때, 한 번에 증가하지 않고 임시 변수에 저장된 뒤, 매 프레임 10%(최대 10m)가 실제 고도에 반영됩니다.
 
-The experience required to promote to the next Climb Speed level is `4*level`, once your experience meets the conditions your Climb Speed level increases by one and your experience decreases by the amount previously required
+다음 등반 속도로 승급하기 위해 필요한 경험치는 `4 * 등급`이며, 경험치가 이 값을 넘게 되면 등반 속도는 1 증가하고 경험치는 필요치만큼 감소합니다.
 
 ### 등급 스킵
 
 Whenever you promote a Climb Speed level, if there's still a large amount of remaining experience (occuring when several tens of large B2B attack is released) and is still over the amount to increase another Climb Speed level, then you gain an extra `expreience/required experience` levels, **and these extra experience are not removed**
 
-    Which means this situation can happen:
-    One frame - Breaking B2B causes large spike and receive lots of experience
-    Next frame - Promote + skip levels 
-    Next frame - Can skip another Climb Speed level
+(꽤 중요한 내용인 것 같은데, 아무리 해석을 해봐도 내용을 다시 살펴보면 뭔가 단단히 잘못된 것 같아서 그냥 원문 그대로 실었습니다. 위 내용을 해석하신 분이 계시다면 알려 주세요.)
+
+    따라서 다음과 같은 상황도 일어날 수 있습니다:
+    특정 프레임 - 서지 공격을 통해 매우 많은 경험치를 얻음
+    다음 프레임 - 승급 + 등급 스킵 
+    그 다음 프레임 - 또 다른 등반 속도 스킵킵
 
 ### 경험치 감소
 
@@ -68,8 +70,8 @@ Whenever you promote a Climb Speed level, if there's still a large amount of rem
 배율: 엑스퍼트나 듀오가 아닐 때: 3, [(Rev.) 엑스퍼트]나 [Rev. 듀오]에서: 5, 듀오에서: = 3 + 엑스퍼트를 적용한 사람의 수
 
 등반 속도를 승급할 때 5초 동안 `경험치 보호` 효과가 발동되며, 이는 승급 후에 바로 강등되는 것을 막기 위함입니다.
-`Promotion fatigue` system: After promoting, the last line's `no loss for 5 seconds` will decrease by 1 second (until 1 second), therefore the effect gets weaker and weaker when repeatedly gaining and losing `levels`  
-To recover you need to reach 50% (peak of the slant on the middle of the experience bar) from a promotion action (rather than demotion), afterwards triggering this effect next time will have 5 seconds
+승급 피로 시스템: 승급한 후에, 경험치 보호 효과의 발동 시간이 1초씩 줄어들며 (최소 1초), 따라서 승급과 강등이 여러 번 반복되면 효과가 점점 약해집니다.  
+경험치를 얻음으로써 승급 필요 경험치의 50% 지점 (경험치 막대에서 경사진 부분의 가장 위쪽)에 다다르게 되면 승급 피로가 초기화되며, 다음에 경험치 보호 효과가 발동될 때 발동 시간이 5초로 돌아옵니다.
 
 편의를 위해 계산된 통계치:
 
@@ -134,16 +136,17 @@ To recover you need to reach 50% (peak of the slant on the middle of the experie
 이 모드에서 수동으로 특정 플레이어를 타깃하는 것은 불가능하지만, 플레이어의 상태는 플레이어가 공격을 받을 확률에 영향을 주며 이를 `타깃 배율`이라 합니다.
 이 값이 높을 수록 공격을 받을 확률도 높으며, **기본값은 3입니다**.
 
-Note that `Targeting Factor` isn't the only factor that affects being attacked by other players, the player's attack target is fully decided by the server, can only say this value is likely one of the main factors
+타깃 배율은 플레이어가  결정하는 데 막대한 영향을 미치지만, 이것만이 유일한 요소는 아니며 공격 타깃은 전적으로 서버에 의해 결정되므로 정확한 규칙은 알 수 없습니다.
 
-Other factors that could increase the chance of being chosen as another player's target:
+공격 타깃이 될 가능성을 높일 수도 있다고 추정되는 다른 요소들로는:
 
-- high Climb Speed level
-- smaller altitude difference to other players
+- 높은 등반 속도
+- 다른 플레이어들과의 작은 고도 차이
+등이 있습니다.
 
-### Temporary decrease if in danger
+### 위험할 때 일시적 보호
 
-Only in `Easy mode`, check once every 0.25 seconds, if in danger (conditions not understood, probably when your board flashes red, shouldn't be off by a lot) `Targeting Factor` temporarily decreases by 1.5, after leaving danger the 1.5 is added back
+쉬운 모드들에서, 0.25초마다 한 번씩 점검하여, 만약 플레이어가 위험한 상황에 있다면 (정확한 조건은 알려지지 않았지만, 아마도 보드가 빨간색으로 깜빡일 때의 조건과 같은 것으로 추정됩니다.) 타깃 배율이 일시적으로 1.5만큼 감소하며 위험에서 벗어나면 다시 1.5만큼 더해집니다.
 
 ### Shift to Targeting Grace (No impact on messiness)
 
@@ -458,7 +461,7 @@ When enabled, garbage hole positions will never be on the two leftmost or rightm
 
 > Only mod that can give a more positive effect after the player reaeches a certain skill level
 
-### Duo (The Lovers)
+### 듀오 (The Lovers)
 
 > Love, and resign yourself to the fate of another.
 > 사랑하라, 그리고 다른 이의 운명을 위해 자신을 내려놓아라
@@ -586,7 +589,7 @@ Tasks that will appear are shown below:
     (altitude/time, multiply by 2 with Expert) to decide whether or not to accumulate for Expert Mode incidentally, if possible then bring it, otherwise later on it needs to be cleared by itself  
     Last is `【Expert】+【Volatile Garbage】`, being individually played because this mod will substantially decrease climbing efficiency, and put last because it could already have some progress made at the start 
 
-All buffed mods can only be played solo, and cannot be stacked on other mods
+모든 리버스 모드는 다른 모드와 결합될 수 없습니다.
 
 Introduction to effects that will appear later:
 
@@ -677,7 +680,7 @@ Every line of `Non-permanent garbage lines` (includes lines with clearable ***gr
 > The ground you stood on never existed in the first place.
 > 네가 밟고 있던 땅은 처음부터 존재하지 않았다
 
-- 20G from the start (lock delay table for the ten floors: 24, 22, 20, 18, 16, 15, 14, 13, 12, 11)
+- 처음부터 20G (각 층의 락 딜레이(프레임): 24, 22, 20, 18, 16, 15, 14, 13, 12, 11)
 
 ### 리버스 볼라타일 (Last Stand)
 
@@ -705,7 +708,7 @@ Every line of `Non-permanent garbage lines` (includes lines with clearable ***gr
 ### 리버스 투명 (The Exile)
 
 > Never underestimate blind faith.
-> 눈먼 자의 믿음을 무시하지 마라
+> 눈먼 자의 믿음을 얕보지 마라
 
 - Pieces placed are invisible (but the board doesn't flash anymore)
 - Only the top three garbage lines are visible  
